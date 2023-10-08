@@ -1,0 +1,1 @@
+enum QuranSort { byChapter, byGuz }

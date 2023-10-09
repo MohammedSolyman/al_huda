@@ -1,3 +1,5 @@
+import 'package:al_huda/data_layer/api_models/ayah_audio_model.dart';
+import 'package:al_huda/data_layer/api_models/chapter_audio_model.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_verses_model.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
@@ -87,6 +89,56 @@ class QuranApiOperations {
         IndopakModel x = IndopakModel.fromJson(result);
 
         return x;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic getChapterAudioPath(int chapterId, int reciterid) async {
+    String uri =
+        '${QuranApiUrl.baseUrl}${QuranApiUrl.chaperAudioUrl}$reciterid/$chapterId';
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        ChapterAudioModel x = ChapterAudioModel.fromJson(result);
+
+        return x.audioFile!.audioUrl;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic getayahAudioPath(int chapterId, int ayahNumber, int reciterid) async {
+    String uri =
+        '${QuranApiUrl.baseUrl}${QuranApiUrl.ayahAudioUrl}$reciterid/by_ayah/$chapterId:$ayahNumber';
+
+    print('-----r-------r---------uri');
+    print(uri);
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        AyahAudioModel x = AyahAudioModel.fromJson(result);
+        String fullPath = '${QuranApiUrl.audiobaseUrl}${x.audioFiles![0].url}';
+        print("=======================");
+        print(fullPath);
+        return fullPath;
       }
     } catch (e) {
       print(e.toString());

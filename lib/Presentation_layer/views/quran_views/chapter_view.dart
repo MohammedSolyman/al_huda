@@ -56,17 +56,42 @@ class AllChapter extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: Column(
           children: [
-            ElevatedButton(onPressed: () {}, child: const Text('listen')),
-            ElevatedButton(onPressed: () {}, child: const Text('translations')),
+            ElevatedButton(
+                onPressed: () {
+                  controller.playChapter();
+                },
+                child: const Text('listen chapter')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('translate chapter')),
             Obx(() {
               return Expanded(
                 child: ListView.builder(
                     itemCount: controller.model.value.chapterVerses.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        color: index % 2 == 0 ? Colors.yellow : Colors.green,
-                        child:
-                            Text(controller.model.value.chapterVerses[index]),
+                        decoration: BoxDecoration(
+                            color:
+                                index % 2 == 0 ? Colors.yellow : Colors.green,
+                            border: Border.all(color: Colors.black)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(controller.model.value.chapterVerses[index],
+                                textDirection: TextDirection.rtl),
+                            Column(
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      controller.playAyah(index + 1);
+                                    },
+                                    child: Text('play ayah')),
+                                ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text('translate ahay'))
+                              ],
+                            )
+                          ],
+                        ),
                       );
                     }),
               );

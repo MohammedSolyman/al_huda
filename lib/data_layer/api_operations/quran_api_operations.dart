@@ -1,16 +1,15 @@
 import 'package:al_huda/data_layer/api_models/ayah_audio_model.dart';
-import 'package:al_huda/data_layer/api_models/chapter_audio_model.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_verses_model.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
-import 'package:al_huda/data_layer/api_models/indopak_model.dart';
+import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/util/theming/constants/apis_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
 class QuranApiOperations {
   dynamic getChaptersList() async {
-    String uri = QuranApiUrl.baseUrl + QuranApiUrl.chaptersListUrl;
+    String uri = QuranApiUrl.chaptersListUrl;
     Uri url = Uri.parse(uri);
     try {
       Response response = await get(url);
@@ -26,10 +25,7 @@ class QuranApiOperations {
   }
 
   dynamic getChapterInfo(int id) async {
-    String uri = QuranApiUrl.baseUrl +
-        QuranApiUrl.chapterInfoUrl1 +
-        id.toString() +
-        QuranApiUrl.chapterInfoUrl2;
+    String uri = QuranApiUrl.chapterInfoUrl(id);
 
     Uri url = Uri.parse(uri);
 
@@ -50,8 +46,7 @@ class QuranApiOperations {
   }
 
   dynamic getchapterVerses(int id) async {
-    String uri =
-        QuranApiUrl.baseUrl + QuranApiUrl.chapterVersesUrl + id.toString();
+    String uri = QuranApiUrl.chapterVersesUrl(id);
 
     Uri url = Uri.parse(uri);
 
@@ -63,7 +58,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        chapterVersesModel x = chapterVersesModel.fromJson(result);
+        ChapterVersesModel x = ChapterVersesModel.fromJson(result);
 
         return x;
       }
@@ -73,8 +68,7 @@ class QuranApiOperations {
   }
 
   dynamic getChapterIndopak(int id) async {
-    String uri =
-        '${QuranApiUrl.baseUrl}${QuranApiUrl.indopakUrl}?chapter_number=$id';
+    String uri = QuranApiUrl.chapterIndopakUrl(id);
 
     Uri url = Uri.parse(uri);
 
@@ -86,7 +80,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        IndopakModel x = IndopakModel.fromJson(result);
+        VersesIndopakModel x = VersesIndopakModel.fromJson(result);
 
         return x;
       }
@@ -95,35 +89,32 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getChapterAudioPath(int chapterId, int reciterid) async {
-    String uri =
-        '${QuranApiUrl.baseUrl}${QuranApiUrl.chaperAudioUrl}$reciterid/$chapterId';
+  // dynamic getChapterAudioPath(int chapterId, int reciterid) async {
+  //   String uri =
+  //       '${QuranApiUrl.baseUrl}${QuranApiUrl.chaperAudioUrl}$reciterid/$chapterId';
 
-    Uri url = Uri.parse(uri);
+  //   Uri url = Uri.parse(uri);
 
-    try {
-      Response response = await get(url);
+  //   try {
+  //     Response response = await get(url);
 
-      if (response.statusCode == 200) {
-        String body = response.body;
+  //     if (response.statusCode == 200) {
+  //       String body = response.body;
 
-        Map<String, dynamic> result = jsonDecode(body);
+  //       Map<String, dynamic> result = jsonDecode(body);
 
-        ChapterAudioModel x = ChapterAudioModel.fromJson(result);
+  //       ChapterAudioModel x = ChapterAudioModel.fromJson(result);
 
-        return x.audioFile!.audioUrl;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  //       return x.audioFile!.audioUrl;
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
-  dynamic getayahAudioPath(int chapterId, int ayahNumber, int reciterid) async {
-    String uri =
-        '${QuranApiUrl.baseUrl}${QuranApiUrl.ayahAudioUrl}$reciterid/by_ayah/$chapterId:$ayahNumber';
+  dynamic getayahAudioPath(int chapterId, int ayahNumber, int reciterId) async {
+    String uri = QuranApiUrl.ayahAudioUrl(reciterId, ayahNumber);
 
-    print('-----r-------r---------uri');
-    print(uri);
     Uri url = Uri.parse(uri);
 
     try {
@@ -136,8 +127,7 @@ class QuranApiOperations {
 
         AyahAudioModel x = AyahAudioModel.fromJson(result);
         String fullPath = '${QuranApiUrl.audiobaseUrl}${x.audioFiles![0].url}';
-        print("=======================");
-        print(fullPath);
+
         return fullPath;
       }
     } catch (e) {

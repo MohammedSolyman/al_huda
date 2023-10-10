@@ -1,5 +1,5 @@
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
-import 'package:al_huda/data_layer/api_models/indopak_model.dart';
+import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
 import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
 import 'package:al_huda/data_layer/view_models/chapter_view_model.dart';
@@ -30,7 +30,8 @@ class ChapterViewController extends GetxController {
   }
 
   getChapterIndopack() async {
-    IndopakModel x = await quranApi.getChapterIndopak(model.value.chapterId);
+    VersesIndopakModel x =
+        await quranApi.getChapterIndopak(model.value.chapterId);
     List<Verse>? verses = x.verses;
 
     for (var verse in verses!) {
@@ -42,16 +43,15 @@ class ChapterViewController extends GetxController {
     }
   }
 
-  playChapter() async {
-    String path = await quranApi.getChapterAudioPath(model.value.chapterId, 1);
-    print(path);
-    await audioOperations.playAudio(path);
-  }
+  // playChapter() async {
+  //   String path = await quranApi.getChapterAudioPath(model.value.chapterId, 1);
+  //   print(path);
+  //   await audioOperations.playAudio(path);
+  // }
 
   playAyah(int ayahNumber) async {
     String path =
         await quranApi.getayahAudioPath(model.value.chapterId, ayahNumber, 1);
-    print(path);
     await audioOperations.playAudio(path);
   }
 }

@@ -58,7 +58,7 @@ class AllChapter extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  controller.playChapter();
+                  // controller.playChapter();
                 },
                 child: const Text('listen chapter')),
             ElevatedButton(
@@ -84,10 +84,10 @@ class AllChapter extends StatelessWidget {
                                     onPressed: () {
                                       controller.playAyah(index + 1);
                                     },
-                                    child: Text('play ayah')),
+                                    child: const Text('play ayah')),
                                 ElevatedButton(
                                     onPressed: () {},
-                                    child: Text('translate ahay'))
+                                    child: const Text('translate ahay'))
                               ],
                             )
                           ],

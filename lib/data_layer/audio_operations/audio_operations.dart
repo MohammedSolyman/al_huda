@@ -6,5 +6,6 @@ class AudioOperations {
   Future<void> playAudio(String url) async {
     Source source = UrlSource(url);
     await audioPlayer.play(source);
+    audioPlayer.onPlayerComplete.listen((event) {});
   }
 }

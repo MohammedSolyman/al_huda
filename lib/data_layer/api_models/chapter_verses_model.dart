@@ -1,14 +1,14 @@
-class chapterVersesModel {
+class ChapterVersesModel {
   List<Verse>? verses;
   Pagination? pagination;
 
-  chapterVersesModel({
+  ChapterVersesModel({
     this.verses,
     this.pagination,
   });
 
-  factory chapterVersesModel.fromJson(Map<String, dynamic> json) =>
-      chapterVersesModel(
+  factory ChapterVersesModel.fromJson(Map<String, dynamic> json) =>
+      ChapterVersesModel(
         verses: json["verses"] == null
             ? []
             : List<Verse>.from(json["verses"]!.map((x) => Verse.fromJson(x))),

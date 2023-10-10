@@ -22,9 +22,10 @@ class QuranHomeController extends GetxController {
     });
   }
 
-  void goToChapter(id, chapterArabicName, chapterLanguageName) {
+  void goToChapter(
+      int chapterId, String chapterArabicName, String chapterLanguageName) {
     Get.to(ChapterView(
-      id: id,
+      chapterId: chapterId,
       chapterArabicName: chapterArabicName,
       chapterLanguageName: chapterLanguageName,
     ));

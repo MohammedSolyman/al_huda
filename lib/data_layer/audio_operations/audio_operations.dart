@@ -11,6 +11,25 @@ class AudioOperations {
     });
   }
 
+  Future<void> playAudios(List<String> urls, Function updateCurrentAyah,
+      Function onCompleteAudios) async {
+    Source source = UrlSource(urls[0]);
+    audioPlayer.play(source);
+    updateCurrentAyah(1);
+    int i = 1;
+    audioPlayer.onPlayerComplete.listen((_) {
+      if (i < urls.length) {
+        source = UrlSource(urls[i]);
+        audioPlayer.play(source);
+        updateCurrentAyah(i + 1);
+
+        i++;
+      } else {
+        onCompleteAudios();
+      }
+    });
+  }
+
   Future<void> pauseAudio() async {
     await audioPlayer.pause();
   }

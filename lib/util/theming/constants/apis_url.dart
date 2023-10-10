@@ -62,7 +62,10 @@ class QuranApiUrl {
     return '${_baseUrl}quran/verses/indopak?chapter_number=$chapterId';
   }
 
-  //Get audio of a chapter by a specific reciter
-  //chapter_recitations/:id/:chapter_number
-  //static const String chaperAudioUrl = 'chapter_recitations/';
+  //Get audio of a chapter by a specific reciter, required parameters:
+  //    recitation_id
+  //    chapter_number
+  static String chapterAudiosUrl(int recitationId, int chapterId) {
+    return '${_baseUrl}recitations/$recitationId/by_chapter/$chapterId';
+  }
 }

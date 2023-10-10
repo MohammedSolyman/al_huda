@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChapterView extends StatelessWidget {
-  final int id;
+  final int chapterId;
   final String chapterArabicName;
   final String chapterLanguageName;
 
   const ChapterView(
-      {required this.id,
+      {required this.chapterId,
       required this.chapterArabicName,
       required this.chapterLanguageName,
       super.key});
@@ -16,7 +16,7 @@ class ChapterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChapterViewController controller = Get.put(ChapterViewController());
-    controller.updateId(id);
+    controller.updateId(chapterId);
     controller.getInfo();
     controller.getchapterVerses();
     controller.getChapterIndopack();
@@ -27,11 +27,12 @@ class ChapterView extends StatelessWidget {
             height: 40,
           ),
           ChapterName(
+              chapterId: chapterId,
               chapterLanguageName: chapterLanguageName,
               chapterArabicName: chapterArabicName),
           ElevatedButton(
               onPressed: () {
-                controller.toggleChapterVisibility();
+                controller.toggleChapterInfoVisibility();
               },
               child: const Text('chapter infromation')),
           const ChapterInfo(),
@@ -45,12 +46,14 @@ class ChapterView extends StatelessWidget {
 class ChapterName extends StatelessWidget {
   const ChapterName({
     super.key,
+    required this.chapterId,
     required this.chapterLanguageName,
     required this.chapterArabicName,
   });
 
   final String chapterLanguageName;
   final String chapterArabicName;
+  final int chapterId;
 
   @override
   Widget build(BuildContext context) {
@@ -67,16 +70,50 @@ class ChapterName extends StatelessWidget {
             chapterArabicName,
             style: const TextStyle(color: Colors.white, fontSize: 30),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.play_arrow,
-                color: Colors.lightGreen,
-                size: 40,
-              ))
+          ChapterAudioControllers(chapterId: chapterId)
         ],
       ),
     );
+  }
+}
+
+class ChapterAudioControllers extends StatelessWidget {
+  const ChapterAudioControllers({required this.chapterId, super.key});
+
+  final int chapterId;
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.put(ChapterViewController());
+    if (controller.model.value.chapterPlaying) {
+      return Row(
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.pause,
+                color: Colors.lightGreen,
+                size: 40,
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.stop,
+                color: Colors.lightGreen,
+                size: 40,
+              )),
+        ],
+      );
+    } else {
+      return IconButton(
+          onPressed: () {
+            controller.playChapter(chapterId);
+          },
+          icon: const Icon(
+            Icons.play_arrow,
+            color: Colors.lightGreen,
+            size: 40,
+          ));
+    }
   }
 }
 
@@ -160,23 +197,27 @@ class AudioControllers extends StatelessWidget {
   Widget build(BuildContext context) {
     ChapterViewController controller = Get.find<ChapterViewController>();
 
-    if (controller.model.value.ayahPlaying == ayahNumber) {
-      return Row(
-        children: [
-          PauseResume(ayahNumber),
-          IconButton(
-              onPressed: () {
-                controller.stopAyah();
-              },
-              icon: const Icon(Icons.stop)),
-        ],
-      );
+    if (!controller.model.value.chapterPlaying) {
+      if (controller.model.value.ayahPlaying == ayahNumber) {
+        return Row(
+          children: [
+            PauseResume(ayahNumber),
+            IconButton(
+                onPressed: () {
+                  controller.stopAyah();
+                },
+                icon: const Icon(Icons.stop)),
+          ],
+        );
+      } else {
+        return IconButton(
+            onPressed: () {
+              controller.playAyah(ayahNumber);
+            },
+            icon: const Icon(Icons.play_arrow));
+      }
     } else {
-      return IconButton(
-          onPressed: () {
-            controller.playAyah(ayahNumber);
-          },
-          icon: const Icon(Icons.play_arrow));
+      return Container();
     }
   }
 }

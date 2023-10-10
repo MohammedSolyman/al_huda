@@ -4,8 +4,14 @@ import 'package:get/get.dart';
 
 class ChapterView extends StatelessWidget {
   final int id;
+  final String chapterArabicName;
+  final String chapterLanguageName;
 
-  const ChapterView({required this.id, super.key});
+  const ChapterView(
+      {required this.id,
+      required this.chapterArabicName,
+      required this.chapterLanguageName,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,38 +20,89 @@ class ChapterView extends StatelessWidget {
     controller.getInfo();
     controller.getchapterVerses();
     controller.getChapterIndopack();
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-          Text('chapter infromation'),
-          Info(),
-          Text('all chapter'),
-          AllChapter()
+          const SizedBox(
+            height: 40,
+          ),
+          ChapterName(
+              chapterLanguageName: chapterLanguageName,
+              chapterArabicName: chapterArabicName),
+          ElevatedButton(
+              onPressed: () {
+                controller.toggleChapterVisibility();
+              },
+              child: const Text('chapter infromation')),
+          const ChapterInfo(),
+          const ChapterVerses()
         ],
       ),
     );
   }
 }
 
-class Info extends StatelessWidget {
-  const Info({super.key});
+class ChapterName extends StatelessWidget {
+  const ChapterName({
+    super.key,
+    required this.chapterLanguageName,
+    required this.chapterArabicName,
+  });
+
+  final String chapterLanguageName;
+  final String chapterArabicName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            chapterLanguageName,
+            style: const TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          Text(
+            chapterArabicName,
+            style: const TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.play_arrow,
+                color: Colors.lightGreen,
+                size: 40,
+              ))
+        ],
+      ),
+    );
+  }
+}
+
+class ChapterInfo extends StatelessWidget {
+  const ChapterInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
     ChapterViewController controller = Get.find<ChapterViewController>();
 
     return Obx(() {
-      if (controller.model.value.chapterInfo.isEmpty) {
-        return const CircularProgressIndicator();
-      } else {
-        return Text(controller.model.value.chapterInfo);
-      }
+      return Visibility(
+          visible: controller.model.value.showChapterInfo,
+          child: controller.model.value.chapterInfo.isEmpty
+              ? const CircularProgressIndicator()
+              : Container(
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      border: Border.all(color: Colors.black)),
+                  child: Text(controller.model.value.chapterInfo)));
     });
   }
 }
 
-class AllChapter extends StatelessWidget {
-  const AllChapter({super.key});
+class ChapterVerses extends StatelessWidget {
+  const ChapterVerses({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +113,6 @@ class AllChapter extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: Column(
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  // controller.playChapter();
-                },
-                child: const Text('listen chapter')),
-            ElevatedButton(
-                onPressed: () {}, child: const Text('translate chapter')),
             Obx(() {
               return Expanded(
                 child: ListView.builder(
@@ -70,24 +120,22 @@ class AllChapter extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         decoration: BoxDecoration(
-                            color:
-                                index % 2 == 0 ? Colors.yellow : Colors.green,
+                            color: controller.getAyahColor(index + 1),
                             border: Border.all(color: Colors.black)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(controller.model.value.chapterVerses[index],
-                                textDirection: TextDirection.rtl),
+                            Expanded(
+                              child: Text(
+                                  controller.model.value.chapterVerses[index],
+                                  textDirection: TextDirection.rtl),
+                            ),
                             Column(
                               children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      controller.playAyah(index + 1);
-                                    },
-                                    child: const Text('play ayah')),
+                                AudioControllers(index + 1),
                                 ElevatedButton(
                                     onPressed: () {},
-                                    child: const Text('translate ahay'))
+                                    child: const Text('translate'))
                               ],
                             )
                           ],
@@ -100,5 +148,59 @@ class AllChapter extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AudioControllers extends StatelessWidget {
+  const AudioControllers(this.ayahNumber, {super.key});
+
+  final int ayahNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.find<ChapterViewController>();
+
+    if (controller.model.value.ayahPlaying == ayahNumber) {
+      return Row(
+        children: [
+          PauseResume(ayahNumber),
+          IconButton(
+              onPressed: () {
+                controller.stopAyah();
+              },
+              icon: const Icon(Icons.stop)),
+        ],
+      );
+    } else {
+      return IconButton(
+          onPressed: () {
+            controller.playAyah(ayahNumber);
+          },
+          icon: const Icon(Icons.play_arrow));
+    }
+  }
+}
+
+class PauseResume extends StatelessWidget {
+  const PauseResume(this.ayahNumber, {super.key});
+  final int ayahNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.find<ChapterViewController>();
+
+    if (controller.model.value.ayahPaused == ayahNumber) {
+      return IconButton(
+          onPressed: () {
+            controller.resumeAyah(ayahNumber);
+          },
+          icon: const Icon(Icons.play_arrow));
+    } else {
+      return IconButton(
+          onPressed: () {
+            controller.pauseAyah(ayahNumber);
+          },
+          icon: const Icon(Icons.pause));
+    }
   }
 }

@@ -113,7 +113,8 @@ class QuranApiOperations {
   // }
 
   dynamic getayahAudioPath(int chapterId, int ayahNumber, int reciterId) async {
-    String uri = QuranApiUrl.ayahAudioUrl(reciterId, ayahNumber);
+    String ayahKey = '$chapterId:$ayahNumber';
+    String uri = QuranApiUrl.ayahAudioUrl(reciterId, ayahKey);
 
     Uri url = Uri.parse(uri);
 

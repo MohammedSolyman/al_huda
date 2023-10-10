@@ -3,46 +3,56 @@ import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class QuranHomeView extends StatefulWidget {
+class QuranHomeView extends StatelessWidget {
   const QuranHomeView({super.key});
 
   @override
-  State<QuranHomeView> createState() => _QuranHomeViewState();
-}
-
-class _QuranHomeViewState extends State<QuranHomeView> {
-  @override
   Widget build(BuildContext context) {
     QuranHomeController controller = Get.put(QuranHomeController());
-    return Scaffold(
-        body: Column(
-      children: [
-        Obx(() => Row(
-              children: [
-                const Text('sorted by surah:'),
-                Radio<QuranSort>(
-                    value: QuranSort.byChapter,
-                    groupValue: controller.model.value.quranSortValue,
-                    onChanged: (QuranSort? s) {
-                      controller.updateQuranSort(s!);
-                    }),
-                const Text('sorted by guz:'),
-                Radio<QuranSort>(
-                    value: QuranSort.byGuz,
-                    groupValue: controller.model.value.quranSortValue,
-                    onChanged: (QuranSort? s) {
-                      controller.updateQuranSort(s!);
-                    }),
-              ],
-            )),
-        const MyListView()
-      ],
-    ));
+    return Scaffold(body: Obx(() {
+      return Column(
+        children: [
+          const SizedBox(
+            height: 40,
+          ),
+          Row(
+            children: [
+              const Text('sorted by surah:'),
+              Radio<QuranSort>(
+                  value: QuranSort.byChapter,
+                  groupValue: controller.model.value.quranSortValue,
+                  onChanged: (QuranSort? s) {
+                    controller.updateQuranSort(s!);
+                  }),
+              const Text('sorted by guz:'),
+              Radio<QuranSort>(
+                  value: QuranSort.byGuz,
+                  groupValue: controller.model.value.quranSortValue,
+                  onChanged: (QuranSort? s) {
+                    controller.updateQuranSort(s!);
+                  }),
+            ],
+          ),
+          controller.model.value.quranSortValue == QuranSort.byChapter
+              ? const ChaptersView()
+              : const GuzsView()
+        ],
+      );
+    }));
   }
 }
 
-class MyListView extends StatelessWidget {
-  const MyListView({super.key});
+class GuzsView extends StatelessWidget {
+  const GuzsView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class ChaptersView extends StatelessWidget {
+  const ChaptersView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +71,9 @@ class MyListView extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     controller.goToChapter(
-                        controller.model.value.chaptersList[index].id);
+                        controller.model.value.chaptersList[index].id,
+                        controller.model.value.chaptersList[index].nameArabic,
+                        controller.model.value.chaptersList[index].nameSimple);
                   },
                   child: ListTile(
                     title: Text(

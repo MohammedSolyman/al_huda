@@ -23,8 +23,8 @@ class QuranApiUrl {
   //Get Ayah recitations audio for specific Ayah, required parameters:
   //    recitation_id
   //    ayah_key
-  static String ayahAudioUrl(int recitationId, int ayahNumber) {
-    return '${_baseUrl}recitations/$recitationId/by_ayah/$ayahNumber';
+  static String ayahAudioUrl(int recitationId, String ayahKey) {
+    return '${_baseUrl}recitations/$recitationId/by_ayah/$ayahKey';
   }
 
   //Get Chapter Info in specific language. Default to English, required parameters;

@@ -4,4 +4,5 @@ import 'package:al_huda/util/theming/constants/quran_sort.dart';
 class QuranHomeModel {
   QuranSort quranSortValue = QuranSort.byChapter;
   List<Chapter> chaptersList = [];
+  List<Chapter> guzsList = [];
 }

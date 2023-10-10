@@ -3,6 +3,7 @@ import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
 import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
 import 'package:al_huda/data_layer/view_models/chapter_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChapterViewController extends GetxController {
@@ -43,15 +44,53 @@ class ChapterViewController extends GetxController {
     }
   }
 
-  // playChapter() async {
-  //   String path = await quranApi.getChapterAudioPath(model.value.chapterId, 1);
-  //   print(path);
-  //   await audioOperations.playAudio(path);
-  // }
+  void toggleChapterVisibility() {
+    model.update((val) {
+      val!.showChapterInfo = !val.showChapterInfo;
+    });
+  }
 
-  playAyah(int ayahNumber) async {
+  void noAyahPlaying() {
+    model.update((val) {
+      val!.ayahPlaying = 0;
+    });
+  }
+
+  Future<void> playAyah(int ayahNumber) async {
     String path =
         await quranApi.getayahAudioPath(model.value.chapterId, ayahNumber, 1);
-    await audioOperations.playAudio(path);
+    await audioOperations.playAudio(path, noAyahPlaying);
+    model.update((val) {
+      val!.ayahPlaying = ayahNumber;
+    });
+  }
+
+  Future<void> stopAyah() async {
+    await audioOperations.stopAudio();
+    model.update((val) {
+      val!.ayahPlaying = 0;
+    });
+  }
+
+  Future<void> pauseAyah(int ayahNumber) async {
+    await audioOperations.pauseAudio();
+    model.update((val) {
+      val!.ayahPaused = ayahNumber;
+    });
+  }
+
+  Future<void> resumeAyah(int ayahNumber) async {
+    await audioOperations.resumeAudio();
+    model.update((val) {
+      val!.ayahPaused = 0;
+    });
+  }
+
+  Color getAyahColor(int ahayNumber) {
+    if (model.value.ayahPlaying == ahayNumber) {
+      return Colors.green;
+    } else {
+      return ahayNumber % 2 == 0 ? Colors.grey.shade400 : Colors.grey.shade700;
+    }
   }
 }

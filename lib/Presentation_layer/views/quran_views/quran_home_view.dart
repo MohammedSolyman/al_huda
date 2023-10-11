@@ -10,6 +10,8 @@ class QuranHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranHomeController controller = Get.put(QuranHomeController());
+    controller.updateChaptersList();
+
     return Scaffold(body: Obx(() {
       return Column(
         children: [
@@ -74,13 +76,14 @@ class ChaptersView extends StatelessWidget {
                     controller.goToChapter(
                         controller.model.value.chaptersList[index].id,
                         controller.model.value.chaptersList[index].nameArabic,
-                        controller.model.value.chaptersList[index].nameSimple);
+                        controller.model.value.chaptersList[index]
+                            .translatedName.name);
                   },
                   child: ListTile(
                     title: Text(
                         controller.model.value.chaptersList[index].nameArabic),
-                    subtitle: Text(
-                        controller.model.value.chaptersList[index].nameSimple),
+                    subtitle: Text(controller
+                        .model.value.chaptersList[index].translatedName.name),
                   ),
                 );
               }),

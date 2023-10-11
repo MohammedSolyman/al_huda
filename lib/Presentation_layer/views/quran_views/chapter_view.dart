@@ -171,40 +171,6 @@ class ChapterInfo extends StatelessWidget {
   }
 }
 
-// class ChapterPauseResume extends StatelessWidget {
-//   const ChapterPauseResume({required this.chapterId, super.key});
-//   final int chapterId;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     ChapterViewController controller = Get.put(ChapterViewController());
-
-//     return Obx(() {
-//       if (controller.model.value.chapterPaused == chapterId) {
-//         return IconButton(
-//             onPressed: () {
-//               controller.resumeChapter();
-//             },
-//             icon: const Icon(
-//               Icons.play_circle,
-//               color: Colors.lightGreen,
-//               size: 40,
-//             ));
-//       } else {
-//         return IconButton(
-//             onPressed: () {
-//               controller.pauseChapter(chapterId);
-//             },
-//             icon: const Icon(
-//               Icons.pause,
-//               color: Colors.lightGreen,
-//               size: 40,
-//             ));
-//       }
-//     });
-//   }
-// }
-
 class TranslationSettings extends StatelessWidget {
   const TranslationSettings({super.key});
 
@@ -279,23 +245,25 @@ class ChapterVerses extends StatelessWidget {
                                     VerseAudioControllers(
                                         chapterId: chapterId,
                                         ayahNumber: index + 1),
-                                    IconButton(
-                                        onPressed: () {
-                                          controller.toggleTranslationState(
-                                              index + 1);
-                                        },
-                                        icon: const Icon(Icons.school))
+                                    Visibility(
+                                        visible: controller
+                                                .model.value.translationId !=
+                                            0,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              controller.toggleTranslationState(
+                                                  index + 1);
+                                              controller
+                                                  .getSpecifcAyahTranslation(
+                                                      chapterId, index + 1);
+                                            },
+                                            icon: const Icon(Icons.school)))
                                   ],
                                 )
                               ],
                             ),
-                            controller.model.value.ayahTranslating ==
-                                    (index + 1)
-                                ? Container(
-                                    color: controller.getAyahColor(index + 1),
-                                    child: const Text('data'),
-                                  )
-                                : Container()
+                            TranslationBock(
+                                chapterId: chapterId, ayahId: index + 1),
                           ],
                         ),
                       );
@@ -306,6 +274,31 @@ class ChapterVerses extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TranslationBock extends StatelessWidget {
+  const TranslationBock(
+      {required this.ayahId, required this.chapterId, super.key});
+
+  final int ayahId;
+  final int chapterId;
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.find<ChapterViewController>();
+
+    if (controller.model.value.ayahTranslating == ayahId) {
+      if (controller.model.value.ayahTranslationText.isEmpty) {
+        return const Center(child: CircularProgressIndicator());
+      } else {
+        return Container(
+          color: controller.getAyahColor(ayahId),
+          child: Text(controller.model.value.ayahTranslationText),
+        );
+      }
+    } else {
+      return Container();
+    }
   }
 }
 

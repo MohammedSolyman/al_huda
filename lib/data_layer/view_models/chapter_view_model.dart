@@ -26,4 +26,6 @@ class ChapterViewModel {
   int translationId = 0;
   //id of the ayah translated now, if 0 then there is no translated ayah now.
   int ayahTranslating = 0;
+  //script of ayah translation
+  String ayahTranslationText = '';
 }

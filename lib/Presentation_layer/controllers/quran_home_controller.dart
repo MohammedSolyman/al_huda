@@ -1,3 +1,4 @@
+import 'package:al_huda/Presentation_layer/controllers/internalization_controller.dart';
 import 'package:al_huda/Presentation_layer/views/quran_views/chapter_view.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 class QuranHomeController extends GetxController {
   Rx<QuranHomeModel> model = QuranHomeModel().obs;
   QuranApiOperations quranApi = QuranApiOperations();
+  InternationalizationController iController = InternationalizationController();
 
   void updateQuranSort(QuranSort s) {
     model.update((val) {
@@ -16,7 +18,8 @@ class QuranHomeController extends GetxController {
   }
 
   Future<void> updateChaptersList() async {
-    List<Chapter> x = await quranApi.getChaptersList();
+    List<Chapter> x =
+        await quranApi.getChaptersList(iController.languageCode.value);
     model.update((val) {
       val!.chaptersList = x;
     });
@@ -34,6 +37,5 @@ class QuranHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    updateChaptersList();
   }
 }

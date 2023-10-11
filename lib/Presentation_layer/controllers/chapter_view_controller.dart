@@ -1,7 +1,8 @@
 import 'package:al_huda/Presentation_layer/controllers/internalization_controller.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart' as a;
-import 'package:al_huda/data_layer/api_models/translation_model.dart';
+import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
+import 'package:al_huda/data_layer/api_models/translation_model.dart' as tm;
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
 import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
@@ -167,8 +168,8 @@ class ChapterViewController extends GetxController {
 
   Future<void> getLanguageTranslations() async {
     //get the available translations for a specific langage.
-    TranslationModel x = await quranApi.getAvailaleTraslations();
-    List<Translation> y = x.translations!;
+    tm.TranslationModel x = await quranApi.getAvailaleTraslations();
+    List<tm.Translation> y = x.translations!;
     String queryLanguage = 'english';
 
     if (iContoller.languageCode.value == 'ar') {
@@ -179,19 +180,13 @@ class ChapterViewController extends GetxController {
       queryLanguage = 'french';
     }
 
-    for (Translation t in y) {
+    for (tm.Translation t in y) {
       if (t.languageName == queryLanguage) {
         model.update((val) {
           val!.languageTranslations.add(t);
         });
       }
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getLanguageTranslations();
   }
 
   void toggleTranslationState(int ayahId) {
@@ -202,6 +197,7 @@ class ChapterViewController extends GetxController {
     } else {
       model.update((val) {
         val!.ayahTranslating = 0;
+        val.ayahTranslationText = '';
       });
     }
   }
@@ -210,5 +206,19 @@ class ChapterViewController extends GetxController {
     model.update((val) {
       val!.translationId = translationId;
     });
+  }
+
+  Future<void> getSpecifcAyahTranslation(int chapterId, int ayahNumber) async {
+    SpecificTranslationModel x = await quranApi.getspecificTraslation(
+        model.value.translationId, chapterId, ayahNumber);
+    model.update((val) {
+      val!.ayahTranslationText = x.translations![0].text!;
+    });
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getLanguageTranslations();
   }
 }

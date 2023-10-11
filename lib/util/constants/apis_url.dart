@@ -12,17 +12,20 @@ class QuranApiUrl {
   //////////////////////////////////////////////////////////////////////////////
   //endpoint fields of Quran.com api. //////////////////////////////////////////
 
-  //get list of chapters, optional parameter:
+  //get list of all available translations (all languages), optional parameters:
   //    language
-  static const String chaptersListUrl = '${_baseUrl}chapters?language=en';
-
-  //get list of translations info for a specific language, optional parameters:
-  //    language
-  static const String languageTranslations = '$_baseUrl/resources/translations';
+  static const String avalaibleTranslations =
+      '${_baseUrl}resources/translations';
 
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //endpoint methods of Quran.com api. /////////////////////////////////////////
+
+  //get list of chapters, optional parameter:
+  //    language
+  static String chaptersListUrl(String langCode) {
+    return '${_baseUrl}chapters?language=$langCode';
+  }
 
   //Get Ayah recitations audio for specific Ayah, required parameters:
   //    recitation_id
@@ -71,5 +74,20 @@ class QuranApiUrl {
   //    chapter_number
   static String chapterAudiosUrl(int recitationId, int chapterId) {
     return '${_baseUrl}recitations/$recitationId/by_chapter/$chapterId';
+  }
+
+  //get ayah tafsir, required parameter:
+  //    translation_id
+  // optional parameters:
+  //    fields
+  //    chapter_number
+  //    juz_number
+  //    page_number
+  //    hizb_number
+  //    rub_el_hizb_number
+  //    verse_key
+  static String ayahTranslationUrl(
+      int translationId, int chapterId, int ayahNumber) {
+    return '${_baseUrl}quran/translations/$translationId?verse_key=$chapterId:$ayahNumber';
   }
 }

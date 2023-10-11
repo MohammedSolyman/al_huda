@@ -18,7 +18,7 @@ class ChapterView extends StatelessWidget {
     ChapterViewController controller = Get.put(ChapterViewController());
     controller.updateId(chapterId);
     controller.getInfo();
-    controller.getchapterVerses();
+    // controller.getchapterVerses();
     controller.getChapterIndopack();
     return Scaffold(
       body: Column(

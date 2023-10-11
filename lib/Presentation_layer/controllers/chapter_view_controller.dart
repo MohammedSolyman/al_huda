@@ -33,9 +33,9 @@ class ChapterViewController extends GetxController {
     });
   }
 
-  Future<void> getchapterVerses() async {
-    await quranApi.getchapterVerses(model.value.chapterId);
-  }
+  // Future<void> getchapterVerses() async {
+  //   await quranApi.getchapterVerses(model.value.chapterId);
+  // }
 
   Future<void> getChapterIndopack() async {
     VersesIndopakModel x =

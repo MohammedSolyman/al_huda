@@ -49,27 +49,27 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getchapterVerses(int id) async {
-    String uri = QuranApiUrl.chapterVersesUrl(id);
+  // dynamic getchapterVerses(int id) async {
+  //   String uri = QuranApiUrl.chapterVersesUrl(id);
 
-    Uri url = Uri.parse(uri);
+  //   Uri url = Uri.parse(uri);
 
-    try {
-      Response response = await get(url);
+  //   try {
+  //     Response response = await get(url);
 
-      if (response.statusCode == 200) {
-        String body = response.body;
+  //     if (response.statusCode == 200) {
+  //       String body = response.body;
 
-        Map<String, dynamic> result = jsonDecode(body);
+  //       Map<String, dynamic> result = jsonDecode(body);
 
-        ChapterVersesModel x = ChapterVersesModel.fromJson(result);
+  //       ChapterVersesModel x = ChapterVersesModel.fromJson(result);
 
-        return x;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  //       return x;
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   dynamic getChapterIndopak(int id) async {
     String uri = QuranApiUrl.chapterIndopakUrl(id);

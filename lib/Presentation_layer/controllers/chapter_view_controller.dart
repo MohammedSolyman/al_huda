@@ -73,6 +73,7 @@ class ChapterViewController extends GetxController {
     await audioOperations.stopAudio();
     model.update((val) {
       val!.ayahPlaying = 0;
+      val.ayahPaused = 0;
     });
   }
 
@@ -120,17 +121,40 @@ class ChapterViewController extends GetxController {
 
   void _onCompleteChapter() {
     model.update((val) {
-      val!.chapterPlaying = false;
+      val!.chapterPlaying = 0;
     });
   }
 
   Future<void> playChapter(int chapterId) async {
     await _getChapterAudios(chapterId);
     model.update((val) {
-      val!.chapterPlaying = true;
+      val!.chapterPlaying = chapterId;
     });
 
     await audioOperations.playAudios(
         model.value.chapterAudiosPaths, _updateCurrentAyah, _onCompleteChapter);
+  }
+
+  Future<void> pauseChapter(int chapterId) async {
+    await audioOperations.pauseAudio();
+    model.update((val) {
+      val!.chapterPaused = chapterId;
+    });
+  }
+
+  Future<void> resumeChapter() async {
+    await audioOperations.resumeAudio();
+    model.update((val) {
+      val!.chapterPaused = 0;
+    });
+  }
+
+  Future<void> stopChapter() async {
+    await audioOperations.stopAudio();
+    model.update((val) {
+      val!.chapterPlaying = 0;
+      val.chapterPaused = 0;
+      val.ayahPlaying = 0;
+    });
   }
 }

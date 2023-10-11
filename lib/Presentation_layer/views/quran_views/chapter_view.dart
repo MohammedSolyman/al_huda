@@ -36,7 +36,7 @@ class ChapterView extends StatelessWidget {
               },
               child: const Text('chapter infromation')),
           const ChapterInfo(),
-          const ChapterVerses()
+          ChapterVerses(chapterId: chapterId)
         ],
       ),
     );
@@ -84,36 +84,68 @@ class ChapterAudioControllers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChapterViewController controller = Get.put(ChapterViewController());
-    if (controller.model.value.chapterPlaying) {
-      return Row(
-        children: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.pause,
-                color: Colors.lightGreen,
-                size: 40,
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.stop,
-                color: Colors.lightGreen,
-                size: 40,
-              )),
-        ],
-      );
-    } else {
-      return IconButton(
-          onPressed: () {
-            controller.playChapter(chapterId);
-          },
-          icon: const Icon(
-            Icons.play_arrow,
-            color: Colors.lightGreen,
-            size: 40,
-          ));
-    }
+    return Obx(() {
+      if (controller.model.value.chapterPlaying == chapterId) {
+        return Row(
+          children: [
+            ChapterPauseResume(chapterId: chapterId),
+            IconButton(
+                onPressed: () {
+                  controller.stopChapter();
+                },
+                icon: const Icon(
+                  Icons.stop,
+                  color: Colors.lightGreen,
+                  size: 40,
+                )),
+          ],
+        );
+      } else {
+        return IconButton(
+            onPressed: () {
+              controller.playChapter(chapterId);
+            },
+            icon: const Icon(
+              Icons.play_arrow,
+              color: Colors.lightGreen,
+              size: 40,
+            ));
+      }
+    });
+  }
+}
+
+class ChapterPauseResume extends StatelessWidget {
+  const ChapterPauseResume({required this.chapterId, super.key});
+  final int chapterId;
+
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.put(ChapterViewController());
+
+    return Obx(() {
+      if (controller.model.value.chapterPaused == chapterId) {
+        return IconButton(
+            onPressed: () {
+              controller.resumeChapter();
+            },
+            icon: const Icon(
+              Icons.play_circle,
+              color: Colors.lightGreen,
+              size: 40,
+            ));
+      } else {
+        return IconButton(
+            onPressed: () {
+              controller.pauseChapter(chapterId);
+            },
+            icon: const Icon(
+              Icons.pause,
+              color: Colors.lightGreen,
+              size: 40,
+            ));
+      }
+    });
   }
 }
 
@@ -139,7 +171,8 @@ class ChapterInfo extends StatelessWidget {
 }
 
 class ChapterVerses extends StatelessWidget {
-  const ChapterVerses({super.key});
+  const ChapterVerses({required this.chapterId, super.key});
+  final int chapterId;
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +202,9 @@ class ChapterVerses extends StatelessWidget {
                             ),
                             Column(
                               children: [
-                                AudioControllers(index + 1),
+                                VerseAudioControllers(
+                                    chapterId: chapterId,
+                                    ayahNumber: index + 1),
                                 ElevatedButton(
                                     onPressed: () {},
                                     child: const Text('translate'))
@@ -188,20 +223,22 @@ class ChapterVerses extends StatelessWidget {
   }
 }
 
-class AudioControllers extends StatelessWidget {
-  const AudioControllers(this.ayahNumber, {super.key});
+class VerseAudioControllers extends StatelessWidget {
+  const VerseAudioControllers(
+      {required this.ayahNumber, required this.chapterId, super.key});
 
   final int ayahNumber;
+  final int chapterId;
 
   @override
   Widget build(BuildContext context) {
     ChapterViewController controller = Get.find<ChapterViewController>();
 
-    if (!controller.model.value.chapterPlaying) {
+    if (controller.model.value.chapterPlaying != chapterId) {
       if (controller.model.value.ayahPlaying == ayahNumber) {
         return Row(
           children: [
-            PauseResume(ayahNumber),
+            VersePauseResume(ayahNumber),
             IconButton(
                 onPressed: () {
                   controller.stopAyah();
@@ -222,8 +259,8 @@ class AudioControllers extends StatelessWidget {
   }
 }
 
-class PauseResume extends StatelessWidget {
-  const PauseResume(this.ayahNumber, {super.key});
+class VersePauseResume extends StatelessWidget {
+  const VersePauseResume(this.ayahNumber, {super.key});
   final int ayahNumber;
 
   @override
@@ -235,7 +272,7 @@ class PauseResume extends StatelessWidget {
           onPressed: () {
             controller.resumeAyah(ayahNumber);
           },
-          icon: const Icon(Icons.play_arrow));
+          icon: const Icon(Icons.play_circle));
     } else {
       return IconButton(
           onPressed: () {

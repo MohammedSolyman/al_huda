@@ -1,4 +1,5 @@
 import 'package:al_huda/Presentation_layer/views/homepage_view/homepage_view.dart';
+import 'package:al_huda/util/internationalization/internationalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +15,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: HomePageView(),
+    return GetMaterialApp(
+      home: const HomePageView(),
+      translations: MyTranlations(),
+      fallbackLocale: const Locale('en'),
     );
   }
 }

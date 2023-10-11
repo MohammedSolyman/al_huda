@@ -1,4 +1,5 @@
-import 'package:al_huda/util/theming/constants/quran_sort.dart';
+import 'package:al_huda/util/constants/internationlization_const.dart';
+import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,14 +18,14 @@ class QuranHomeView extends StatelessWidget {
           ),
           Row(
             children: [
-              const Text('sorted by surah:'),
+              Text(IntConstants.sortByChapter.tr),
               Radio<QuranSort>(
                   value: QuranSort.byChapter,
                   groupValue: controller.model.value.quranSortValue,
                   onChanged: (QuranSort? s) {
                     controller.updateQuranSort(s!);
                   }),
-              const Text('sorted by guz:'),
+              Text(IntConstants.sortByGuz.tr),
               Radio<QuranSort>(
                   value: QuranSort.byGuz,
                   groupValue: controller.model.value.quranSortValue,

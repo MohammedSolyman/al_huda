@@ -1,10 +1,12 @@
+import 'package:al_huda/Presentation_layer/controllers/internalization_controller.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart' as a;
+import 'package:al_huda/data_layer/api_models/translation_model.dart';
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
 import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
 import 'package:al_huda/data_layer/view_models/chapter_view_model.dart';
-import 'package:al_huda/util/theming/constants/apis_url.dart';
+import 'package:al_huda/util/constants/apis_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,8 @@ class ChapterViewController extends GetxController {
   QuranApiOperations quranApi = QuranApiOperations();
   AudioOperations audioOperations = AudioOperations();
   Rx<ChapterViewModel> model = ChapterViewModel().obs;
+  InternationalizationController iContoller =
+      Get.find<InternationalizationController>();
 
   Future<void> updateId(int id) async {
     //update chapter id
@@ -155,6 +159,56 @@ class ChapterViewController extends GetxController {
       val!.chapterPlaying = 0;
       val.chapterPaused = 0;
       val.ayahPlaying = 0;
+    });
+  }
+
+////////////////////////////////////////////////////////////////////////////////
+// translations ////////////////////////////////////////////////////////////////
+
+  Future<void> getLanguageTranslations() async {
+    //get the available translations for a specific langage.
+    TranslationModel x = await quranApi.getAvailaleTraslations();
+    List<Translation> y = x.translations!;
+    String queryLanguage = 'english';
+
+    if (iContoller.languageCode.value == 'ar') {
+      queryLanguage = 'arabic';
+    } else if (iContoller.languageCode.value == 'es') {
+      queryLanguage = 'spanish';
+    } else if (iContoller.languageCode.value == 'fr') {
+      queryLanguage = 'french';
+    }
+
+    for (Translation t in y) {
+      if (t.languageName == queryLanguage) {
+        model.update((val) {
+          val!.languageTranslations.add(t);
+        });
+      }
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getLanguageTranslations();
+  }
+
+  void toggleTranslationState(int ayahId) {
+    if (model.value.ayahTranslating == 0) {
+      model.update((val) {
+        val!.ayahTranslating = ayahId;
+      });
+    } else {
+      model.update((val) {
+        val!.ayahTranslating = 0;
+      });
+    }
+  }
+
+  void updateTranslationId(int translationId) {
+    model.update((val) {
+      val!.translationId = translationId;
     });
   }
 }

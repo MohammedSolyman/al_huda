@@ -36,6 +36,7 @@ class ChapterView extends StatelessWidget {
               },
               child: const Text('chapter infromation')),
           const ChapterInfo(),
+          const TranslationSettings(),
           ChapterVerses(chapterId: chapterId)
         ],
       ),
@@ -170,6 +171,76 @@ class ChapterInfo extends StatelessWidget {
   }
 }
 
+// class ChapterPauseResume extends StatelessWidget {
+//   const ChapterPauseResume({required this.chapterId, super.key});
+//   final int chapterId;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     ChapterViewController controller = Get.put(ChapterViewController());
+
+//     return Obx(() {
+//       if (controller.model.value.chapterPaused == chapterId) {
+//         return IconButton(
+//             onPressed: () {
+//               controller.resumeChapter();
+//             },
+//             icon: const Icon(
+//               Icons.play_circle,
+//               color: Colors.lightGreen,
+//               size: 40,
+//             ));
+//       } else {
+//         return IconButton(
+//             onPressed: () {
+//               controller.pauseChapter(chapterId);
+//             },
+//             icon: const Icon(
+//               Icons.pause,
+//               color: Colors.lightGreen,
+//               size: 40,
+//             ));
+//       }
+//     });
+//   }
+// }
+
+class TranslationSettings extends StatelessWidget {
+  const TranslationSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    ChapterViewController controller = Get.find<ChapterViewController>();
+
+    return PopupMenuButton(
+        icon: const Icon(Icons.school),
+        itemBuilder: (BuildContext context) {
+          if (controller.model.value.languageTranslations.isEmpty) {
+            List<PopupMenuEntry<dynamic>> x = [
+              const PopupMenuItem(
+                  child: Text('there is no translations available'))
+            ];
+
+            return x;
+          } else {
+            List<PopupMenuEntry<dynamic>> x = List.generate(
+                controller.model.value.languageTranslations.length, (index) {
+              return PopupMenuItem(
+                child: Text(
+                    controller.model.value.languageTranslations[index].name!),
+                onTap: () {
+                  controller.updateTranslationId(
+                      controller.model.value.languageTranslations[index].id!);
+                },
+              );
+            });
+
+            return x;
+          }
+        });
+  }
+}
+
 class ChapterVerses extends StatelessWidget {
   const ChapterVerses({required this.chapterId, super.key});
   final int chapterId;
@@ -192,24 +263,39 @@ class ChapterVerses extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: controller.getAyahColor(index + 1),
                             border: Border.all(color: Colors.black)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: Text(
-                                  controller.model.value.chapterVerses[index],
-                                  textDirection: TextDirection.rtl),
-                            ),
-                            Column(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                VerseAudioControllers(
-                                    chapterId: chapterId,
-                                    ayahNumber: index + 1),
-                                ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text('translate'))
+                                Expanded(
+                                  child: Text(
+                                      controller
+                                          .model.value.chapterVerses[index],
+                                      textDirection: TextDirection.rtl),
+                                ),
+                                Column(
+                                  children: [
+                                    VerseAudioControllers(
+                                        chapterId: chapterId,
+                                        ayahNumber: index + 1),
+                                    IconButton(
+                                        onPressed: () {
+                                          controller.toggleTranslationState(
+                                              index + 1);
+                                        },
+                                        icon: const Icon(Icons.school))
+                                  ],
+                                )
                               ],
-                            )
+                            ),
+                            controller.model.value.ayahTranslating ==
+                                    (index + 1)
+                                ? Container(
+                                    color: controller.getAyahColor(index + 1),
+                                    child: const Text('data'),
+                                  )
+                                : Container()
                           ],
                         ),
                       );

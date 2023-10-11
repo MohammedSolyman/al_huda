@@ -16,6 +16,10 @@ class QuranApiUrl {
   //    language
   static const String chaptersListUrl = '${_baseUrl}chapters?language=en';
 
+  //get list of translations info for a specific language, optional parameters:
+  //    language
+  static const String languageTranslations = '$_baseUrl/resources/translations';
+
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //endpoint methods of Quran.com api. /////////////////////////////////////////

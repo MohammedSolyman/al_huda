@@ -3,8 +3,9 @@ import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_verses_model.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
+import 'package:al_huda/data_layer/api_models/translation_model.dart';
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
-import 'package:al_huda/util/theming/constants/apis_url.dart';
+import 'package:al_huda/util/constants/apis_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -130,6 +131,29 @@ class QuranApiOperations {
         String fullPath = '${QuranApiUrl.audiobaseUrl}${x.audioFiles![0].url}';
 
         return fullPath;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic getAvailaleTraslations() async {
+    //get the available translations info.
+    String uri = QuranApiUrl.languageTranslations;
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        TranslationModel x = TranslationModel.fromJson(result);
+
+        return x;
       }
     } catch (e) {
       print(e.toString());

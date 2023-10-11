@@ -37,16 +37,16 @@ class QuranHomeView extends StatelessWidget {
             ],
           ),
           controller.model.value.quranSortValue == QuranSort.byChapter
-              ? const ChaptersView()
-              : const GuzsView()
+              ? const ChaptersBlock()
+              : const GuzsBlock()
         ],
       );
     }));
   }
 }
 
-class GuzsView extends StatelessWidget {
-  const GuzsView({super.key});
+class GuzsBlock extends StatelessWidget {
+  const GuzsBlock({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,8 @@ class GuzsView extends StatelessWidget {
   }
 }
 
-class ChaptersView extends StatelessWidget {
-  const ChaptersView({super.key});
+class ChaptersBlock extends StatelessWidget {
+  const ChaptersBlock({super.key});
 
   @override
   Widget build(BuildContext context) {

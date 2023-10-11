@@ -15,7 +15,7 @@ class ChapterViewController extends GetxController {
   QuranApiOperations quranApi = QuranApiOperations();
   AudioOperations audioOperations = AudioOperations();
   Rx<ChapterViewModel> model = ChapterViewModel().obs;
-  InternationalizationController iContoller =
+  InternationalizationController iController =
       Get.find<InternationalizationController>();
 
   Future<void> updateId(int id) async {
@@ -172,11 +172,11 @@ class ChapterViewController extends GetxController {
     List<tm.Translation> y = x.translations!;
     String queryLanguage = 'english';
 
-    if (iContoller.languageCode.value == 'ar') {
+    if (iController.model.value.languageCode == 'ar') {
       queryLanguage = 'arabic';
-    } else if (iContoller.languageCode.value == 'es') {
+    } else if (iController.model.value.languageCode == 'es') {
       queryLanguage = 'spanish';
-    } else if (iContoller.languageCode.value == 'fr') {
+    } else if (iController.model.value.languageCode == 'fr') {
       queryLanguage = 'french';
     }
 

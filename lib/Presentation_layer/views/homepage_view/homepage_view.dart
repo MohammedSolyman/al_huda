@@ -21,26 +21,26 @@ class HomePageView extends StatelessWidget {
               itemBuilder: (BuildContext context) {
                 PopupMenuEntry p1 = PopupMenuItem(
                   child: const Text('عربى'),
-                  onTap: () async {
-                    await controller.updateMyLocate('ar');
+                  onTap: () {
+                    controller.updateMyLocate('ar');
                   },
                 );
                 PopupMenuEntry p2 = PopupMenuItem(
                   child: const Text('french'),
-                  onTap: () async {
-                    await controller.updateMyLocate('fr');
+                  onTap: () {
+                    controller.updateMyLocate('fr');
                   },
                 );
                 PopupMenuEntry p3 = PopupMenuItem(
                   child: const Text('english'),
-                  onTap: () async {
-                    await controller.updateMyLocate('en');
+                  onTap: () {
+                    controller.updateMyLocate('en');
                   },
                 );
                 PopupMenuEntry p4 = PopupMenuItem(
                   child: const Text('spanish'),
-                  onTap: () async {
-                    await controller.updateMyLocate('es');
+                  onTap: () {
+                    controller.updateMyLocate('es');
                   },
                 );
                 List<PopupMenuEntry<dynamic>> x = [p1, p2, p3, p4];

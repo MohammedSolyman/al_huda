@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 class QuranHomeController extends GetxController {
   Rx<QuranHomeModel> model = QuranHomeModel().obs;
   QuranApiOperations quranApi = QuranApiOperations();
-  InternationalizationController iController = InternationalizationController();
+
+  InternationalizationController iController =
+      Get.find<InternationalizationController>();
 
   void updateQuranSort(QuranSort s) {
     model.update((val) {
@@ -19,7 +21,7 @@ class QuranHomeController extends GetxController {
 
   Future<void> updateChaptersList() async {
     List<Chapter> x =
-        await quranApi.getChaptersList(iController.languageCode.value);
+        await quranApi.getChaptersList(iController.model.value.languageCode);
     model.update((val) {
       val!.chaptersList = x;
     });
@@ -32,10 +34,5 @@ class QuranHomeController extends GetxController {
       chapterArabicName: chapterArabicName,
       chapterLanguageName: chapterLanguageName,
     ));
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 }

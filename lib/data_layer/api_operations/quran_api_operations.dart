@@ -20,6 +20,7 @@ class QuranApiOperations {
         String body = response.body;
         Map<String, dynamic> result = jsonDecode(body);
         ChaptersListModel x = ChaptersListModel.fromJson(result);
+
         return x.chapters;
       }
     } catch (e) {

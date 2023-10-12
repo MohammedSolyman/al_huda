@@ -17,6 +17,9 @@ class QuranApiUrl {
   static const String avalaibleTranslations =
       '${_baseUrl}resources/translations';
 
+  //get list of all guzs (including verses maping).
+  static const String allGuzsUrl = '$_baseUrl/juzs';
+
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //endpoint methods of Quran.com api. /////////////////////////////////////////
@@ -42,22 +45,22 @@ class QuranApiUrl {
     return '${_baseUrl}chapters/$id/info?language=en';
   }
 
-  //Get versves of specific chapter. Default to English, required parameter:
-  //    chapter_number
-  // optional parameters
-  //    language
-  //    words
-  //    translations
-  //    audio
-  //    tafsirs
-  //    word_fields
-  //    translation_fields
-  //    fields
-  //    page
-  //    per_page
-  static String chapterVersesUrl(int chapterNumber) {
-    return '${_baseUrl}verses/by_chapter/$chapterNumber';
-  }
+  // //Get versves of specific chapter. Default to English, required parameter:
+  // //    chapter_number
+  // // optional parameters
+  // //    language
+  // //    words
+  // //    translations
+  // //    audio
+  // //    tafsirs
+  // //    word_fields
+  // //    translation_fields
+  // //    fields
+  // //    page
+  // //    per_page
+  // static String chapterVersesUrl(int chapterNumber) {
+  //   return '${_baseUrl}verses/by_chapter/$chapterNumber';
+  // }
 
   //Get Indopak Script of ayah, Optional parameters:
   //    chapter_number

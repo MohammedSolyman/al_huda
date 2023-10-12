@@ -1,4 +1,6 @@
 import 'package:al_huda/Presentation_layer/controllers/chapter_view_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
+import 'package:al_huda/util/constants/reciters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +39,7 @@ class ChapterView extends StatelessWidget {
               child: const Text('chapter infromation')),
           const ChapterInfo(),
           const TranslationSettings(),
+          const RecitersSettings(),
           ChapterVerses(chapterId: chapterId)
         ],
       ),
@@ -234,6 +237,7 @@ class ChapterVerses extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                Text('${index + 1}'),
                                 Expanded(
                                   child: Text(
                                       controller
@@ -359,5 +363,28 @@ class VersePauseResume extends StatelessWidget {
           },
           icon: const Icon(Icons.pause));
     }
+  }
+}
+
+class RecitersSettings extends StatelessWidget {
+  const RecitersSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    GlobalController gController = Get.find<GlobalController>();
+    return PopupMenuButton(
+        icon: const Icon(Icons.account_circle),
+        itemBuilder: (BuildContext context) {
+          List<PopupMenuEntry<dynamic>> x =
+              List.generate(Reciters.reciters.length, (index) {
+            return PopupMenuItem(
+              child: Text(Reciters.reciters[index].name),
+              onTap: () {
+                gController.updateReciter(Reciters.reciters[index].id);
+              },
+            );
+          });
+          return x;
+        });
   }
 }

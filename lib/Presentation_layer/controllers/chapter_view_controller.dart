@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/internalization_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart' as a;
 import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
@@ -15,8 +15,7 @@ class ChapterViewController extends GetxController {
   QuranApiOperations quranApi = QuranApiOperations();
   AudioOperations audioOperations = AudioOperations();
   Rx<ChapterViewModel> model = ChapterViewModel().obs;
-  InternationalizationController iController =
-      Get.find<InternationalizationController>();
+  GlobalController globalController = Get.find<GlobalController>();
 
   Future<void> updateId(int id) async {
     //update chapter id
@@ -66,8 +65,8 @@ class ChapterViewController extends GetxController {
   }
 
   Future<void> playAyah(int ayahNumber) async {
-    String path =
-        await quranApi.getayahAudioPath(model.value.chapterId, ayahNumber, 1);
+    String path = await quranApi.getayahAudioPath(model.value.chapterId,
+        ayahNumber, globalController.model.value.selectedReciter);
     await audioOperations.playAudio(path, noAyahPlaying);
     model.update((val) {
       val!.ayahPlaying = ayahNumber;
@@ -108,7 +107,8 @@ class ChapterViewController extends GetxController {
 // chapter audio controllers ///////////////////////////////////////////////////
 
   Future<void> _getChapterAudios(int chapterId) async {
-    List<a.AudioFile> x = await quranApi.getChapterAudiosPaths(chapterId, 1);
+    List<a.AudioFile> x = await quranApi.getChapterAudiosPaths(
+        chapterId, globalController.model.value.selectedReciter);
 
     model.update((val) {
       for (a.AudioFile audioFile in x) {
@@ -172,11 +172,11 @@ class ChapterViewController extends GetxController {
     List<tm.Translation> y = x.translations!;
     String queryLanguage = 'english';
 
-    if (iController.model.value.languageCode == 'ar') {
+    if (globalController.model.value.languageCode == 'ar') {
       queryLanguage = 'arabic';
-    } else if (iController.model.value.languageCode == 'es') {
+    } else if (globalController.model.value.languageCode == 'es') {
       queryLanguage = 'spanish';
-    } else if (iController.model.value.languageCode == 'fr') {
+    } else if (globalController.model.value.languageCode == 'fr') {
       queryLanguage = 'french';
     }
 

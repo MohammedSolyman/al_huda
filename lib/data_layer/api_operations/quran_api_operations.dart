@@ -1,8 +1,8 @@
 import 'package:al_huda/data_layer/api_models/ayah_audio_model.dart';
 import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
-import 'package:al_huda/data_layer/api_models/chapter_verses_model.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
+import 'package:al_huda/data_layer/api_models/guz_model.dart';
 import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart';
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
@@ -48,28 +48,6 @@ class QuranApiOperations {
       print(e.toString());
     }
   }
-
-  // dynamic getchapterVerses(int id) async {
-  //   String uri = QuranApiUrl.chapterVersesUrl(id);
-
-  //   Uri url = Uri.parse(uri);
-
-  //   try {
-  //     Response response = await get(url);
-
-  //     if (response.statusCode == 200) {
-  //       String body = response.body;
-
-  //       Map<String, dynamic> result = jsonDecode(body);
-
-  //       ChapterVersesModel x = ChapterVersesModel.fromJson(result);
-
-  //       return x;
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
 
   dynamic getChapterIndopak(int id) async {
     String uri = QuranApiUrl.chapterIndopakUrl(id);
@@ -179,6 +157,28 @@ class QuranApiOperations {
         Map<String, dynamic> result = jsonDecode(body);
 
         SpecificTranslationModel x = SpecificTranslationModel.fromJson(result);
+
+        return x;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic getAllGuzs() async {
+    String uri = QuranApiUrl.allGuzsUrl;
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        GuzModel x = GuzModel.fromJson(result);
 
         return x;
       }

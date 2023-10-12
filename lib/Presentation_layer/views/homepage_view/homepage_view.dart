@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/internalization_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/views/quran_views/quran_home_view.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,7 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InternationalizationController controller =
-        Get.put(InternationalizationController());
+    GlobalController controller = Get.put(GlobalController());
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

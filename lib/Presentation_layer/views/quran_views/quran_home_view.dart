@@ -1,3 +1,4 @@
+import 'package:al_huda/data_layer/view_models/quran_home_model.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
@@ -45,15 +46,6 @@ class QuranHomeView extends StatelessWidget {
   }
 }
 
-class GuzsBlock extends StatelessWidget {
-  const GuzsBlock({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
 class ChaptersBlock extends StatelessWidget {
   const ChaptersBlock({super.key});
 
@@ -90,5 +82,31 @@ class ChaptersBlock extends StatelessWidget {
         );
       }
     });
+  }
+}
+
+class GuzsBlock extends StatelessWidget {
+  const GuzsBlock({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    QuranHomeController controller = Get.find<QuranHomeController>();
+    controller.updateGuzsList();
+    return Expanded(
+      child: ListView.builder(
+          itemCount: 30,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                List<GuzMapping> z =
+                    controller.getSpecificGuzMapping(index + 1);
+                controller.goToGuzView(z);
+              },
+              child: ListTile(
+                title: Text('guz ${index + 1}'),
+              ),
+            );
+          }),
+    );
   }
 }

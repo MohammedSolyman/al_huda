@@ -1,20 +1,21 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
-import 'package:al_huda/data_layer/api_models/chapter_audios_model.dart' as a;
+import 'package:al_huda/data_layer/api_models/reciter_chapter_audios_model.dart';
 import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart' as tm;
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
 import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
-import 'package:al_huda/data_layer/view_models/chapter_view_model.dart';
-import 'package:al_huda/util/constants/apis_url.dart';
+import 'package:al_huda/data_layer/view_models/quran_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChapterViewController extends GetxController {
+class QuranController extends GetxController {
+  //this controller is for both ChapterView and GuzView screens.
+
   QuranApiOperations quranApi = QuranApiOperations();
   AudioOperations audioOperations = AudioOperations();
-  Rx<ChapterViewModel> model = ChapterViewModel().obs;
+  Rx<QuranModel> model = QuranModel().obs;
   GlobalController globalController = Get.find<GlobalController>();
 
   Future<void> updateId(int id) async {
@@ -60,14 +61,14 @@ class ChapterViewController extends GetxController {
     });
   }
 
-  Future<void> playAyah(int ayahNumber) async {
-    String path = await quranApi.getayahAudioPath(model.value.chapterId,
-        ayahNumber, globalController.model.value.selectedReciter);
-    await audioOperations.playAudio(path, noAyahPlaying);
-    model.update((val) {
-      val!.ayahPlaying = ayahNumber;
-    });
-  }
+  // Future<void> playAyah(int ayahNumber) async {
+  //   String path = await quranApi.getayahAudioPath(model.value.chapterId,
+  //       ayahNumber, globalController.model.value.selectedReciter);
+  //   await audioOperations.playAudio(path, noAyahPlaying);
+  //   model.update((val) {
+  //     val!.ayahPlaying = ayahNumber;
+  //   });
+  // }
 
   Future<void> stopAyah() async {
     await audioOperations.stopAudio();
@@ -102,15 +103,24 @@ class ChapterViewController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 // chapter audio controllers ///////////////////////////////////////////////////
 
-  Future<void> _getChapterAudios(int chapterId) async {
-    List<a.AudioFile> x = await quranApi.getChapterAudiosPaths(
-        chapterId, globalController.model.value.selectedReciter);
+  Future<void> _getReciterChapterAudios(int chapterId) async {
+    //there are two prexes before each audio url:
+    //https://verses.quran.com/
+    //      ex: verses.quran.com/AbdulBaset/Mujawwad/mp3/001001.mp3
+    //https://download.quranicaudio.com/qdc/
+    //      ex: https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/1.mp3
+
+    ReciterChapterAudiosModel x = await quranApi.getReciterChapterAudios(
+        globalController.model.value.selectedReciter, chapterId);
+
+    List<String> audiosPaths = [];
+
+    for (AudioFile a in x.audioFiles!) {
+      audiosPaths.add('https://verses.quran.com/${a.url!}');
+    }
 
     model.update((val) {
-      for (a.AudioFile audioFile in x) {
-        val!.chapterAudiosPaths
-            .add('${QuranApiUrl.audiobaseUrl}${audioFile.url!}');
-      }
+      val!.chapterAudiosPaths = audiosPaths;
     });
   }
 
@@ -130,7 +140,8 @@ class ChapterViewController extends GetxController {
       {required int chapterId,
       required int firstAyah,
       required int lastAyah}) async {
-    await _getChapterAudios(chapterId);
+    await _getReciterChapterAudios(chapterId);
+
     model.update((val) {
       val!.chapterPlaying = chapterId;
     });

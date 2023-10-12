@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/chapter_view_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -60,12 +60,12 @@ class HeadAudioControllers extends StatelessWidget {
   final int lastAyah;
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.put(ChapterViewController());
+    QuranController controller = Get.put(QuranController());
     return Obx(() {
       if (controller.model.value.chapterPlaying == chapterId) {
         return Row(
           children: [
-            ChapterPauseResume(chapterId: chapterId),
+            HeadPauseResume(chapterId: chapterId),
             IconButton(
                 onPressed: () {
                   controller.stopChapter();
@@ -95,13 +95,13 @@ class HeadAudioControllers extends StatelessWidget {
   }
 }
 
-class ChapterPauseResume extends StatelessWidget {
-  const ChapterPauseResume({required this.chapterId, super.key});
+class HeadPauseResume extends StatelessWidget {
+  const HeadPauseResume({required this.chapterId, super.key});
   final int chapterId;
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.put(ChapterViewController());
+    QuranController controller = Get.put(QuranController());
 
     return Obx(() {
       if (controller.model.value.chapterPaused == chapterId) {

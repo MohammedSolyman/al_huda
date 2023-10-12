@@ -17,10 +17,12 @@ class AudioOperations {
       required int lastAyah,
       required Function updateCurrentAyah,
       required Function onCompleteAudios}) async {
+    //playing first ayah
     Source source = UrlSource(urls[firstAyah - 1]);
     audioPlayer.play(source);
-    updateCurrentAyah(1);
-    int i = 1;
+    updateCurrentAyah(firstAyah);
+    //playing next ayahs
+    int i = firstAyah;
     audioPlayer.onPlayerComplete.listen((_) {
       if (i < lastAyah) {
         source = UrlSource(urls[i]);

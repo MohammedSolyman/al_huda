@@ -30,13 +30,6 @@ class QuranApiUrl {
     return '${_baseUrl}chapters?language=$langCode';
   }
 
-  //Get Ayah recitations audio for specific Ayah, required parameters:
-  //    recitation_id
-  //    ayah_key
-  static String ayahAudioUrl(int recitationId, String ayahKey) {
-    return '${_baseUrl}recitations/$recitationId/by_ayah/$ayahKey';
-  }
-
   //Get Chapter Info in specific language. Default to English, required parameters;
   //    Chapter number ( 1-114 )
   // optional parameters:
@@ -44,23 +37,6 @@ class QuranApiUrl {
   static String chapterInfoUrl(int id) {
     return '${_baseUrl}chapters/$id/info?language=en';
   }
-
-  // //Get versves of specific chapter. Default to English, required parameter:
-  // //    chapter_number
-  // // optional parameters
-  // //    language
-  // //    words
-  // //    translations
-  // //    audio
-  // //    tafsirs
-  // //    word_fields
-  // //    translation_fields
-  // //    fields
-  // //    page
-  // //    per_page
-  // static String chapterVersesUrl(int chapterNumber) {
-  //   return '${_baseUrl}verses/by_chapter/$chapterNumber';
-  // }
 
   //Get Indopak Script of ayah, Optional parameters:
   //    chapter_number
@@ -72,14 +48,14 @@ class QuranApiUrl {
     return '${_baseUrl}quran/verses/indopak?chapter_number=$chapterId';
   }
 
-  //Get audio of a chapter by a specific reciter, required parameters:
-  //    recitation_id
-  //    chapter_number
-  static String chapterAudiosUrl(int recitationId, int chapterId) {
-    return '${_baseUrl}recitations/$recitationId/by_chapter/$chapterId';
-  }
+  // //Get audio of a chapter by a specific reciter, required parameters:
+  // //    recitation_id
+  // //    chapter_number
+  // static String chapterAudiosUrl(int recitationId, int chapterId) {
+  //   return '${_baseUrl}recitations/$recitationId/by_chapter/$chapterId';
+  // }
 
-  //get ayah tafsir, required parameter:
+  //get ayah translate, required parameter:
   //    translation_id
   // optional parameters:
   //    fields
@@ -92,5 +68,19 @@ class QuranApiUrl {
   static String ayahTranslationUrl(
       int translationId, int chapterId, int ayahNumber) {
     return '${_baseUrl}quran/translations/$translationId?verse_key=$chapterId:$ayahNumber';
+  }
+
+  //get reciter audios, required parameter:
+  //    recitation_id
+  // optional parameters:
+  //    fields
+  //    chapter_number
+  //    juz_number
+  //    page_number
+  //    hizb_number
+  //    rub_el_hizb_number
+  //    verse_key
+  static String reciterChapterAudiosUrl(int recitationId, int chapterId) {
+    return '$_baseUrl/quran/recitations/$recitationId?chapter_number=$chapterId';
   }
 }

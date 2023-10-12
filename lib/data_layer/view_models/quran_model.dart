@@ -1,6 +1,8 @@
 import 'package:al_huda/data_layer/api_models/translation_model.dart';
 
-class ChapterViewModel {
+class QuranModel {
+//this model is for both ChapterView and GuzView screens.
+
   int chapterId = 0;
   String chapterInfo = '';
   List<String> chapterVerses = [];

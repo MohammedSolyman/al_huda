@@ -1,6 +1,6 @@
-import 'package:al_huda/Presentation_layer/controllers/chapter_view_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
-import 'package:al_huda/Presentation_layer/widgets/chapter_head.dart';
+import 'package:al_huda/Presentation_layer/widgets/head.dart';
 import 'package:al_huda/util/constants/reciters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,7 @@ class ChapterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.put(ChapterViewController());
+    QuranController controller = Get.put(QuranController());
     controller.updateId(chapterId);
     controller.getInfo();
 
@@ -57,7 +57,7 @@ class ChapterInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     return Obx(() {
       return Visibility(
@@ -78,7 +78,7 @@ class TranslationSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     return PopupMenuButton(
         icon: const Icon(Icons.school),
@@ -115,7 +115,7 @@ class ChapterVerses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     return Expanded(
       child: Container(
@@ -188,7 +188,7 @@ class TranslationBock extends StatelessWidget {
   final int chapterId;
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     if (controller.model.value.ayahTranslating == ayahId) {
       if (controller.model.value.ayahTranslationText.isEmpty) {
@@ -214,7 +214,7 @@ class VerseAudioControllers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     if (controller.model.value.chapterPlaying != chapterId) {
       if (controller.model.value.ayahPlaying == ayahNumber) {
@@ -231,7 +231,7 @@ class VerseAudioControllers extends StatelessWidget {
       } else {
         return IconButton(
             onPressed: () {
-              controller.playAyah(ayahNumber);
+              //  controller.playAyah(ayahNumber);
             },
             icon: const Icon(Icons.play_arrow));
       }
@@ -247,7 +247,7 @@ class VersePauseResume extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChapterViewController controller = Get.find<ChapterViewController>();
+    QuranController controller = Get.find<QuranController>();
 
     if (controller.model.value.ayahPaused == ayahNumber) {
       return IconButton(

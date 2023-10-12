@@ -66,10 +66,14 @@ class ChaptersBlock extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     controller.goToChapter(
-                        controller.model.value.chaptersList[index].id,
-                        controller.model.value.chaptersList[index].nameArabic,
-                        controller.model.value.chaptersList[index]
-                            .translatedName.name);
+                        chapterId:
+                            controller.model.value.chaptersList[index].id,
+                        versesCount: controller
+                            .model.value.chaptersList[index].versesCount,
+                        chapterArabicName: controller
+                            .model.value.chaptersList[index].nameArabic,
+                        chapterLanguageName: controller.model.value
+                            .chaptersList[index].translatedName.name);
                   },
                   child: ListTile(
                     title: Text(

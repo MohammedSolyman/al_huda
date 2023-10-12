@@ -29,9 +29,13 @@ class QuranHomeController extends GetxController {
   }
 
   void goToChapter(
-      int chapterId, String chapterArabicName, String chapterLanguageName) {
+      {required int chapterId,
+      required int versesCount,
+      required String chapterArabicName,
+      required String chapterLanguageName}) {
     Get.to(ChapterView(
       chapterId: chapterId,
+      versesCount: versesCount,
       chapterArabicName: chapterArabicName,
       chapterLanguageName: chapterLanguageName,
     ));

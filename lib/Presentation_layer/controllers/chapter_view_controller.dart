@@ -32,10 +32,6 @@ class ChapterViewController extends GetxController {
     });
   }
 
-  // Future<void> getchapterVerses() async {
-  //   await quranApi.getchapterVerses(model.value.chapterId);
-  // }
-
   Future<void> getChapterIndopack() async {
     VersesIndopakModel x =
         await quranApi.getChapterIndopak(model.value.chapterId);
@@ -130,14 +126,21 @@ class ChapterViewController extends GetxController {
     });
   }
 
-  Future<void> playChapter(int chapterId) async {
+  Future<void> playHead(
+      {required int chapterId,
+      required int firstAyah,
+      required int lastAyah}) async {
     await _getChapterAudios(chapterId);
     model.update((val) {
       val!.chapterPlaying = chapterId;
     });
 
     await audioOperations.playAudios(
-        model.value.chapterAudiosPaths, _updateCurrentAyah, _onCompleteChapter);
+        firstAyah: firstAyah,
+        lastAyah: lastAyah,
+        onCompleteAudios: _onCompleteChapter,
+        updateCurrentAyah: _updateCurrentAyah,
+        urls: model.value.chapterAudiosPaths);
   }
 
   Future<void> pauseChapter(int chapterId) async {

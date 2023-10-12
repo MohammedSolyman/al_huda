@@ -11,14 +11,18 @@ class AudioOperations {
     });
   }
 
-  Future<void> playAudios(List<String> urls, Function updateCurrentAyah,
-      Function onCompleteAudios) async {
-    Source source = UrlSource(urls[0]);
+  Future<void> playAudios(
+      {required List<String> urls,
+      required int firstAyah,
+      required int lastAyah,
+      required Function updateCurrentAyah,
+      required Function onCompleteAudios}) async {
+    Source source = UrlSource(urls[firstAyah - 1]);
     audioPlayer.play(source);
     updateCurrentAyah(1);
     int i = 1;
     audioPlayer.onPlayerComplete.listen((_) {
-      if (i < urls.length) {
+      if (i < lastAyah) {
         source = UrlSource(urls[i]);
         audioPlayer.play(source);
         updateCurrentAyah(i + 1);

@@ -30,4 +30,7 @@ class QuranModel {
   int ayahTranslating = 0;
   //script of ayah translation
   String ayahTranslationText = '';
+  //the number of the current audio session, when the user click stop, this
+  //audioSession increases by 1.
+  int AudioSession = 0;
 }

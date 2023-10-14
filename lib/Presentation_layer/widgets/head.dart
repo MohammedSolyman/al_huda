@@ -68,7 +68,7 @@ class HeadAudioControllers extends StatelessWidget {
             HeadPauseResume(chapterId: chapterId),
             IconButton(
                 onPressed: () {
-                  controller.stopChapter();
+                  controller.stop();
                 },
                 icon: const Icon(
                   Icons.stop,
@@ -80,10 +80,11 @@ class HeadAudioControllers extends StatelessWidget {
       } else {
         return IconButton(
             onPressed: () {
-              controller.playHead(
-                  chapterId: chapterId,
-                  firstAyah: firstAyah,
-                  lastAyah: lastAyah);
+              controller.play(
+                chapterId: chapterId,
+                firstAyah: firstAyah,
+                lastAyah: lastAyah,
+              );
             },
             icon: const Icon(
               Icons.play_arrow,
@@ -107,7 +108,7 @@ class HeadPauseResume extends StatelessWidget {
       if (controller.model.value.chapterPaused == chapterId) {
         return IconButton(
             onPressed: () {
-              controller.resumeChapter();
+              controller.resume();
             },
             icon: const Icon(
               Icons.play_circle,
@@ -117,7 +118,7 @@ class HeadPauseResume extends StatelessWidget {
       } else {
         return IconButton(
             onPressed: () {
-              controller.pauseChapter(chapterId);
+              controller.pause(chapterId);
             },
             icon: const Icon(
               Icons.pause,

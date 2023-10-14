@@ -5,7 +5,6 @@ import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart' as tm;
 import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
-import 'package:al_huda/data_layer/audio_operations/audio_operations.dart';
 import 'package:al_huda/data_layer/view_models/quran_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,6 @@ class QuranController extends GetxController {
   //this controller is for both ChapterView and GuzView screens.
 
   QuranApiOperations quranApi = QuranApiOperations();
-  AudioOperations audioOperations = AudioOperations();
   Rx<QuranModel> model = QuranModel().obs;
   GlobalController globalController = Get.find<GlobalController>();
 
@@ -61,36 +59,43 @@ class QuranController extends GetxController {
     });
   }
 
-  // Future<void> playAyah(int ayahNumber) async {
-  //   String path = await quranApi.getayahAudioPath(model.value.chapterId,
-  //       ayahNumber, globalController.model.value.selectedReciter);
-  //   await audioOperations.playAudio(path, noAyahPlaying);
+  // Future<void> playAyah({
+  //   required int chapterId,
+  //   required int ayahNumber,
+  // }) async {
+  //   await _getReciterChapterAudios(chapterId);
+
   //   model.update((val) {
-  //     val!.ayahPlaying = ayahNumber;
+  //     val!.chapterPlaying = chapterId;
+  //     val.ayahPlaying = ayahNumber;
+  //   });
+
+  //   List<String> chapterPathsUrls = model.value.chapterAudiosPaths;
+  //   List<String> urls = [chapterPathsUrls[ayahNumber]];
+  //   await globalController.playAudios(urls);
+  // }
+
+  // Future<void> stopAyah() async {
+  //   await audioOperations.stopAudio();
+  //   model.update((val) {
+  //     val!.ayahPlaying = 0;
+  //     val.ayahPaused = 0;
   //   });
   // }
 
-  Future<void> stopAyah() async {
-    await audioOperations.stopAudio();
-    model.update((val) {
-      val!.ayahPlaying = 0;
-      val.ayahPaused = 0;
-    });
-  }
+  // Future<void> pauseAyah(int ayahNumber) async {
+  //   await audioOperations.pauseAudio();
+  //   model.update((val) {
+  //     val!.ayahPaused = ayahNumber;
+  //   });
+  // }
 
-  Future<void> pauseAyah(int ayahNumber) async {
-    await audioOperations.pauseAudio();
-    model.update((val) {
-      val!.ayahPaused = ayahNumber;
-    });
-  }
-
-  Future<void> resumeAyah(int ayahNumber) async {
-    await audioOperations.resumeAudio();
-    model.update((val) {
-      val!.ayahPaused = 0;
-    });
-  }
+  // Future<void> resumeAyah(int ayahNumber) async {
+  //   await audioOperations.resumeAudio();
+  //   model.update((val) {
+  //     val!.ayahPaused = 0;
+  //   });
+  // }
 
   Color getAyahColor(int ahayNumber) {
     if (model.value.ayahPlaying == ahayNumber) {
@@ -136,47 +141,51 @@ class QuranController extends GetxController {
     });
   }
 
-  Future<void> playHead(
-      {required int chapterId,
-      required int firstAyah,
-      required int lastAyah}) async {
+  Future<void> play({
+    required int chapterId,
+    required int firstAyah,
+    required int lastAyah,
+  }) async {
     await _getReciterChapterAudios(chapterId);
 
     model.update((val) {
       val!.chapterPlaying = chapterId;
     });
 
-    await audioOperations.playAudios(
-        firstAyah: firstAyah,
-        lastAyah: lastAyah,
-        onCompleteAudios: _onCompleteChapter,
-        updateCurrentAyah: _updateCurrentAyah,
-        urls: model.value.chapterAudiosPaths);
+    List<String> chapterPathsUrls = model.value.chapterAudiosPaths;
+    List<String> urls = chapterPathsUrls.sublist(firstAyah - 1, lastAyah);
+    await globalController.playAudios(urls);
   }
 
-  Future<void> pauseChapter(int chapterId) async {
-    await audioOperations.pauseAudio();
+  Future<void> pause(int chapterId) async {
+    await globalController.pauseAudio();
     model.update((val) {
       val!.chapterPaused = chapterId;
     });
   }
 
-  Future<void> resumeChapter() async {
-    await audioOperations.resumeAudio();
+  Future<void> resume() async {
+    await globalController.resumeAudio();
     model.update((val) {
       val!.chapterPaused = 0;
     });
   }
 
-  Future<void> stopChapter() async {
-    await audioOperations.stopAudio();
+  Future<void> stop() async {
+    await globalController.stopAudio();
     model.update((val) {
       val!.chapterPlaying = 0;
       val.chapterPaused = 0;
       val.ayahPlaying = 0;
+      val.AudioSession = val.AudioSession + 1;
     });
   }
 
+  void clearAudios() {
+    model.update((val) {
+      val!.chapterAudiosPaths = [];
+    });
+  }
 ////////////////////////////////////////////////////////////////////////////////
 // translations ////////////////////////////////////////////////////////////////
 

@@ -223,7 +223,7 @@ class VerseAudioControllers extends StatelessWidget {
             VersePauseResume(ayahNumber),
             IconButton(
                 onPressed: () {
-                  controller.stopAyah();
+                  controller.stop();
                 },
                 icon: const Icon(Icons.stop)),
           ],
@@ -252,13 +252,13 @@ class VersePauseResume extends StatelessWidget {
     if (controller.model.value.ayahPaused == ayahNumber) {
       return IconButton(
           onPressed: () {
-            controller.resumeAyah(ayahNumber);
+            controller.resume();
           },
           icon: const Icon(Icons.play_circle));
     } else {
       return IconButton(
           onPressed: () {
-            controller.pauseAyah(ayahNumber);
+            controller.pause(ayahNumber);
           },
           icon: const Icon(Icons.pause));
     }
@@ -271,6 +271,7 @@ class RecitersSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalController gController = Get.find<GlobalController>();
+    QuranController quranController = Get.find<QuranController>();
     return PopupMenuButton(
         icon: const Icon(Icons.account_circle),
         itemBuilder: (BuildContext context) {
@@ -278,8 +279,9 @@ class RecitersSettings extends StatelessWidget {
               List.generate(Reciters.reciters.length, (index) {
             return PopupMenuItem(
               child: Text(Reciters.reciters[index].name),
-              onTap: () {
-                gController.updateReciter(Reciters.reciters[index].id);
+              onTap: () async {
+                await gController.updateReciter(Reciters.reciters[index].id,
+                    quranController.stop, quranController.clearAudios);
               },
             );
           });

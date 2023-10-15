@@ -1,8 +1,10 @@
 class TranslationModel {
   List<Translation>? translations;
+  Meta? meta;
 
   TranslationModel({
     this.translations,
+    this.meta,
   });
 
   factory TranslationModel.fromJson(Map<String, dynamic> json) =>
@@ -11,69 +13,53 @@ class TranslationModel {
             ? []
             : List<Translation>.from(
                 json["translations"]!.map((x) => Translation.fromJson(x))),
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
       );
 
   Map<String, dynamic> toJson() => {
         "translations": translations == null
             ? []
             : List<dynamic>.from(translations!.map((x) => x.toJson())),
+        "meta": meta?.toJson(),
+      };
+}
+
+class Meta {
+  String? translationName;
+  String? authorName;
+
+  Meta({
+    this.translationName,
+    this.authorName,
+  });
+
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+        translationName: json["translation_name"],
+        authorName: json["author_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "translation_name": translationName,
+        "author_name": authorName,
       };
 }
 
 class Translation {
-  int? id;
-  String? name;
-  String? authorName;
-  String? slug;
-  String? languageName;
-  TranslatedName? translatedName;
+  int? resourceId;
+  String? text;
 
   Translation({
-    this.id,
-    this.name,
-    this.authorName,
-    this.slug,
-    this.languageName,
-    this.translatedName,
+    this.resourceId,
+    this.text,
   });
 
   factory Translation.fromJson(Map<String, dynamic> json) => Translation(
-        id: json["id"],
-        name: json["name"],
-        authorName: json["author_name"],
-        slug: json["slug"],
-        languageName: json["language_name"],
-        translatedName: json["translated_name"] == null
-            ? null
-            : TranslatedName.fromJson(json["translated_name"]),
+        resourceId: json["resource_id"],
+        text: json["text"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "author_name": authorName,
-        "slug": slug,
-        "language_name": languageName,
-        "translated_name": translatedName?.toJson(),
-      };
-}
-
-class TranslatedName {
-  String? name;
-  String? languageName;
-
-  TranslatedName({
-    this.name,
-    this.languageName,
-  });
-
-  factory TranslatedName.fromJson(Map<String, dynamic> json) => TranslatedName(
-        name: json["name"],
-        languageName: json["language_name"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "language_name": languageName,
+        "resource_id": resourceId,
+        "text": text,
       };
 }

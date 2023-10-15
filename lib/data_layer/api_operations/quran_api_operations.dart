@@ -1,16 +1,18 @@
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
+import 'package:al_huda/data_layer/api_models/indopak_guz_chapter_model.dart';
 import 'package:al_huda/data_layer/api_models/guz_model.dart';
-import 'package:al_huda/data_layer/api_models/reciter_chapter_audios_model.dart';
-import 'package:al_huda/data_layer/api_models/specific_translation_model.dart';
+import 'package:al_huda/data_layer/api_models/audios_reciter_chapter_model.dart';
+import 'package:al_huda/data_layer/api_models/audios_reciter_guz_chapter_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart';
-import 'package:al_huda/data_layer/api_models/verses_indopak_model.dart';
+import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
+import 'package:al_huda/data_layer/api_models/indopak_chapter_model.dart';
 import 'package:al_huda/util/constants/apis_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
 class QuranApiOperations {
-  dynamic getChaptersList(String langCode) async {
+  dynamic chaptersList(String langCode) async {
     String uri = QuranApiUrl.chaptersListUrl(langCode);
     Uri url = Uri.parse(uri);
     try {
@@ -49,7 +51,7 @@ class QuranApiOperations {
   }
 
   dynamic getChapterIndopak(int id) async {
-    String uri = QuranApiUrl.chapterIndopakUrl(id);
+    String uri = QuranApiUrl.indopakChapterUrl(id);
 
     Uri url = Uri.parse(uri);
 
@@ -61,7 +63,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        VersesIndopakModel x = VersesIndopakModel.fromJson(result);
+        IndopakChapterModel x = IndopakChapterModel.fromJson(result);
 
         return x;
       }
@@ -70,9 +72,53 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getAvailaleTraslations() async {
+  dynamic getGuzChapterIndopak(int guzNumber, int chapterId) async {
+    String uri = QuranApiUrl.indopakGuzChapterUrl(guzNumber, chapterId);
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        IndopakGuzChapterModel x = IndopakGuzChapterModel.fromJson(result);
+
+        return x;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic traslationsresource() async {
     //get the available translations info.
     String uri = QuranApiUrl.avalaibleTranslations;
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        TranslationResourceModel x = TranslationResourceModel.fromJson(result);
+
+        return x;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic traslationChapter(int translationId, int chapterId) async {
+    String uri = QuranApiUrl.translationChapterUrl(translationId, chapterId);
 
     Uri url = Uri.parse(uri);
 
@@ -93,11 +139,10 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getspecificTraslation(
-      int translationId, int chapterId, int ayahNumber) async {
-    //get specif translation of a specific ayah.
-    String uri =
-        QuranApiUrl.ayahTranslationUrl(translationId, chapterId, ayahNumber);
+  dynamic traslationGuzChapter(
+      int translationId, int chapterId, int guzNumber) async {
+    String uri = QuranApiUrl.TranslationGuzChapterUrl(
+        translationId, chapterId, guzNumber);
 
     Uri url = Uri.parse(uri);
 
@@ -109,7 +154,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        SpecificTranslationModel x = SpecificTranslationModel.fromJson(result);
+        TranslationModel x = TranslationModel.fromJson(result);
 
         return x;
       }
@@ -141,7 +186,7 @@ class QuranApiOperations {
   }
 
   dynamic getReciterChapterAudios(int recitationId, int chapterId) async {
-    String uri = QuranApiUrl.reciterChapterAudiosUrl(recitationId, chapterId);
+    String uri = QuranApiUrl.audiosReciterChapterUrl(recitationId, chapterId);
 
     Uri url = Uri.parse(uri);
 
@@ -153,8 +198,32 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        ReciterChapterAudiosModel x =
-            ReciterChapterAudiosModel.fromJson(result);
+        AudiosReciterChapterModel x =
+            AudiosReciterChapterModel.fromJson(result);
+
+        return x;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  dynamic getReciterGuzChapterAudios(int recitationId, int guzNumber) async {
+    String uri =
+        QuranApiUrl.audiosReciterGuzChapterUrl(recitationId, guzNumber);
+
+    Uri url = Uri.parse(uri);
+
+    try {
+      Response response = await get(url);
+
+      if (response.statusCode == 200) {
+        String body = response.body;
+
+        Map<String, dynamic> result = jsonDecode(body);
+
+        AudiosReciterGuzChapterModel x =
+            AudiosReciterGuzChapterModel.fromJson(result);
 
         return x;
       }

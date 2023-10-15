@@ -11,6 +11,7 @@ class QuranHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranHomeController controller = Get.put(QuranHomeController());
+
     controller.updateChaptersList();
 
     return Scaffold(body: Obx(() {
@@ -66,14 +67,8 @@ class ChaptersBlock extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     controller.goToChapter(
-                        chapterId:
-                            controller.model.value.chaptersList[index].id,
-                        versesCount: controller
-                            .model.value.chaptersList[index].versesCount,
-                        chapterArabicName: controller
-                            .model.value.chaptersList[index].nameArabic,
-                        chapterLanguageName: controller.model.value
-                            .chaptersList[index].translatedName.name);
+                      chapterId: controller.model.value.chaptersList[index].id,
+                    );
                   },
                   child: ListTile(
                     title: Text(
@@ -95,16 +90,15 @@ class GuzsBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranHomeController controller = Get.find<QuranHomeController>();
-    controller.updateGuzsList();
     return Expanded(
       child: ListView.builder(
           itemCount: 30,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                List<GuzMapping> z =
-                    controller.getSpecificGuzMapping(index + 1);
-                controller.goToGuzView(z);
+                // List<GuzMapping> z =
+                //     controller.getSpecificGuzMapping(index + 1);
+                //   controller.goToGuzView(z);
               },
               child: ListTile(
                 title: Text('guz ${index + 1}'),

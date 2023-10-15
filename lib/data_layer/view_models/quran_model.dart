@@ -1,26 +1,12 @@
-import 'package:al_huda/data_layer/api_models/translation_model.dart';
+import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
 
 class QuranModel {
 //this model is for both ChapterView and GuzView screens.
 
-  int chapterId = 0;
-  String chapterInfo = '';
-  List<String> chapterVerses = [];
-  List<String> chapterAudiosPaths = [];
+  List<HeadValues> heads = [];
 
   bool showChapterInfo = true;
-  //id of the ahay that is playing now, if 0 then there is no ahay is playing
-  //now.
-  int ayahPlaying = 0;
-  //id of the ahay that is paused now, if 0 then there is no ahay is paused
-  //now.
-  int ayahPaused = 0;
-  //id of the chapter that is playing now, if 0 then there is no chapter is
-  //playing now.
-  int chapterPlaying = 0;
-  //id of the chapter that is paused now, if 0 then there is no chapter is
-  //paused now.
-  int chapterPaused = 0;
+
   //List of all available translation of specific language.
   List<Translation> languageTranslations = [];
   //id of the selected translation code, if 0 then there is no selected
@@ -32,5 +18,42 @@ class QuranModel {
   String ayahTranslationText = '';
   //the number of the current audio session, when the user click stop, this
   //audioSession increases by 1.
-  int AudioSession = 0;
+}
+
+class HeadValues {
+  //Each headvalues must have chapter id and chapter info arabic and langauge
+  //names.
+  int chapterId;
+  String chapterInfo;
+  String arabicName;
+  String languageName;
+
+  List<Ayah>? scripts = [];
+
+  List<String>? audiosPaths = [];
+
+  List<String>? translations = [];
+
+//audio controllers.
+  bool headSound = true; //head sound system or ayah sound system
+  bool audioPaused = false;
+  bool audioStopped = false;
+
+//showing chapter info
+  bool showInfo = false;
+  HeadValues({
+    required this.chapterId,
+    required this.chapterInfo,
+    required this.arabicName,
+    required this.languageName,
+    this.audiosPaths,
+    this.scripts,
+    this.translations,
+  });
+}
+
+class Ayah {
+  String script;
+  int number;
+  Ayah(this.script, this.number);
 }

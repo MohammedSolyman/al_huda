@@ -1,4 +1,5 @@
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
+import 'package:al_huda/util/constants/audio_state.dart';
 
 class QuranModel {
 //this model is for both ChapterView and GuzView screens.
@@ -21,26 +22,23 @@ class QuranModel {
 }
 
 class HeadValues {
-  //Each headvalues must have chapter id and chapter info arabic and langauge
-  //names.
   int chapterId;
   String chapterInfo;
   String arabicName;
   String languageName;
+  bool showInfo = false;
 
   List<Ayah>? scripts = [];
-
   List<String>? audiosPaths = [];
-
   List<String>? translations = [];
 
 //audio controllers.
-  bool headSound = true; //head sound system or ayah sound system
-  bool audioPaused = false;
-  bool audioStopped = false;
+  AudioState headSystemState = AudioState.stopped;
+  AudioState ayahSystemState = AudioState.stopped;
 
+  int playingAyahIndex = -1; //if -1, so there is no ayah playing
 //showing chapter info
-  bool showInfo = false;
+
   HeadValues({
     required this.chapterId,
     required this.chapterInfo,

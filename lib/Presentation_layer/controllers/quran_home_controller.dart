@@ -31,43 +31,4 @@ class QuranHomeController extends GetxController {
   void goToChapter({required int chapterId}) {
     Get.to(ChapterView(chapterId: chapterId));
   }
-
-  // updateGuzsList() async {
-  //   GuzModel guzModel = await quranApi.getAllGuzs();
-  //   List<Juz> juzsList = guzModel.juzs!;
-
-  //   List<GuzMapping> a = [];
-
-  //   for (Juz juz in juzsList) {
-  //     Map<String, String> m = juz.verseMapping!;
-
-  //     m.forEach((key, value) {
-  //       int chapterId = int.parse(key);
-  //       int firstAyahNumber = int.parse(value.split('-')[0]);
-  //       int lastAyahNumber = int.parse(value.split('-')[1]);
-
-  //       GuzMapping g = GuzMapping(
-  //           guzNumber: juz.juzNumber!,
-  //           chapterId: chapterId,
-  //           firstAyahNumber: firstAyahNumber,
-  //           lastAyahNumber: lastAyahNumber);
-
-  //       a.add(g);
-  //     });
-  //   }
-  //   model.update((val) {
-  //     val!.mappingInThisGuz = a;
-  //   });
-  // }
-
-  // List<GuzMapping> getSpecificGuzMapping(int guzId) {
-  //   List<GuzMapping> x = [];
-
-  //   for (GuzMapping gm in model.value.mappingInThisGuz) {
-  //     if (gm.guzNumber == guzId) {
-  //       x.add(gm);
-  //     }
-  //   }
-  //   return x;
-  // }
 }

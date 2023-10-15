@@ -23,19 +23,13 @@ class GlobalController extends GetxController {
     await Get.updateLocale(l);
   }
 
-  Future<void> updateReciter(
-      int reciterId, Function stopHead, Function clearAudiosPaths) async {
+  Future<void> updateReciterId(int reciterId) async {
     //if reciterId is different that the current reciter:
-    //1. stop any playing and
-    //2. update the reciter due to user selection.
-    //3. clear audiospaths list
 
     if (model.value.selectedReciter != reciterId) {
-      stopHead();
       model.update((val) {
         val!.selectedReciter = reciterId;
       });
-      clearAudiosPaths();
     }
   }
 
@@ -54,14 +48,6 @@ class GlobalController extends GetxController {
       print(e.toString());
     }
     await audioPlayer.play();
-  }
-
-  int getCurrentAudioIndex() {
-    int currentIndex = 0;
-    audioPlayer.current.listen((Playing? event) {
-      currentIndex = event!.index;
-    });
-    return currentIndex;
   }
 
   Future<void> stopAudio() async {

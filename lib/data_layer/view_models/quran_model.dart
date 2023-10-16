@@ -35,9 +35,7 @@ class HeadValues {
 //audio controllers.
   AudioState headSystemState = AudioState.stopped;
   AudioState ayahSystemState = AudioState.stopped;
-
   int playingAyahIndex = -1; //if -1, so there is no ayah playing
-//showing chapter info
 
   HeadValues({
     required this.chapterId,

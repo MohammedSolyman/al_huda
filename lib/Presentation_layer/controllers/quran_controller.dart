@@ -87,13 +87,28 @@ class QuranController extends GetxController {
       if (event == true) {
         updateHeadSystem(headIndex, AudioState.stopped);
         updateAyahSysytem(headIndex, AudioState.stopped);
+
+        model.update((val) {
+          val!.heads[headIndex].playingAyahIndex = -1;
+        });
       }
     });
+  }
+
+  updateListAyahPlaying(int headIndex) {
+    //call this function after play() in head block
 
     globalController.audioPlayer.current.listen((Playing? event) {
       model.update((val) {
         val!.heads[headIndex].playingAyahIndex = event!.index;
       });
+    });
+  }
+
+  updateAyahPlaying(int headIndex, int index) {
+    //call this function after play() in ayah block
+    model.update((val) {
+      val!.heads[headIndex].playingAyahIndex = index;
     });
   }
 

@@ -158,6 +158,7 @@ class AyahAudioControllers extends StatelessWidget {
                               controller.model.value.heads[headIndex]
                                   .audiosPaths![index]
                             ], headIndex: headIndex);
+                            controller.updateAyahPlaying(headIndex, index);
                           },
                           icon: const Icon(
                             Icons.play_arrow,

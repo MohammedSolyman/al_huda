@@ -136,6 +136,7 @@ class HeadAudioControllers extends StatelessWidget {
                           urls: controller
                               .model.value.heads[headIndex].audiosPaths!,
                           headIndex: headIndex);
+                      controller.updateListAyahPlaying(headIndex);
                     },
                     icon: const Icon(
                       Icons.play_arrow,

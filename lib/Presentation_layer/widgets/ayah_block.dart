@@ -27,20 +27,21 @@ class AyahBlock extends StatelessWidget {
                         controller.model.value.heads[headIndex].scripts!.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                          decoration: BoxDecoration(
-                              color: controller.getColor(headIndex, index),
-                              border: Border.all(color: Colors.black)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              AyahANdTrasnlation(
-                                  index: index, headIndex: headIndex),
-                              AyahAudioControllers(
-                                headIndex: headIndex,
-                                index: index,
-                              )
-                            ],
-                          ));
+                        decoration: BoxDecoration(
+                            color: controller.getColor(headIndex, index),
+                            border: Border.all(color: Colors.black)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            AyahANdTrasnlation(
+                                index: index, headIndex: headIndex),
+                            AyahAudioControllers(
+                              headIndex: headIndex,
+                              index: index,
+                            )
+                          ],
+                        ),
+                      );
                     }),
               );
             }
@@ -64,12 +65,16 @@ class AyahANdTrasnlation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ArabicAyah(index: index, headIndex: headIndex),
-          Translation(index: index, headIndex: headIndex),
-        ],
+      flex: 3,
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArabicAyah(index: index, headIndex: headIndex),
+            Translation(index: index, headIndex: headIndex),
+          ],
+        ),
       ),
     );
   }
@@ -109,8 +114,11 @@ class ArabicAyah extends StatelessWidget {
       children: [
         Text(controller.model.value.heads[headIndex].scripts![index].number
             .toString()),
-        Text(controller.model.value.heads[headIndex].scripts![index].script,
-            textDirection: TextDirection.rtl),
+        Expanded(
+          child: Text(
+              controller.model.value.heads[headIndex].scripts![index].script,
+              textDirection: TextDirection.rtl),
+        ),
       ],
     );
   }
@@ -125,88 +133,98 @@ class AyahAudioControllers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
-    return Obx(() {
-      if (controller.model.value.heads.isNotEmpty) {
-        if (controller.model.value.heads[headIndex].headSystemState ==
-            AudioState.stopped) {
-          return Row(
-            children: [
-              Visibility(
-                  visible:
-                      controller.model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.stopped,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateAyahSysytem(
-                            headIndex, AudioState.playing);
-                        controller.play(urls: [
-                          controller
-                              .model.value.heads[headIndex].audiosPaths![index]
-                        ], headIndex: headIndex);
-                      },
-                      icon: const Icon(
-                        Icons.play_arrow,
-                        color: Colors.lightGreen,
-                        size: 40,
-                      ))),
-              Visibility(
-                  visible:
-                      controller.model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.playing,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateAyahSysytem(
-                            headIndex, AudioState.paused);
-
-                        controller.pause(headIndex);
-                      },
-                      icon: const Icon(
-                        Icons.pause,
-                        color: Colors.lightGreen,
-                        size: 40,
-                      ))),
-              Visibility(
-                  visible:
-                      controller.model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.paused,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateAyahSysytem(
-                            headIndex, AudioState.playing);
-
-                        controller.resume(headIndex);
-                      },
-                      icon: const Icon(
-                        Icons.play_circle,
-                        color: Colors.lightGreen,
-                        size: 40,
-                      ))),
-              Visibility(
-                  visible: controller
+    return Expanded(
+      flex: 1,
+      child: Container(
+        decoration: BoxDecoration(
+            color: controller.getColor(headIndex, index),
+            border: Border.all(color: Colors.black)),
+        child: Obx(() {
+          if (controller.model.value.heads.isNotEmpty) {
+            if (controller.model.value.heads[headIndex].headSystemState ==
+                AudioState.stopped) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Visibility(
+                      visible: controller
                               .model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.playing ||
-                      controller.model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.paused,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateAyahSysytem(
-                            headIndex, AudioState.stopped);
+                          AudioState.stopped,
+                      child: IconButton(
+                          onPressed: () {
+                            controller.updateAyahSysytem(
+                                headIndex, AudioState.playing);
+                            controller.play(urls: [
+                              controller.model.value.heads[headIndex]
+                                  .audiosPaths![index]
+                            ], headIndex: headIndex);
+                          },
+                          icon: const Icon(
+                            Icons.play_arrow,
+                            color: Colors.lightGreen,
+                            size: 40,
+                          ))),
+                  Visibility(
+                      visible: controller
+                              .model.value.heads[headIndex].ayahSystemState ==
+                          AudioState.playing,
+                      child: IconButton(
+                          onPressed: () {
+                            controller.updateAyahSysytem(
+                                headIndex, AudioState.paused);
 
-                        controller.stop(headIndex);
-                      },
-                      icon: const Icon(
-                        Icons.stop,
-                        color: Colors.lightGreen,
-                        size: 40,
-                      )))
-            ],
-          );
-        } else {
-          return Container();
-        }
-      } else {
-        return Container();
-      }
-    });
+                            controller.pause(headIndex);
+                          },
+                          icon: const Icon(
+                            Icons.pause,
+                            color: Colors.lightGreen,
+                            size: 40,
+                          ))),
+                  Visibility(
+                      visible: controller
+                              .model.value.heads[headIndex].ayahSystemState ==
+                          AudioState.paused,
+                      child: IconButton(
+                          onPressed: () {
+                            controller.updateAyahSysytem(
+                                headIndex, AudioState.playing);
+
+                            controller.resume(headIndex);
+                          },
+                          icon: const Icon(
+                            Icons.play_circle,
+                            color: Colors.lightGreen,
+                            size: 40,
+                          ))),
+                  Visibility(
+                      visible: controller.model.value.heads[headIndex]
+                                  .ayahSystemState ==
+                              AudioState.playing ||
+                          controller.model.value.heads[headIndex]
+                                  .ayahSystemState ==
+                              AudioState.paused,
+                      child: IconButton(
+                          onPressed: () {
+                            controller.updateAyahSysytem(
+                                headIndex, AudioState.stopped);
+
+                            controller.stop(headIndex);
+                          },
+                          icon: const Icon(
+                            Icons.stop,
+                            color: Colors.lightGreen,
+                            size: 40,
+                          )))
+                ],
+              );
+            } else {
+              return Container();
+            }
+          } else {
+            return Container();
+          }
+        }),
+      ),
+    );
   }
 }

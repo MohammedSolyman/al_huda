@@ -72,17 +72,21 @@ class NameBlock extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            controller.model.value.heads.isEmpty
-                ? '...'
-                : controller.model.value.heads[headIndex].languageName,
-            style: const TextStyle(color: Colors.white, fontSize: 30),
-          ),
-          Text(
-            controller.model.value.heads.isEmpty
-                ? '...'
-                : controller.model.value.heads[headIndex].arabicName,
-            style: const TextStyle(color: Colors.white, fontSize: 30),
+          Column(
+            children: [
+              Text(
+                controller.model.value.heads.isEmpty
+                    ? '...'
+                    : controller.model.value.heads[headIndex].arabicName,
+                style: const TextStyle(color: Colors.white, fontSize: 30),
+              ),
+              Text(
+                controller.model.value.heads.isEmpty
+                    ? '...'
+                    : controller.model.value.heads[headIndex].languageName,
+                style: const TextStyle(color: Colors.white, fontSize: 30),
+              ),
+            ],
           ),
           Column(
             children: [

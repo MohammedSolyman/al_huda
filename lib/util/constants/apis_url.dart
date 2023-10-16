@@ -32,7 +32,7 @@ class QuranApiUrl {
     return '${_baseUrl}quran/translations/$translationId?chapter_number=$chapterId';
   }
 
-  static String TranslationGuzChapterUrl(
+  static String translationGuzChapterUrl(
       int translationId, int chapterId, int guzNumber) {
     return '${_baseUrl}quran/translations/$translationId?chapter_number=$chapterId&juz_number=$guzNumber';
   }

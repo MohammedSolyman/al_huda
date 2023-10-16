@@ -1,4 +1,3 @@
-import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:al_huda/util/constants/reciters.dart';
@@ -38,7 +37,7 @@ class InfoBock extends StatelessWidget {
     QuranController controller = Get.find<QuranController>();
 
     return Obx(() {
-      if (!controller.model.value.heads.isEmpty) {
+      if (controller.model.value.heads.isNotEmpty) {
         if (controller.model.value.heads[headIndex].showInfo) {
           return Container(
             color: Colors.yellow,
@@ -93,7 +92,7 @@ class NameBlock extends StatelessWidget {
                       onPressed: () {
                         controller.toggleChapterInfoVisibility(headIndex);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.info,
                         color: Colors.white,
                       )),

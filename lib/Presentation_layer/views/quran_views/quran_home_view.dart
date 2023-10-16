@@ -1,4 +1,4 @@
-import 'package:al_huda/data_layer/view_models/quran_home_model.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_api_controller.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
@@ -89,7 +89,7 @@ class GuzsBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuranHomeController controller = Get.find<QuranHomeController>();
+    //QuranHomeController controller = Get.find<QuranHomeController>();
     return Expanded(
       child: ListView.builder(
           itemCount: 30,

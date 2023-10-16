@@ -16,10 +16,10 @@ class AyahBlock extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: Obx(() {
           if (controller.model.value.heads.isEmpty) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else {
             if (controller.model.value.heads[headIndex].scripts!.isEmpty) {
-              return Text('...');
+              return const Text('...');
             } else {
               return Expanded(
                 child: ListView.builder(

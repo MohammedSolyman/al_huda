@@ -141,7 +141,7 @@ class QuranApiOperations {
 
   dynamic traslationGuzChapter(
       int translationId, int chapterId, int guzNumber) async {
-    String uri = QuranApiUrl.TranslationGuzChapterUrl(
+    String uri = QuranApiUrl.translationGuzChapterUrl(
         translationId, chapterId, guzNumber);
 
     Uri url = Uri.parse(uri);

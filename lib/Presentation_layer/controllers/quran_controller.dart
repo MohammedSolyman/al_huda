@@ -87,7 +87,6 @@ class QuranController extends GetxController {
       if (event == true) {
         updateHeadSystem(headIndex, AudioState.stopped);
         updateAyahSysytem(headIndex, AudioState.stopped);
-
         model.update((val) {
           val!.heads[headIndex].playingAyahIndex = -1;
         });

@@ -162,13 +162,15 @@ class AyahAudioControllers extends StatelessWidget {
                           },
                           icon: const Icon(
                             Icons.play_arrow,
-                            color: Colors.lightGreen,
                             size: 40,
                           ))),
                   Visibility(
-                      visible: controller
-                              .model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.playing,
+                      visible: controller.model.value.heads[headIndex]
+                                  .ayahSystemState ==
+                              AudioState.playing &&
+                          controller.model.value.heads[headIndex]
+                                  .playingAyahIndex ==
+                              index,
                       child: IconButton(
                           onPressed: () {
                             controller.updateAyahSysytem(
@@ -178,13 +180,15 @@ class AyahAudioControllers extends StatelessWidget {
                           },
                           icon: const Icon(
                             Icons.pause,
-                            color: Colors.lightGreen,
                             size: 40,
                           ))),
                   Visibility(
-                      visible: controller
-                              .model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.paused,
+                      visible: controller.model.value.heads[headIndex]
+                                  .ayahSystemState ==
+                              AudioState.paused &&
+                          controller.model.value.heads[headIndex]
+                                  .playingAyahIndex ==
+                              index,
                       child: IconButton(
                           onPressed: () {
                             controller.updateAyahSysytem(
@@ -194,16 +198,18 @@ class AyahAudioControllers extends StatelessWidget {
                           },
                           icon: const Icon(
                             Icons.play_circle,
-                            color: Colors.lightGreen,
                             size: 40,
                           ))),
                   Visibility(
-                      visible: controller.model.value.heads[headIndex]
-                                  .ayahSystemState ==
-                              AudioState.playing ||
+                      visible: (controller.model.value.heads[headIndex]
+                                      .ayahSystemState ==
+                                  AudioState.playing ||
+                              controller.model.value.heads[headIndex]
+                                      .ayahSystemState ==
+                                  AudioState.paused) &&
                           controller.model.value.heads[headIndex]
-                                  .ayahSystemState ==
-                              AudioState.paused,
+                                  .playingAyahIndex ==
+                              index,
                       child: IconButton(
                           onPressed: () {
                             controller.updateAyahSysytem(
@@ -213,7 +219,6 @@ class AyahAudioControllers extends StatelessWidget {
                           },
                           icon: const Icon(
                             Icons.stop,
-                            color: Colors.lightGreen,
                             size: 40,
                           )))
                 ],

@@ -1,4 +1,3 @@
-import 'package:al_huda/Presentation_layer/controllers/quran_api_controller.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';

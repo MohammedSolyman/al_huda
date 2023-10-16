@@ -185,7 +185,7 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getReciterChapterAudios(int recitationId, int chapterId) async {
+  dynamic audiosReciterChapter(int recitationId, int chapterId) async {
     String uri = QuranApiUrl.audiosReciterChapterUrl(recitationId, chapterId);
 
     Uri url = Uri.parse(uri);
@@ -208,9 +208,10 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getReciterGuzChapterAudios(int recitationId, int guzNumber) async {
-    String uri =
-        QuranApiUrl.audiosReciterGuzChapterUrl(recitationId, guzNumber);
+  dynamic audiosReciterGuzChapter(
+      int recitationId, int chapterId, int guzNumber) async {
+    String uri = QuranApiUrl.audiosReciterGuzChapterUrl(
+        recitationId, chapterId, guzNumber);
 
     Uri url = Uri.parse(uri);
 

@@ -59,7 +59,7 @@ class QuranApiUrl {
 
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
-  //Script. ///////////////////////////////////////////////////////////////////
+  //Script. ////////////////////////////////////////////////////////////////////
 
   //Get Indopak Script of ayah, Optional parameters:
   //    chapter_number
@@ -74,21 +74,26 @@ class QuranApiUrl {
   static String indopakGuzChapterUrl(int guzNumber, int chapterId) {
     return '${_baseUrl}quran/verses/indopak?juz_number=$guzNumber&chapter_number=$chapterId';
   }
-
-///////////////////////////////////////////////////////////////////////////////
-// Audios
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  // Audios
 
   //Get audios of a chapter by a specific reciter, required parameters:
   //    recitation_id
+  // optional parameters:
   //    chapter_number
+  //    juz_number
+  //    page_number
+  //    hizb_number
+  //    rub_el_hizb_number
+  //    verse_key
   static String audiosReciterChapterUrl(int recitationId, int chapterId) {
-    return '${_baseUrl}recitations/$recitationId/by_chapter/$chapterId';
+    return '${_baseUrl}quran/recitations/$recitationId?chapter_number=$chapterId';
   }
 
-  //Get audios of a guz chapter by a specific reciter, required parameters:
-  //    recitation_id
-  //    juz_number
-  static String audiosReciterGuzChapterUrl(int recitationId, int guzNumber) {
-    return '${_baseUrl}recitations/$recitationId/by_juz/$guzNumber';
+  static String audiosReciterGuzChapterUrl(
+      int recitationId, int chapterId, int guzNumber) {
+    return '${_baseUrl}quran/recitations/$recitationId?chapter_number=$chapterId&juz_number=$guzNumber';
   }
 }

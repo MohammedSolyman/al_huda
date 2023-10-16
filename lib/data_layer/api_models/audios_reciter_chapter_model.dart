@@ -1,10 +1,22 @@
+// To parse this JSON data, do
+//
+//     final audiosReciterChapterModel = audiosReciterChapterModelFromJson(jsonString);
+
+import 'dart:convert';
+
+AudiosReciterChapterModel audiosReciterChapterModelFromJson(String str) =>
+    AudiosReciterChapterModel.fromJson(json.decode(str));
+
+String audiosReciterChapterModelToJson(AudiosReciterChapterModel data) =>
+    json.encode(data.toJson());
+
 class AudiosReciterChapterModel {
   List<AudioFile>? audioFiles;
-  Pagination? pagination;
+  Meta? meta;
 
   AudiosReciterChapterModel({
     this.audioFiles,
-    this.pagination,
+    this.meta,
   });
 
   factory AudiosReciterChapterModel.fromJson(Map<String, dynamic> json) =>
@@ -13,16 +25,14 @@ class AudiosReciterChapterModel {
             ? []
             : List<AudioFile>.from(
                 json["audio_files"]!.map((x) => AudioFile.fromJson(x))),
-        pagination: json["pagination"] == null
-            ? null
-            : Pagination.fromJson(json["pagination"]),
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
       );
 
   Map<String, dynamic> toJson() => {
         "audio_files": audioFiles == null
             ? []
             : List<dynamic>.from(audioFiles!.map((x) => x.toJson())),
-        "pagination": pagination?.toJson(),
+        "meta": meta?.toJson(),
       };
 }
 
@@ -46,34 +56,43 @@ class AudioFile {
       };
 }
 
-class Pagination {
-  int? perPage;
-  int? currentPage;
-  int? nextPage;
-  int? totalPages;
-  int? totalRecords;
+class Meta {
+  String? reciterName;
+  String? recitationStyle;
+  Filters? filters;
 
-  Pagination({
-    this.perPage,
-    this.currentPage,
-    this.nextPage,
-    this.totalPages,
-    this.totalRecords,
+  Meta({
+    this.reciterName,
+    this.recitationStyle,
+    this.filters,
   });
 
-  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-        perPage: json["per_page"],
-        currentPage: json["current_page"],
-        nextPage: json["next_page"],
-        totalPages: json["total_pages"],
-        totalRecords: json["total_records"],
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+        reciterName: json["reciter_name"],
+        recitationStyle: json["recitation_style"],
+        filters:
+            json["filters"] == null ? null : Filters.fromJson(json["filters"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "per_page": perPage,
-        "current_page": currentPage,
-        "next_page": nextPage,
-        "total_pages": totalPages,
-        "total_records": totalRecords,
+        "reciter_name": reciterName,
+        "recitation_style": recitationStyle,
+        "filters": filters?.toJson(),
+      };
+}
+
+class Filters {
+  String? chapterNumber;
+
+  Filters({
+    this.chapterNumber,
+  });
+
+  factory Filters.fromJson(Map<String, dynamic> json) => Filters(
+        chapterNumber: json["chapter_number"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "chapter_number": chapterNumber,
       };
 }

@@ -28,7 +28,7 @@ class QuranApiController extends GetxController {
     //https://download.quranicaudio.com/qdc/
     //      ex: https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/1.mp3
 
-    AudiosReciterChapterModel x = await quranApi.getReciterChapterAudios(
+    AudiosReciterChapterModel x = await quranApi.audiosReciterChapter(
         globalController.model.value.selectedReciter, chapterId);
 
     List<String> audiosPaths = [];
@@ -47,9 +47,8 @@ class QuranApiController extends GetxController {
     //https://download.quranicaudio.com/qdc/
     //      ex: https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/1.mp3
 
-    g.AudiosReciterGuzChapterModel x =
-        await quranApi.getReciterGuzChapterAudios(
-            globalController.model.value.selectedReciter, chapterId);
+    g.AudiosReciterGuzChapterModel x = await quranApi.audiosReciterGuzChapter(
+        globalController.model.value.selectedReciter, chapterId, guzNumber);
 
     List<String> audiosPaths = [];
 

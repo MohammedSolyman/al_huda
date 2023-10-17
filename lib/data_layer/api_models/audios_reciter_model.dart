@@ -1,26 +1,14 @@
-// To parse this JSON data, do
-//
-//     final audiosReciterGuzChapterModel = audiosReciterGuzChapterModelFromJson(jsonString);
-
-import 'dart:convert';
-
-AudiosReciterGuzChapterModel audiosReciterGuzChapterModelFromJson(String str) =>
-    AudiosReciterGuzChapterModel.fromJson(json.decode(str));
-
-String audiosReciterGuzChapterModelToJson(AudiosReciterGuzChapterModel data) =>
-    json.encode(data.toJson());
-
-class AudiosReciterGuzChapterModel {
+class AudiosReciterModel {
   List<AudioFile>? audioFiles;
   Meta? meta;
 
-  AudiosReciterGuzChapterModel({
+  AudiosReciterModel({
     this.audioFiles,
     this.meta,
   });
 
-  factory AudiosReciterGuzChapterModel.fromJson(Map<String, dynamic> json) =>
-      AudiosReciterGuzChapterModel(
+  factory AudiosReciterModel.fromJson(Map<String, dynamic> json) =>
+      AudiosReciterModel(
         audioFiles: json["audio_files"] == null
             ? []
             : List<AudioFile>.from(
@@ -82,21 +70,17 @@ class Meta {
 }
 
 class Filters {
-  String? juzNumber;
   String? chapterNumber;
 
   Filters({
-    this.juzNumber,
     this.chapterNumber,
   });
 
   factory Filters.fromJson(Map<String, dynamic> json) => Filters(
-        juzNumber: json["juz_number"],
         chapterNumber: json["chapter_number"],
       );
 
   Map<String, dynamic> toJson() => {
-        "juz_number": juzNumber,
         "chapter_number": chapterNumber,
       };
 }

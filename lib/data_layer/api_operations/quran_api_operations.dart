@@ -1,12 +1,9 @@
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
-import 'package:al_huda/data_layer/api_models/indopak_guz_chapter_model.dart';
-import 'package:al_huda/data_layer/api_models/guz_model.dart';
-import 'package:al_huda/data_layer/api_models/audios_reciter_chapter_model.dart';
-import 'package:al_huda/data_layer/api_models/audios_reciter_guz_chapter_model.dart';
+import 'package:al_huda/data_layer/api_models/audios_reciter_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
-import 'package:al_huda/data_layer/api_models/indopak_chapter_model.dart';
+import 'package:al_huda/data_layer/api_models/indopak_model.dart';
 import 'package:al_huda/util/constants/apis_url.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -63,7 +60,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        IndopakChapterModel x = IndopakChapterModel.fromJson(result);
+        IndopakModel x = IndopakModel.fromJson(result);
 
         return x;
       }
@@ -72,8 +69,8 @@ class QuranApiOperations {
     }
   }
 
-  dynamic getGuzChapterIndopak(int guzNumber, int chapterId) async {
-    String uri = QuranApiUrl.indopakGuzChapterUrl(guzNumber, chapterId);
+  dynamic getGuzIndopak(int guzNumber) async {
+    String uri = QuranApiUrl.indopakGuzUrl(guzNumber);
 
     Uri url = Uri.parse(uri);
 
@@ -85,7 +82,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        IndopakGuzChapterModel x = IndopakGuzChapterModel.fromJson(result);
+        IndopakModel x = IndopakModel.fromJson(result);
 
         return x;
       }
@@ -94,7 +91,7 @@ class QuranApiOperations {
     }
   }
 
-  dynamic traslationsresource() async {
+  dynamic traslationsResource() async {
     //get the available translations info.
     String uri = QuranApiUrl.avalaibleTranslations;
 
@@ -139,10 +136,8 @@ class QuranApiOperations {
     }
   }
 
-  dynamic traslationGuzChapter(
-      int translationId, int chapterId, int guzNumber) async {
-    String uri = QuranApiUrl.translationGuzChapterUrl(
-        translationId, chapterId, guzNumber);
+  dynamic traslationGuz(int translationId, int guzNumber) async {
+    String uri = QuranApiUrl.translationGuzUrl(translationId, guzNumber);
 
     Uri url = Uri.parse(uri);
 
@@ -155,28 +150,6 @@ class QuranApiOperations {
         Map<String, dynamic> result = jsonDecode(body);
 
         TranslationModel x = TranslationModel.fromJson(result);
-
-        return x;
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  dynamic getAllGuzs() async {
-    String uri = QuranApiUrl.allGuzsUrl;
-
-    Uri url = Uri.parse(uri);
-
-    try {
-      Response response = await get(url);
-
-      if (response.statusCode == 200) {
-        String body = response.body;
-
-        Map<String, dynamic> result = jsonDecode(body);
-
-        GuzModel x = GuzModel.fromJson(result);
 
         return x;
       }
@@ -198,8 +171,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        AudiosReciterChapterModel x =
-            AudiosReciterChapterModel.fromJson(result);
+        AudiosReciterModel x = AudiosReciterModel.fromJson(result);
 
         return x;
       }
@@ -208,10 +180,8 @@ class QuranApiOperations {
     }
   }
 
-  dynamic audiosReciterGuzChapter(
-      int recitationId, int chapterId, int guzNumber) async {
-    String uri = QuranApiUrl.audiosReciterGuzChapterUrl(
-        recitationId, chapterId, guzNumber);
+  dynamic audiosReciterGuz(int recitationId, int guzNumber) async {
+    String uri = QuranApiUrl.audiosReciterGuzUrl(recitationId, guzNumber);
 
     Uri url = Uri.parse(uri);
 
@@ -223,8 +193,7 @@ class QuranApiOperations {
 
         Map<String, dynamic> result = jsonDecode(body);
 
-        AudiosReciterGuzChapterModel x =
-            AudiosReciterGuzChapterModel.fromJson(result);
+        AudiosReciterModel x = AudiosReciterModel.fromJson(result);
 
         return x;
       }

@@ -11,16 +11,19 @@ class HeadBlock extends StatelessWidget {
   //this includes also audio controllers which plays the list of ayahs under
   //this head.
 
-  const HeadBlock({required this.headIndex, super.key});
+  HeadBlock({this.guzNumber, required this.headIndex, super.key});
 
   final int headIndex;
+  int? guzNumber;
   @override
   Widget build(BuildContext context) {
+    print('$guzNumber -----------------HeadBlock');
+
     return Container(
       color: Colors.black,
       child: Column(
         children: [
-          NameBlock(headIndex: headIndex),
+          NameBlock(headIndex: headIndex, guzNumber: guzNumber),
           InfoBock(headIndex: headIndex),
         ],
       ),
@@ -58,8 +61,9 @@ class InfoBock extends StatelessWidget {
 
 class NameBlock extends StatelessWidget {
   final int headIndex;
-
-  const NameBlock({
+  int? guzNumber;
+  NameBlock({
+    this.guzNumber,
     required this.headIndex,
     super.key,
   });
@@ -101,7 +105,7 @@ class NameBlock extends StatelessWidget {
                         color: Colors.white,
                       )),
                   TranslationSettings(headIndex: headIndex),
-                  RecitersSettings(headIdex: headIndex)
+                  RecitersSettings(headIdex: headIndex, guzNumber: guzNumber)
                 ],
               ),
               HeadAudioControllers(headIndex: headIndex)
@@ -240,9 +244,10 @@ class TranslationSettings extends StatelessWidget {
 }
 
 class RecitersSettings extends StatelessWidget {
-  const RecitersSettings({required this.headIdex, super.key});
+  RecitersSettings({this.guzNumber, required this.headIdex, super.key});
 
   final int headIdex;
+  int? guzNumber;
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
@@ -257,8 +262,9 @@ class RecitersSettings extends StatelessWidget {
             return PopupMenuItem(
               child: Text(Reciters.reciters[index].name),
               onTap: () async {
-                await controller
-                    .updateReciter(Reciters.reciters[index].id, [headIdex]);
+                await controller.updateReciter(
+                    Reciters.reciters[index].id, [headIdex],
+                    guzNumber: guzNumber);
               },
             );
           });

@@ -1,5 +1,6 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/views/quran_views/chapter_view.dart';
+import 'package:al_huda/Presentation_layer/views/quran_views/guz_view.dart';
 import 'package:al_huda/data_layer/api_models/chapters_model.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
@@ -18,6 +19,7 @@ class QuranHomeController extends GetxController {
   }
 
   Future<void> updateChaptersList() async {
+    //call this function at the beginning of quran home view.
     List<Chapter> x =
         await quranApi.chaptersList(iController.model.value.languageCode);
     model.update((val) {
@@ -27,5 +29,9 @@ class QuranHomeController extends GetxController {
 
   void goToChapter({required int chapterId}) {
     Get.to(ChapterView(chapterId: chapterId));
+  }
+
+  void goToGuz({required int guzNumber}) {
+    Get.to(GuzView(guzNumber: guzNumber));
   }
 }

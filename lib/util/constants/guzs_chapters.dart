@@ -1,4 +1,4 @@
-class GuzsChapters {
+class GuzsChaptersConstant {
   static const Map<int, List<int>> guzsChapters = {
     1: [1, 2],
     2: [2],

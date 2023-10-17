@@ -22,8 +22,9 @@ class QuranModel {
 }
 
 class HeadValues {
+  String type;
   int chapterId;
-  String chapterInfo;
+  String chapterInfo = '';
   String arabicName;
   String languageName;
   bool showInfo = false;
@@ -38,13 +39,12 @@ class HeadValues {
   int playingAyahIndex = -1; //if -1, so there is no ayah playing
 
   HeadValues({
+    required this.type,
     required this.chapterId,
-    required this.chapterInfo,
     required this.arabicName,
     required this.languageName,
     this.audiosPaths,
     this.scripts,
-    this.translations,
   });
 }
 

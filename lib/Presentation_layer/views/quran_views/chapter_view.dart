@@ -13,17 +13,11 @@ class ChapterView extends StatelessWidget {
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
 
-    controller.createHeadValues([chapterId], true);
+    controller.createHeadValues(chapterId: chapterId);
 
-    return const Scaffold(
+    return Scaffold(
       body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          HeadBlock(headIndex: 0),
-          AyahBlock(headIndex: 0)
-        ],
+        children: [HeadBlock(headIndex: 0), AyahBlock(headIndex: 0)],
       ),
     );
   }

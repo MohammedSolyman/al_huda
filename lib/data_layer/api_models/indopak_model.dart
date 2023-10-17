@@ -1,12 +1,11 @@
-class IndopakChapterModel {
+class IndopakModel {
   List<Verse>? verses;
 
-  IndopakChapterModel({
+  IndopakModel({
     this.verses,
   });
 
-  factory IndopakChapterModel.fromJson(Map<String, dynamic> json) =>
-      IndopakChapterModel(
+  factory IndopakModel.fromJson(Map<String, dynamic> json) => IndopakModel(
         verses: json["verses"] == null
             ? []
             : List<Verse>.from(json["verses"]!.map((x) => Verse.fromJson(x))),

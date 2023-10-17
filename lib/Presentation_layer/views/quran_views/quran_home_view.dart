@@ -88,16 +88,14 @@ class GuzsBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //QuranHomeController controller = Get.find<QuranHomeController>();
+    QuranHomeController controller = Get.find<QuranHomeController>();
     return Expanded(
       child: ListView.builder(
           itemCount: 30,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                // List<GuzMapping> z =
-                //     controller.getSpecificGuzMapping(index + 1);
-                //   controller.goToGuzView(z);
+                controller.goToGuz(guzNumber: index + 1);
               },
               child: ListTile(
                 title: Text('guz ${index + 1}'),

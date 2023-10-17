@@ -5,9 +5,6 @@ class QuranApiUrl {
   //Base url
   static const String _baseUrl = 'https://api.quran.com/api/v4/';
 
-  //Base for ayah audio
-  static const String audiobaseUrl = 'https://verses.quran.com/';
-
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //Translations. //////////////////////////////////////////////////////////////
@@ -32,16 +29,12 @@ class QuranApiUrl {
     return '${_baseUrl}quran/translations/$translationId?chapter_number=$chapterId';
   }
 
-  static String translationGuzChapterUrl(
-      int translationId, int chapterId, int guzNumber) {
-    return '${_baseUrl}quran/translations/$translationId?chapter_number=$chapterId&juz_number=$guzNumber';
+  static String translationGuzUrl(int translationId, int guzNumber) {
+    return '${_baseUrl}quran/translations/$translationId?juz_number=$guzNumber';
   }
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //Quran information. /////////////////////////////////////////////////////////
-
-  //get list of all guzs (including verses maping).
-  static const String allGuzsUrl = '$_baseUrl/juzs';
 
   //get list of chapters, optional parameter:
   //    language
@@ -71,8 +64,8 @@ class QuranApiUrl {
     return '${_baseUrl}quran/verses/indopak?chapter_number=$chapterId';
   }
 
-  static String indopakGuzChapterUrl(int guzNumber, int chapterId) {
-    return '${_baseUrl}quran/verses/indopak?juz_number=$guzNumber&chapter_number=$chapterId';
+  static String indopakGuzUrl(int guzNumber) {
+    return '${_baseUrl}quran/verses/indopak?juz_number=$guzNumber';
   }
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
@@ -92,8 +85,7 @@ class QuranApiUrl {
     return '${_baseUrl}quran/recitations/$recitationId?chapter_number=$chapterId';
   }
 
-  static String audiosReciterGuzChapterUrl(
-      int recitationId, int chapterId, int guzNumber) {
-    return '${_baseUrl}quran/recitations/$recitationId?chapter_number=$chapterId&juz_number=$guzNumber';
+  static String audiosReciterGuzUrl(int recitationId, int guzNumber) {
+    return '${_baseUrl}quran/recitations/$recitationId?juz_number=$guzNumber';
   }
 }

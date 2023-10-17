@@ -74,21 +74,24 @@ class NameBlock extends StatelessWidget {
 
     return Obx(() {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          SizedBox(
+            width: 10,
+          ),
           Column(
             children: [
               Text(
                 controller.model.value.heads.isEmpty
                     ? '...'
                     : controller.model.value.heads[headIndex].arabicName,
-                style: const TextStyle(color: Colors.white, fontSize: 30),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
               ),
               Text(
                 controller.model.value.heads.isEmpty
                     ? '...'
                     : controller.model.value.heads[headIndex].languageName,
-                style: const TextStyle(color: Colors.white, fontSize: 30),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
               ),
             ],
           ),
@@ -96,6 +99,7 @@ class NameBlock extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  HeadAudioControllers(headIndex: headIndex),
                   IconButton(
                       onPressed: () {
                         controller.toggleChapterInfoVisibility(headIndex);
@@ -104,12 +108,8 @@ class NameBlock extends StatelessWidget {
                         Icons.info,
                         color: Colors.white,
                       )),
-                  TranslationSettings(
-                      headIndex: headIndex, guzNumber: guzNumber),
-                  RecitersSettings(headIdex: headIndex, guzNumber: guzNumber)
                 ],
               ),
-              HeadAudioControllers(headIndex: headIndex)
             ],
           ),
         ],
@@ -201,76 +201,5 @@ class HeadAudioControllers extends StatelessWidget {
         return Container();
       }
     });
-  }
-}
-
-class TranslationSettings extends StatelessWidget {
-  TranslationSettings({this.guzNumber, required this.headIndex, super.key});
-  final int headIndex;
-  int? guzNumber;
-  @override
-  Widget build(BuildContext context) {
-    QuranController controller = Get.find<QuranController>();
-
-    return PopupMenuButton(
-        icon: const Icon(
-          Icons.school,
-          color: Colors.white,
-        ),
-        itemBuilder: (BuildContext context) {
-          if (controller.model.value.languageTranslations.isEmpty) {
-            List<PopupMenuEntry<dynamic>> x = [
-              const PopupMenuItem(
-                  child: Text('there is no translations available'))
-            ];
-
-            return x;
-          } else {
-            List<PopupMenuEntry<dynamic>> x = List.generate(
-                controller.model.value.languageTranslations.length, (index) {
-              return PopupMenuItem(
-                child: Text(
-                    controller.model.value.languageTranslations[index].name!),
-                onTap: () {
-                  controller.updateTranslationId(
-                      controller.model.value.languageTranslations[index].id!);
-                  controller.updateTranslation(guzNumber: guzNumber);
-                },
-              );
-            });
-
-            return x;
-          }
-        });
-  }
-}
-
-class RecitersSettings extends StatelessWidget {
-  RecitersSettings({this.guzNumber, required this.headIdex, super.key});
-
-  final int headIdex;
-  int? guzNumber;
-  @override
-  Widget build(BuildContext context) {
-    QuranController controller = Get.find<QuranController>();
-    return PopupMenuButton(
-        icon: const Icon(
-          Icons.account_circle,
-          color: Colors.white,
-        ),
-        itemBuilder: (BuildContext context) {
-          List<PopupMenuEntry<dynamic>> x =
-              List.generate(Reciters.reciters.length, (index) {
-            return PopupMenuItem(
-              child: Text(Reciters.reciters[index].name),
-              onTap: () async {
-                await controller.updateReciter(
-                    Reciters.reciters[index].id, [headIdex],
-                    guzNumber: guzNumber);
-              },
-            );
-          });
-          return x;
-        });
   }
 }

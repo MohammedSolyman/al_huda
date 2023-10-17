@@ -12,41 +12,44 @@ class AyahBlock extends StatelessWidget {
     QuranController controller = Get.find<QuranController>();
 
     return Expanded(
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-        child: Obx(() {
-          if (controller.model.value.heads.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            if (controller.model.value.heads[headIndex].scripts!.isEmpty) {
-              return const Text('...');
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+          child: Obx(() {
+            if (controller.model.value.heads.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
             } else {
-              return Expanded(
-                child: ListView.builder(
-                    itemCount:
-                        controller.model.value.heads[headIndex].scripts!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: controller.getColor(headIndex, index),
-                            border: Border.all(color: Colors.black)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            AyahANdTrasnlation(
-                                index: index, headIndex: headIndex),
-                            AyahAudioControllers(
-                              headIndex: headIndex,
-                              index: index,
-                            )
-                          ],
-                        ),
-                      );
-                    }),
-              );
+              if (controller.model.value.heads[headIndex].scripts!.isEmpty) {
+                return const Text('...');
+              } else {
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: controller
+                          .model.value.heads[headIndex].scripts!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: controller.getColor(headIndex, index),
+                              border: Border.all(color: Colors.black)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              AyahANdTrasnlation(
+                                  index: index, headIndex: headIndex),
+                              AyahAudioControllers(
+                                headIndex: headIndex,
+                                index: index,
+                              )
+                            ],
+                          ),
+                        );
+                      }),
+                );
+              }
             }
-          }
-        }),
+          }),
+        ),
       ),
     );
   }

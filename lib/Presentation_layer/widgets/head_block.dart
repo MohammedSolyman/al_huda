@@ -1,6 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
-import 'package:al_huda/util/constants/reciters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,8 +18,6 @@ class HeadBlock extends StatelessWidget {
   int? guzNumber;
   @override
   Widget build(BuildContext context) {
-    print('$guzNumber -----------------HeadBlock');
-
     return Container(
       color: Colors.black,
       child: Column(
@@ -139,7 +138,7 @@ class HeadAudioControllers extends StatelessWidget {
                           headIndex, AudioState.playing);
                       controller.play(
                           urls: controller
-                              .model.value.heads[headIndex].audiosPaths!,
+                              .model.value.heads[headIndex].audiosPaths,
                           headIndex: headIndex);
                       controller.updateListAyahPlaying(headIndex);
                     },

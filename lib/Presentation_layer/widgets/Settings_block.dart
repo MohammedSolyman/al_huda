@@ -1,13 +1,15 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
-import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:al_huda/util/constants/reciters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsBlock extends StatelessWidget {
-  SettingsBlock({this.guzNumber, required this.headIndex, super.key});
+  SettingsBlock(
+      {this.guzNumber,
+//  required this.headIndex,
+      super.key});
 
-  final int headIndex;
+  // final int headIndex;
   int? guzNumber;
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,14 @@ class SettingsBlock extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          TranslationSettings(headIndex: headIndex, guzNumber: guzNumber),
-          RecitersSettings(headIdex: headIndex, guzNumber: guzNumber)
+          TranslationSettings(
+              //  headIndex: headIndex,
+              guzNumber: guzNumber),
+          RecitersSettings(
+
+              // headIdex: headIndex,
+
+              guzNumber: guzNumber)
         ],
       ),
     );
@@ -25,8 +33,11 @@ class SettingsBlock extends StatelessWidget {
 }
 
 class TranslationSettings extends StatelessWidget {
-  TranslationSettings({this.guzNumber, required this.headIndex, super.key});
-  final int headIndex;
+  TranslationSettings(
+      {this.guzNumber,
+      // required this.headIndex,
+      super.key});
+  // final int headIndex;
   int? guzNumber;
   @override
   Widget build(BuildContext context) {
@@ -66,9 +77,12 @@ class TranslationSettings extends StatelessWidget {
 }
 
 class RecitersSettings extends StatelessWidget {
-  RecitersSettings({this.guzNumber, required this.headIdex, super.key});
+  RecitersSettings(
+      {this.guzNumber,
+      //required this.headIdex,
+      super.key});
 
-  final int headIdex;
+  // final int headIdex;
   int? guzNumber;
   @override
   Widget build(BuildContext context) {
@@ -84,8 +98,7 @@ class RecitersSettings extends StatelessWidget {
             return PopupMenuItem(
               child: Text(Reciters.reciters[index].name),
               onTap: () async {
-                await controller.updateReciter(
-                    Reciters.reciters[index].id, [headIdex],
+                await controller.updateReciter(Reciters.reciters[index].id,
                     guzNumber: guzNumber);
               },
             );

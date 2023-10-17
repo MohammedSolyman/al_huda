@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/Settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block.dart';
@@ -19,9 +21,14 @@ class ChapterView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SettingsBlock(headIndex: 0),
-          HeadBlock(headIndex: 0),
-          AyahBlock(headIndex: 0)
+          SettingsBlock(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [HeadBlock(headIndex: 0), AyahBlock(headIndex: 0)],
+              ),
+            ),
+          )
         ],
       ),
     );

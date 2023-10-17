@@ -27,7 +27,6 @@ class QuranController extends GetxController {
     //if this function is callef from guz view, guzNumber will be passed.
 
     if (chapterId != null) {
-      String chapterInfo = await quranApiController.getChapterInfo(chapterId);
       List<String> audiosPaths =
           await quranApiController.getReciterChapterAudios(chapterId);
       List<Ayah> scripts =
@@ -160,6 +159,7 @@ class QuranController extends GetxController {
 
   Future<void> stop(int headIndex) async {
     await globalController.stopAudio();
+
     model.update((val) {
       val!.heads[headIndex].playingAyahIndex = -1;
     });
@@ -180,8 +180,7 @@ class QuranController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 //reciters /////////////////////////////////////////////////////////////////////
 
-  updateReciter(int reciterId, List<int> headindexes, {int? guzNumber}) async {
-    print('${guzNumber} ---guzNumber-----------------------------------');
+  updateReciter(int reciterId, {int? guzNumber}) async {
     //update reciter code:
 
     globalController.updateReciterId(reciterId);
@@ -198,14 +197,11 @@ class QuranController extends GetxController {
           val!.heads[0].audiosPaths = audiosPaths;
         });
       } else {
-        print('Im updating guz ch --------------------------------------');
         int chapterId = model.value.heads[index].chapterId;
 
         //update guz audio paths
         List<AudioFile> guzAudiosPaths =
             await quranApiController.getReciterGuzAudios(guzNumber!);
-        print(
-            '${guzAudiosPaths.length} --------------------------------------');
 
         //1. extracting guz chapter audio paths
         List<String> audiosPaths = [];
@@ -213,7 +209,6 @@ class QuranController extends GetxController {
           int vChptNum = int.parse(v.verseKey!.split(':').first);
           if (vChptNum == chapterId) {
             audiosPaths.add('https://verses.quran.com/${v.url!}');
-            print('https://verses.quran.com/${v.url!}');
           }
         }
 
@@ -278,9 +273,16 @@ class QuranController extends GetxController {
     }
   }
 
-  void toggleChapterInfoVisibility(int headIndex) {
+  void toggleChapterInfoVisibility(int headIndex) async {
+    String info = '';
+    if (model.value.heads[headIndex].chapterInfo.isEmpty) {
+      int chapterId = model.value.heads[headIndex].chapterId;
+      info = await quranApiController.getChapterInfo(chapterId);
+    }
+
     model.update((val) {
       val!.heads[headIndex].showInfo = !val.heads[headIndex].showInfo;
+      val.heads[headIndex].chapterInfo = info;
     });
   }
 

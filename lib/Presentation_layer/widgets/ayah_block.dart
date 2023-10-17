@@ -11,75 +11,45 @@ class AyahBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
 
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-          child: Obx(() {
-            if (controller.model.value.heads.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              if (controller.model.value.heads[headIndex].scripts!.isEmpty) {
-                return const Text('...');
-              } else {
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: controller
-                          .model.value.heads[headIndex].scripts!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: controller.getColor(headIndex, index),
-                              border: Border.all(color: Colors.black)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              AyahANdTrasnlation(
-                                  index: index, headIndex: headIndex),
-                              AyahAudioControllers(
-                                headIndex: headIndex,
-                                index: index,
-                              )
-                            ],
-                          ),
-                        );
-                      }),
-                );
-              }
-            }
-          }),
-        ),
-      ),
-    );
-  }
-}
-
-class AyahANdTrasnlation extends StatelessWidget {
-  const AyahANdTrasnlation({
-    super.key,
-    required this.headIndex,
-    required this.index,
-  });
-
-  final int headIndex;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ArabicAyah(index: index, headIndex: headIndex),
-            Translation(index: index, headIndex: headIndex),
-          ],
-        ),
-      ),
-    );
+    return Obx(() {
+      if (controller.model.value.heads.isEmpty) {
+        return const Text('---');
+      } else {
+        if (controller.model.value.heads[headIndex].scripts.isEmpty) {
+          return const Text('...');
+        } else {
+          return Column(
+            children: List.generate(
+                controller.model.value.heads[headIndex].scripts.length,
+                (index) {
+              return Container(
+                  color: controller.getColor(headIndex, index),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(controller.model.value.heads[headIndex]
+                                .scripts[index].number
+                                .toString()),
+                            AyahAudioControllers(
+                              headIndex: headIndex,
+                              index: index,
+                            ),
+                          ],
+                        ),
+                        ArabicAyah(index: index, headIndex: headIndex),
+                        Translation(index: index, headIndex: headIndex),
+                      ],
+                    ),
+                  ));
+            }),
+          );
+        }
+      }
+    });
   }
 }
 
@@ -97,7 +67,7 @@ class Translation extends StatelessWidget {
     QuranController controller = Get.find<QuranController>();
 
     return Obx(() {
-      return Text(controller.model.value.heads[headIndex].translations![index]);
+      return Text(controller.model.value.heads[headIndex].translations[index]);
     });
   }
 }
@@ -112,18 +82,8 @@ class ArabicAyah extends StatelessWidget {
   Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(controller.model.value.heads[headIndex].scripts![index].number
-            .toString()),
-        Expanded(
-          child: Text(
-              controller.model.value.heads[headIndex].scripts![index].script,
-              textDirection: TextDirection.rtl),
-        ),
-      ],
-    );
+    return Text(controller.model.value.heads[headIndex].scripts[index].script,
+        textDirection: TextDirection.rtl);
   }
 }
 
@@ -136,104 +96,99 @@ class AyahAudioControllers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
-    return Expanded(
-      flex: 1,
-      child: Container(
-        decoration: BoxDecoration(
-            color: controller.getColor(headIndex, index),
-            border: Border.all(color: Colors.black)),
-        child: Obx(() {
-          if (controller.model.value.heads.isNotEmpty) {
-            if (controller.model.value.heads[headIndex].headSystemState ==
-                AudioState.stopped) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Visibility(
-                      visible: controller
-                              .model.value.heads[headIndex].ayahSystemState ==
-                          AudioState.stopped,
-                      child: IconButton(
-                          onPressed: () {
-                            controller.updateAyahSysytem(
-                                headIndex, AudioState.playing);
-                            controller.play(urls: [
-                              controller.model.value.heads[headIndex]
-                                  .audiosPaths![index]
-                            ], headIndex: headIndex);
-                            controller.updateAyahPlaying(headIndex, index);
-                          },
-                          icon: const Icon(
-                            Icons.play_arrow,
-                            size: 40,
-                          ))),
-                  Visibility(
-                      visible: controller.model.value.heads[headIndex]
-                                  .ayahSystemState ==
-                              AudioState.playing &&
-                          controller.model.value.heads[headIndex]
-                                  .playingAyahIndex ==
-                              index,
-                      child: IconButton(
-                          onPressed: () {
-                            controller.updateAyahSysytem(
-                                headIndex, AudioState.paused);
+    return Container(
+      color: controller.getColor(headIndex, index),
+      child: Obx(() {
+        if (controller.model.value.heads.isNotEmpty) {
+          if (controller.model.value.heads[headIndex].headSystemState ==
+              AudioState.stopped) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                    visible: controller
+                            .model.value.heads[headIndex].ayahSystemState ==
+                        AudioState.stopped,
+                    child: IconButton(
+                        onPressed: () {
+                          controller.updateAyahSysytem(
+                              headIndex, AudioState.playing);
+                          controller.play(urls: [
+                            controller
+                                .model.value.heads[headIndex].audiosPaths[index]
+                          ], headIndex: headIndex);
+                          controller.updateAyahPlaying(headIndex, index);
+                        },
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          size: 30,
+                        ))),
+                Visibility(
+                    visible: controller
+                                .model.value.heads[headIndex].ayahSystemState ==
+                            AudioState.playing &&
+                        controller.model.value.heads[headIndex]
+                                .playingAyahIndex ==
+                            index,
+                    child: IconButton(
+                        onPressed: () {
+                          controller.updateAyahSysytem(
+                              headIndex, AudioState.paused);
 
-                            controller.pause(headIndex);
-                          },
-                          icon: const Icon(
-                            Icons.pause,
-                            size: 40,
-                          ))),
-                  Visibility(
-                      visible: controller.model.value.heads[headIndex]
-                                  .ayahSystemState ==
-                              AudioState.paused &&
-                          controller.model.value.heads[headIndex]
-                                  .playingAyahIndex ==
-                              index,
-                      child: IconButton(
-                          onPressed: () {
-                            controller.updateAyahSysytem(
-                                headIndex, AudioState.playing);
+                          controller.pause(headIndex);
+                        },
+                        icon: const Icon(
+                          Icons.pause,
+                          size: 30,
+                        ))),
+                Visibility(
+                    visible: controller
+                                .model.value.heads[headIndex].ayahSystemState ==
+                            AudioState.paused &&
+                        controller.model.value.heads[headIndex]
+                                .playingAyahIndex ==
+                            index,
+                    child: IconButton(
+                        onPressed: () {
+                          controller.updateAyahSysytem(
+                              headIndex, AudioState.playing);
 
-                            controller.resume(headIndex);
-                          },
-                          icon: const Icon(
-                            Icons.play_circle,
-                            size: 40,
-                          ))),
-                  Visibility(
-                      visible: (controller.model.value.heads[headIndex]
-                                      .ayahSystemState ==
-                                  AudioState.playing ||
-                              controller.model.value.heads[headIndex]
-                                      .ayahSystemState ==
-                                  AudioState.paused) &&
-                          controller.model.value.heads[headIndex]
-                                  .playingAyahIndex ==
-                              index,
-                      child: IconButton(
-                          onPressed: () {
-                            controller.updateAyahSysytem(
-                                headIndex, AudioState.stopped);
+                          controller.resume(headIndex);
+                        },
+                        icon: const Icon(
+                          Icons.play_circle,
+                          size: 30,
+                        ))),
+                Visibility(
+                    visible: (controller.model.value.heads[headIndex]
+                                    .ayahSystemState ==
+                                AudioState.playing ||
+                            controller.model.value.heads[headIndex]
+                                    .ayahSystemState ==
+                                AudioState.paused) &&
+                        controller.model.value.heads[headIndex]
+                                .playingAyahIndex ==
+                            index,
+                    child: IconButton(
+                        onPressed: () {
+                          controller.updateAyahSysytem(
+                              headIndex, AudioState.stopped);
 
-                            controller.stop(headIndex);
-                          },
-                          icon: const Icon(
-                            Icons.stop,
-                            size: 40,
-                          )))
-                ],
-              );
-            } else {
-              return Container();
-            }
+                          controller.stop(headIndex);
+                        },
+                        icon: const Icon(
+                          Icons.stop,
+                          size: 30,
+                        )))
+              ],
+            );
           } else {
             return Container();
           }
-        }),
-      ),
+        } else {
+          return Container();
+        }
+      }),
     );
   }
 }

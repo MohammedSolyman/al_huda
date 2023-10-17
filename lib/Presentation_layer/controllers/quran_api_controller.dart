@@ -76,11 +76,8 @@ class QuranApiController extends GetxController {
     return chapterVerses;
   }
 
-  Future<List<String>> getTranslationChapter(int chapterId) async {
-    int translationId = model.value.translationId == 0
-        ? model.value.languageTranslations[0].id!
-        : model.value.translationId;
-
+  Future<List<String>> getTranslationChapter(
+      int translationId, int chapterId) async {
     TranslationModel x =
         await quranApi.traslationChapter(translationId, chapterId);
 
@@ -93,11 +90,8 @@ class QuranApiController extends GetxController {
     return translationChapter;
   }
 
-  Future<List<String>> getTranslationGuz(int guzNumber) async {
-    int translationId = model.value.translationId == 0
-        ? model.value.languageTranslations[0].id!
-        : model.value.translationId;
-
+  Future<List<String>> getTranslationGuz(
+      int translationId, int guzNumber) async {
     TranslationModel x = await quranApi.traslationGuz(translationId, guzNumber);
 
     List<String> translationChapter = [];
@@ -109,7 +103,7 @@ class QuranApiController extends GetxController {
     return translationChapter;
   }
 
-  Future<void> getLanguageTranslations() async {
+  Future<List<res.Translation>> getLanguageTranslations() async {
     //get the available translations for a specific langage.
     res.TranslationResourceModel x = await quranApi.traslationsResource();
 
@@ -123,13 +117,12 @@ class QuranApiController extends GetxController {
     } else if (globalController.model.value.languageCode == 'fr') {
       queryLanguage = 'french';
     }
-
+    List<res.Translation> a = [];
     for (res.Translation translationResource in y) {
       if (translationResource.languageName == queryLanguage) {
-        model.update((val) {
-          val!.languageTranslations.add(translationResource);
-        });
+        a.add(translationResource);
       }
     }
+    return a;
   }
 }

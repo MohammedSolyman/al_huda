@@ -104,7 +104,8 @@ class NameBlock extends StatelessWidget {
                         Icons.info,
                         color: Colors.white,
                       )),
-                  TranslationSettings(headIndex: headIndex),
+                  TranslationSettings(
+                      headIndex: headIndex, guzNumber: guzNumber),
                   RecitersSettings(headIdex: headIndex, guzNumber: guzNumber)
                 ],
               ),
@@ -204,8 +205,9 @@ class HeadAudioControllers extends StatelessWidget {
 }
 
 class TranslationSettings extends StatelessWidget {
-  const TranslationSettings({required this.headIndex, super.key});
+  TranslationSettings({this.guzNumber, required this.headIndex, super.key});
   final int headIndex;
+  int? guzNumber;
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
@@ -231,8 +233,8 @@ class TranslationSettings extends StatelessWidget {
                     controller.model.value.languageTranslations[index].name!),
                 onTap: () {
                   controller.updateTranslationId(
-                      controller.model.value.languageTranslations[index].id!,
-                      [headIndex]);
+                      controller.model.value.languageTranslations[index].id!);
+                  controller.updateTranslation(guzNumber: guzNumber);
                 },
               );
             });

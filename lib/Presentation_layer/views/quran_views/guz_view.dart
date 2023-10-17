@@ -34,10 +34,9 @@ class GuzView extends StatelessWidget {
                           (index) => Column(
                                 children: [
                                   Text(controller.model.value.heads[headIndex]
-                                      .scripts![index].script),
+                                      .scripts[index].script),
                                   Text(controller.model.value.heads[headIndex]
-                                      .audiosPaths!.length
-                                      .toString()),
+                                      .translations[index]),
                                 ],
                               )),
                     )

@@ -12,13 +12,7 @@ class QuranModel {
   List<Translation> languageTranslations = [];
   //id of the selected translation code, if 0 then there is no selected
   //translation selected.
-  int translationId = 0;
-  //id of the ayah translated now, if 0 then there is no translated ayah now.
-  int ayahTranslating = 0;
-  //script of ayah translation
-  String ayahTranslationText = '';
-  //the number of the current audio session, when the user click stop, this
-  //audioSession increases by 1.
+  int translationId = 131;
 }
 
 class HeadValues {
@@ -29,23 +23,23 @@ class HeadValues {
   String languageName;
   bool showInfo = false;
 
-  List<Ayah>? scripts = [];
-  List<String>? audiosPaths = [];
-  List<String>? translations = [];
+  List<Ayah> scripts = [];
+  List<String> audiosPaths = [];
+  List<String> translations = [];
 
 //audio controllers.
   AudioState headSystemState = AudioState.stopped;
   AudioState ayahSystemState = AudioState.stopped;
   int playingAyahIndex = -1; //if -1, so there is no ayah playing
 
-  HeadValues({
-    required this.type,
-    required this.chapterId,
-    required this.arabicName,
-    required this.languageName,
-    this.audiosPaths,
-    this.scripts,
-  });
+  HeadValues(
+      {required this.type,
+      required this.chapterId,
+      required this.arabicName,
+      required this.languageName,
+      required this.audiosPaths,
+      required this.scripts,
+      required this.translations});
 }
 
 class Ayah {

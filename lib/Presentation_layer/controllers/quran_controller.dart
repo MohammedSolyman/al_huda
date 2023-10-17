@@ -3,6 +3,8 @@ import 'package:al_huda/Presentation_layer/controllers/quran_api_controller.dart
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
 import 'package:al_huda/data_layer/api_models/audios_reciter_model.dart';
 import 'package:al_huda/data_layer/api_models/indopak_model.dart';
+import 'package:al_huda/data_layer/api_models/translation_resource_model.dart'
+    as res;
 import 'package:al_huda/data_layer/view_models/quran_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';
@@ -30,8 +32,8 @@ class QuranController extends GetxController {
           await quranApiController.getReciterChapterAudios(chapterId);
       List<Ayah> scripts =
           await quranApiController.getChapterIndopak(chapterId);
-      List<String> translations =
-          await quranApiController.getTranslationChapter(chapterId);
+      List<String> translations = await quranApiController
+          .getTranslationChapter(model.value.translationId, chapterId);
       String arabicName = quranHomeController
           .model.value.chaptersList[chapterId - 1].nameArabic;
       String languageName = quranHomeController
@@ -43,9 +45,8 @@ class QuranController extends GetxController {
           languageName: languageName,
           audiosPaths: audiosPaths,
           scripts: scripts,
-          type: 'chapter'
-          // translations: translations
-          );
+          type: 'chapter',
+          translations: translations);
 
       model.update((val) {
         val!.heads = [headBasics];
@@ -56,28 +57,36 @@ class QuranController extends GetxController {
           await quranApiController.getReciterGuzAudios(guzNumber!);
       List<Verse> guzVerses =
           await quranApiController.getGuzIndopack(guzNumber);
+      List<String> guzTranslations = await quranApiController.getTranslationGuz(
+          model.value.translationId, guzNumber);
 
       //fetching chapters data
       List<int> chapterIds = GuzsChaptersConstant.guzsChapters[guzNumber]!;
 
+      //extracting guz chapter data
       List<HeadValues> myList = [];
+
       for (int chapterId in chapterIds) {
         //1. extracting guz chapter audio paths
         List<String> audiosPaths = [];
+
         for (AudioFile v in guzAudiosPaths) {
           int vChptNum = int.parse(v.verseKey!.split(':').first);
           if (vChptNum == chapterId) {
             audiosPaths.add('https://verses.quran.com/${v.url!}');
           }
         }
-        //2. extracting guz chapter scripts
+        //2. extracting guz chapter scripts and translations
         List<Ayah> scripts = [];
-        for (Verse v in guzVerses) {
-          int vChptNum = int.parse(v.verseKey!.split(':').first);
-          int ayahNum = int.parse(v.verseKey!.split(':')[1]);
+        List<String> translations = [];
+        for (var i = 0; i < guzVerses.length; i++) {
+          int vChptNum = int.parse(guzVerses[i].verseKey!.split(':').first);
+          int ayahNum = int.parse(guzVerses[i].verseKey!.split(':')[1]);
+
           if (vChptNum == chapterId) {
-            Ayah ayah = Ayah(v.textIndopak!, ayahNum);
+            Ayah ayah = Ayah(guzVerses[i].textIndopak!, ayahNum);
             scripts.add(ayah);
+            translations.add(guzTranslations[i]);
           }
         }
 
@@ -93,6 +102,7 @@ class QuranController extends GetxController {
             languageName: languageName,
             audiosPaths: audiosPaths,
             scripts: scripts,
+            translations: translations,
             type: 'guz');
 
         myList.add(headBasics);
@@ -217,29 +227,37 @@ class QuranController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 // translations ////////////////////////////////////////////////////////////////
 
-  void updateTranslationId(int translationId, List<int> headindexes,
-      {int? guzNumber}) async {
+  void updateTranslationId(int translationId) {
     model.update((val) {
       val!.translationId = translationId;
     });
+  }
 
-    if (headindexes.length == 1) {
-      //update audio paths
-
+  void updateTranslation({int? guzNumber}) async {
+    if (model.value.heads.length == 1) {
       int chapterId = model.value.heads[0].chapterId;
-      List<String> translations =
-          await quranApiController.getTranslationChapter(chapterId);
+      List<String> translations = await quranApiController
+          .getTranslationChapter(model.value.translationId, chapterId);
       model.update((val) {
         val!.heads[0].translations = translations;
       });
     } else {
       //update translations
-      for (int index in headindexes) {
-        int chapterId = model.value.heads[index].chapterId;
-        List<String> translations =
-            await quranApiController.getTranslationGuz(guzNumber!);
+
+      List<String> guzTranslations = await quranApiController.getTranslationGuz(
+          model.value.translationId, guzNumber!);
+      int gTIndex = 0;
+      for (var headIndex = 0;
+          headIndex < model.value.heads.length;
+          headIndex++) {
+        List<String> x = [];
+
+        for (var i = 0; i < model.value.heads[headIndex].scripts.length; i++) {
+          x.add(guzTranslations[gTIndex]);
+          gTIndex++;
+        }
         model.update((val) {
-          val!.heads[index].translations = translations;
+          val!.heads[headIndex].translations = x;
         });
       }
     }
@@ -266,9 +284,17 @@ class QuranController extends GetxController {
     });
   }
 
+  getTranslationResources() async {
+    List<res.Translation> x =
+        await quranApiController.getLanguageTranslations();
+    model.update((val) {
+      val!.languageTranslations = x;
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
-    quranApiController.getLanguageTranslations();
+    getTranslationResources();
   }
 }

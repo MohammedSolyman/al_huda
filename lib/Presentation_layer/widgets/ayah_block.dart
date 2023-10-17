@@ -72,7 +72,7 @@ class AyahANdTrasnlation extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ArabicAyah(index: index, headIndex: headIndex),
-            //  Translation(index: index, headIndex: headIndex),
+            Translation(index: index, headIndex: headIndex),
           ],
         ),
       ),

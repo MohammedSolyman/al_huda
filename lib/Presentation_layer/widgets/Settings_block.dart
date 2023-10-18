@@ -15,8 +15,10 @@ class SettingsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.deepPurple,
+      height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           TranslationSettings(
               //  headIndex: headIndex,

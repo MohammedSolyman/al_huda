@@ -21,25 +21,92 @@ class QuranController extends GetxController {
   QuranApiController quranApiController = Get.put(QuranApiController());
 
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Modifying texts from foot notes
+
+  String _removeNu(String org) {
+    String newString = '';
+    List<String> numbers = List.generate(10, (index) => index.toString());
+    for (var i = 0; i < org.length; i++) {
+      if (numbers.contains(org[i])) {
+      } else {
+        newString = newString + org[i];
+      }
+    }
+    return newString;
+  }
+
+  String _removeSG(String org) {
+    String newString = '';
+    if (org.contains('sg')) {
+      newString = org.replaceAll('sg', '');
+      return newString;
+    }
+    return org;
+  }
+
+  String _removeBrackets(String org) {
+    String newString = '';
+    bool take = true;
+    for (var i = 0; i < org.length; i++) {
+      if (org[i] == '<') {
+        take = false;
+      }
+
+      if (take) {
+        newString = newString + org[i];
+      }
+
+      if (org[i] == '>') {
+        take = true;
+      }
+    }
+    return newString;
+  }
+
+  String _modifyText(String org) {
+    String x = _removeNu(org);
+    String y = _removeSG(x);
+    String z = _removeBrackets(y);
+    return z;
+  }
+
+////////////////////////////////////////////////////////////////////////////////
 //Head values///////////////////////////////////////////////////////////////////
+
   Future<void> createHeadValues({int? chapterId, int? guzNumber}) async {
     //if this function is called from chapter view, chapterId will be passed.
     //if this function is callef from guz view, guzNumber will be passed.
 
     if (chapterId != null) {
-      List<String> audiosPaths =
-          await quranApiController.getReciterChapterAudios(chapterId);
-      List<Ayah> scripts =
-          await quranApiController.getChapterIndopak(chapterId);
-      List<String> translations = await quranApiController
-          .getTranslationChapter(model.value.translationId, chapterId);
+      //arabic name
       String arabicName = quranHomeController
           .model.value.chaptersList[chapterId - 1].nameArabic;
+
+      //language name
       String languageName = quranHomeController
           .model.value.chaptersList[chapterId - 1].translatedName.name;
+
+      //Audio paths
+      List<String> audiosPaths =
+          await quranApiController.getReciterChapterAudios(chapterId);
+
+      //Ayahs scripts
+      List<Ayah> scripts =
+          await quranApiController.getChapterIndopak(chapterId);
+
+      //Ayahs translations
+      List<String> rawTranslations = await quranApiController
+          .getTranslationChapter(model.value.translationId, chapterId);
+      List<String> translations = [];
+      for (String s in rawTranslations) {
+        String newString = _modifyText(s);
+        translations.add(newString);
+      }
+
+      //creating headValues
       HeadValues headBasics = HeadValues(
           chapterId: chapterId,
-          //  chapterInfo: chapterInfo,
           arabicName: arabicName,
           languageName: languageName,
           audiosPaths: audiosPaths,

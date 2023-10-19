@@ -195,14 +195,21 @@ class QuranController extends GetxController {
 
   Future<void> play(
       {required List<String> urls, required int headIndex}) async {
+    //1. play the audios list and allocate the current playing head to this head.
     await globalController.playAudios(urls);
+    model.update((val) {
+      val!.headPlaying = headIndex;
+    });
 
+    //2. Listen to the player, when the playlist finishes remove this head index
+    //from the current playing head
     globalController.audioPlayer.playlistFinished.listen((bool event) {
       if (event == true) {
         updateHeadSystem(headIndex, AudioState.stopped);
         updateMyAyahSysytem(headIndex, AudioState.stopped);
         model.update((val) {
           val!.heads[headIndex].playingMyAyahIndex = -1;
+          val.headPlaying = -1;
         });
       }
     });
@@ -212,9 +219,11 @@ class QuranController extends GetxController {
     //call this function after play() in head block
 
     globalController.audioPlayer.current.listen((Playing? event) {
-      model.update((val) {
-        val!.heads[headIndex].playingMyAyahIndex = event!.index;
-      });
+      if (model.value.heads[headIndex].headSystemState == AudioState.playing) {
+        model.update((val) {
+          val!.heads[headIndex].playingMyAyahIndex = event!.index;
+        });
+      }
     });
   }
 
@@ -358,7 +367,8 @@ class QuranController extends GetxController {
 // others////// ////////////////////////////////////////////////////////////////
 
   Color getColor(int headIndex, int index) {
-    if (index == model.value.heads[headIndex].playingMyAyahIndex) {
+    if (index == model.value.heads[headIndex].playingMyAyahIndex &&
+        headIndex == model.value.headPlaying) {
       return Colors.green.shade300;
     } else {
       if (index % 2 == 0) {

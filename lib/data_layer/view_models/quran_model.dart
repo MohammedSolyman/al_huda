@@ -5,14 +5,14 @@ class QuranModel {
 //this model is for both ChapterView and GuzView screens.
 
   List<HeadValues> heads = [];
-
   bool showChapterInfo = true;
-
   //List of all available translation of specific language.
   List<Translation> languageTranslations = [];
   //id of the selected translation code, if 0 then there is no selected
   //translation selected.
   int translationId = 131;
+  //Index of current playing head, if -1 so there is now heads are playing
+  int headPlaying = -1;
 }
 
 class HeadValues {

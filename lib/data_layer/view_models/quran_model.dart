@@ -1,5 +1,6 @@
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
+import 'package:flutter/material.dart';
 
 class QuranModel {
 //this model is for both ChapterView and GuzView screens.
@@ -22,6 +23,7 @@ class HeadValues {
   String arabicName;
   String languageName;
   bool showInfo = false;
+  List<GlobalKey> keys;
   List<MyAyah> scripts = [];
   List<String> audiosPaths = [];
   List<String> translations;
@@ -36,7 +38,8 @@ class HeadValues {
       required this.languageName,
       required this.audiosPaths,
       required this.scripts,
-      required this.translations});
+      required this.translations,
+      required this.keys});
 }
 
 class MyAyah {

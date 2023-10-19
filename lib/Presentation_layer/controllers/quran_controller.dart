@@ -106,6 +106,12 @@ class QuranController extends GetxController {
         translations.add(newString);
       }
 
+      //1.6 keys list
+      List<GlobalKey> keys = List.generate(scripts.length, (index) {
+        GlobalKey key = GlobalKey();
+        return key;
+      });
+
       //1.6 creating headValues
       HeadValues headBasics = HeadValues(
           chapterId: chapterId,
@@ -114,7 +120,8 @@ class QuranController extends GetxController {
           audiosPaths: audiosPaths,
           scripts: scripts,
           type: 'chapter',
-          translations: translations);
+          translations: translations,
+          keys: keys);
 
       model.update((val) {
         val!.heads = [headBasics];
@@ -171,6 +178,13 @@ class QuranController extends GetxController {
             translations.add(trs);
           }
         }
+
+        //1.6 keys list
+        List<GlobalKey> keys = List.generate(scripts.length, (index) {
+          GlobalKey key = GlobalKey();
+          return key;
+        });
+
         //2.5.5 creating heads values
 
         HeadValues headBasics = HeadValues(
@@ -180,7 +194,8 @@ class QuranController extends GetxController {
             audiosPaths: audiosPaths,
             scripts: scripts,
             translations: translations,
-            type: 'guz');
+            type: 'guz',
+            keys: keys);
 
         myList.add(headBasics);
       }
@@ -222,6 +237,8 @@ class QuranController extends GetxController {
       if (model.value.heads[headIndex].headSystemState == AudioState.playing) {
         model.update((val) {
           val!.heads[headIndex].playingMyAyahIndex = event!.index;
+          GlobalKey key = val.heads[headIndex].keys[event.index];
+          Scrollable.ensureVisible(key.currentContext!);
         });
       }
     });

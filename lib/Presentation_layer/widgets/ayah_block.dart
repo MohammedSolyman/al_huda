@@ -23,6 +23,7 @@ class MyAyahBlock extends StatelessWidget {
                 controller.model.value.heads[headIndex].scripts.length,
                 (index) {
               return Container(
+                  key: controller.model.value.heads[headIndex].keys[index],
                   color: controller.getColor(headIndex, index),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

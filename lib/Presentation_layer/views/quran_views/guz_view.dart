@@ -14,29 +14,35 @@ class GuzView extends StatelessWidget {
     QuranController controller = Get.put(QuranController());
     controller.createHeadValues(guzNumber: guzNumber);
 
-    return Scaffold(
-        body: Column(
-      children: [
-        SettingsBlock(guzNumber: guzNumber),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: List.generate(
-                  GuzsChaptersConstant.guzsChapters[guzNumber]!.length,
-                  (headIndex) => Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          HeadBlock(
-                            headIndex: headIndex,
-                            guzNumber: guzNumber,
-                          ),
-                          MyAyahBlock(headIndex: headIndex)
-                        ],
-                      )),
+    return WillPopScope(
+      onWillPop: () async {
+        controller.globalController.stopAudio();
+        return true;
+      },
+      child: Scaffold(
+          body: Column(
+        children: [
+          SettingsBlock(guzNumber: guzNumber),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                    GuzsChaptersConstant.guzsChapters[guzNumber]!.length,
+                    (headIndex) => Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            HeadBlock(
+                              headIndex: headIndex,
+                              guzNumber: guzNumber,
+                            ),
+                            MyAyahBlock(headIndex: headIndex)
+                          ],
+                        )),
+              ),
             ),
-          ),
-        )
-      ],
-    ));
+          )
+        ],
+      )),
+    );
   }
 }

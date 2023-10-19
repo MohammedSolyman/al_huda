@@ -18,18 +18,27 @@ class ChapterView extends StatelessWidget {
 
     controller.createHeadValues(chapterId: chapterId);
 
-    return Scaffold(
-      body: Column(
-        children: [
-          SettingsBlock(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [HeadBlock(headIndex: 0), MyAyahBlock(headIndex: 0)],
+    return WillPopScope(
+      onWillPop: () async {
+        controller.globalController.stopAudio();
+        return true;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            SettingsBlock(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HeadBlock(headIndex: 0),
+                    MyAyahBlock(headIndex: 0)
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

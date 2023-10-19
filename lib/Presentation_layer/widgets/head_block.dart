@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 
 class HeadBlock extends StatelessWidget {
   //this includes arabic and language chapter's names.
-  //under this head, the all ayahs of chapter will be listed (in case of chapter
-  // view),or some of ayahs of this chapter will be listed (in case of juz view).
-  //this includes also audio controllers which plays the list of ayahs under
+  //under this head, the all MyAyahs of chapter will be listed (in case of chapter
+  // view),or some of MyAyahs of this chapter will be listed (in case of juz view).
+  //this includes also audio controllers which plays the list of MyAyahs under
   //this head.
 
   HeadBlock({this.guzNumber, required this.headIndex, super.key});
@@ -140,7 +140,7 @@ class HeadAudioControllers extends StatelessWidget {
                           urls: controller
                               .model.value.heads[headIndex].audiosPaths,
                           headIndex: headIndex);
-                      controller.updateListAyahPlaying(headIndex);
+                      controller.updateListMyAyahPlaying(headIndex);
                     },
                     icon: const Icon(
                       Icons.play_arrow,

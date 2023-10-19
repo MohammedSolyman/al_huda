@@ -79,23 +79,25 @@ class QuranController extends GetxController {
     //if this function is callef from guz view, guzNumber will be passed.
 
     if (chapterId != null) {
-      //arabic name
+      //1. In case of chapter view
+
+      //1.1 arabic name
       String arabicName = quranHomeController
           .model.value.chaptersList[chapterId - 1].nameArabic;
 
-      //language name
+      //1.2 language name
       String languageName = quranHomeController
           .model.value.chaptersList[chapterId - 1].translatedName.name;
 
-      //Audio paths
+      //1.3 Audio paths
       List<String> audiosPaths =
           await quranApiController.getReciterChapterAudios(chapterId);
 
-      //Ayahs scripts
-      List<Ayah> scripts =
+      //1.4 MyAyahs scripts
+      List<MyAyah> scripts =
           await quranApiController.getChapterIndopak(chapterId);
 
-      //Ayahs translations
+      //1.5 MyAyahs translations
       List<String> rawTranslations = await quranApiController
           .getTranslationChapter(model.value.translationId, chapterId);
       List<String> translations = [];
@@ -104,7 +106,7 @@ class QuranController extends GetxController {
         translations.add(newString);
       }
 
-      //creating headValues
+      //1.6 creating headValues
       HeadValues headBasics = HeadValues(
           chapterId: chapterId,
           arabicName: arabicName,
@@ -118,49 +120,58 @@ class QuranController extends GetxController {
         val!.heads = [headBasics];
       });
     } else {
-      //fetching guzs data
-      List<AudioFile> guzAudiosPaths =
-          await quranApiController.getReciterGuzAudios(guzNumber!);
-      List<Verse> guzVerses =
-          await quranApiController.getGuzIndopack(guzNumber);
-      List<String> guzTranslations = await quranApiController.getTranslationGuz(
-          model.value.translationId, guzNumber);
+      //2. In case of guz view
 
-      //fetching chapters data
+      //2.1 fetching chapters id's of this guz.
       List<int> chapterIds = GuzsChaptersConstant.guzsChapters[guzNumber]!;
 
-      //extracting guz chapter data
+      //2.2 fetching audio paths of this guz.
+      List<AudioFile> guzAudiosPaths =
+          await quranApiController.getReciterGuzAudios(guzNumber!);
+
+      //2.3 fetching scripts of this guz.
+      List<Verse> guzVerses =
+          await quranApiController.getGuzIndopack(guzNumber);
+
+      //2.4 fetching raw translationss of this guz.
+      List<String> rawGuzTranslations = await quranApiController
+          .getTranslationGuz(model.value.translationId, guzNumber);
+
+      //2.5 extracting guz chapter data
       List<HeadValues> myList = [];
-
       for (int chapterId in chapterIds) {
-        //1. extracting guz chapter audio paths
-        List<String> audiosPaths = [];
+        //2.5.1 extracting arabic name
+        String arabicName = quranHomeController
+            .model.value.chaptersList[chapterId - 1].nameArabic;
 
+        //2.5.2 extracting language name
+        String languageName = quranHomeController
+            .model.value.chaptersList[chapterId - 1].translatedName.name;
+
+        //2.5.3 extracting guz chapter audio paths
+        List<String> audiosPaths = [];
         for (AudioFile v in guzAudiosPaths) {
           int vChptNum = int.parse(v.verseKey!.split(':').first);
           if (vChptNum == chapterId) {
             audiosPaths.add('https://verses.quran.com/${v.url!}');
           }
         }
-        //2. extracting guz chapter scripts and translations
-        List<Ayah> scripts = [];
+
+        //2.5.4 extracting guz chapter scripts and translations
+        List<MyAyah> scripts = [];
         List<String> translations = [];
         for (var i = 0; i < guzVerses.length; i++) {
           int vChptNum = int.parse(guzVerses[i].verseKey!.split(':').first);
-          int ayahNum = int.parse(guzVerses[i].verseKey!.split(':')[1]);
+          int myAyahNum = int.parse(guzVerses[i].verseKey!.split(':')[1]);
 
           if (vChptNum == chapterId) {
-            Ayah ayah = Ayah(guzVerses[i].textIndopak!, ayahNum);
-            scripts.add(ayah);
-            translations.add(guzTranslations[i]);
+            MyAyah myAyah = MyAyah(guzVerses[i].textIndopak!, myAyahNum);
+            scripts.add(myAyah);
+            String trs = _modifyText(rawGuzTranslations[i]);
+            translations.add(trs);
           }
         }
-
-        String arabicName = quranHomeController
-            .model.value.chaptersList[chapterId - 1].nameArabic;
-
-        String languageName = quranHomeController
-            .model.value.chaptersList[chapterId - 1].translatedName.name;
+        //2.5.5 creating heads values
 
         HeadValues headBasics = HeadValues(
             chapterId: chapterId,
@@ -189,28 +200,28 @@ class QuranController extends GetxController {
     globalController.audioPlayer.playlistFinished.listen((bool event) {
       if (event == true) {
         updateHeadSystem(headIndex, AudioState.stopped);
-        updateAyahSysytem(headIndex, AudioState.stopped);
+        updateMyAyahSysytem(headIndex, AudioState.stopped);
         model.update((val) {
-          val!.heads[headIndex].playingAyahIndex = -1;
+          val!.heads[headIndex].playingMyAyahIndex = -1;
         });
       }
     });
   }
 
-  updateListAyahPlaying(int headIndex) {
+  updateListMyAyahPlaying(int headIndex) {
     //call this function after play() in head block
 
     globalController.audioPlayer.current.listen((Playing? event) {
       model.update((val) {
-        val!.heads[headIndex].playingAyahIndex = event!.index;
+        val!.heads[headIndex].playingMyAyahIndex = event!.index;
       });
     });
   }
 
-  updateAyahPlaying(int headIndex, int index) {
-    //call this function after play() in ayah block
+  updateMyAyahPlaying(int headIndex, int index) {
+    //call this function after play() in MyAyah block
     model.update((val) {
-      val!.heads[headIndex].playingAyahIndex = index;
+      val!.heads[headIndex].playingMyAyahIndex = index;
     });
   }
 
@@ -228,13 +239,13 @@ class QuranController extends GetxController {
     await globalController.stopAudio();
 
     model.update((val) {
-      val!.heads[headIndex].playingAyahIndex = -1;
+      val!.heads[headIndex].playingMyAyahIndex = -1;
     });
   }
 
-  void updateAyahSysytem(int headIndex, AudioState audioState) {
+  void updateMyAyahSysytem(int headIndex, AudioState audioState) {
     model.update((val) {
-      val!.heads[headIndex].ayahSystemState = audioState;
+      val!.heads[headIndex].myAyahSystemState = audioState;
     });
   }
 
@@ -297,17 +308,34 @@ class QuranController extends GetxController {
 
   void updateTranslation({int? guzNumber}) async {
     if (model.value.heads.length == 1) {
+      //1. in case of chapter view:
+
+      //1.1 extracting chapter Id
       int chapterId = model.value.heads[0].chapterId;
-      List<String> translations = await quranApiController
+
+      //1.2 fetching raw translation
+      List<String> rawTranslations = await quranApiController
           .getTranslationChapter(model.value.translationId, chapterId);
+
+      //1.3 filtering raw translations from foot note characters
+      List<String> translations = [];
+      for (String t in rawTranslations) {
+        String trs = _modifyText(t);
+        translations.add(trs);
+      }
+
+      //1.4 updating current translations
       model.update((val) {
         val!.heads[0].translations = translations;
       });
     } else {
-      //update translations
+      //2. in case of guz view:
 
-      List<String> guzTranslations = await quranApiController.getTranslationGuz(
-          model.value.translationId, guzNumber!);
+      //1.1 fetching raw translation
+      List<String> rawGuzTranslations = await quranApiController
+          .getTranslationGuz(model.value.translationId, guzNumber!);
+
+      //1.2 filtering raw translation and updating old translationss
       int gTIndex = 0;
       for (var headIndex = 0;
           headIndex < model.value.heads.length;
@@ -315,7 +343,8 @@ class QuranController extends GetxController {
         List<String> x = [];
 
         for (var i = 0; i < model.value.heads[headIndex].scripts.length; i++) {
-          x.add(guzTranslations[gTIndex]);
+          String trs = _modifyText(rawGuzTranslations[gTIndex]);
+          x.add(trs);
           gTIndex++;
         }
         model.update((val) {
@@ -329,7 +358,7 @@ class QuranController extends GetxController {
 // others////// ////////////////////////////////////////////////////////////////
 
   Color getColor(int headIndex, int index) {
-    if (index == model.value.heads[headIndex].playingAyahIndex) {
+    if (index == model.value.heads[headIndex].playingMyAyahIndex) {
       return Colors.green.shade300;
     } else {
       if (index % 2 == 0) {
@@ -342,9 +371,11 @@ class QuranController extends GetxController {
 
   void toggleChapterInfoVisibility(int headIndex) async {
     String info = '';
+    //1. if the chapter info is empty, get info.
     if (model.value.heads[headIndex].chapterInfo.isEmpty) {
       int chapterId = model.value.heads[headIndex].chapterId;
-      info = await quranApiController.getChapterInfo(chapterId);
+      String rawInfo = await quranApiController.getChapterInfo(chapterId);
+      info = _modifyText(rawInfo);
     }
 
     model.update((val) {

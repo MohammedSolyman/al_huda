@@ -3,8 +3,8 @@ import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AyahBlock extends StatelessWidget {
-  const AyahBlock({required this.headIndex, super.key});
+class MyAyahBlock extends StatelessWidget {
+  const MyAyahBlock({required this.headIndex, super.key});
   final int headIndex;
 
   @override
@@ -34,13 +34,13 @@ class AyahBlock extends StatelessWidget {
                             Text(controller.model.value.heads[headIndex]
                                 .scripts[index].number
                                 .toString()),
-                            AyahAudioControllers(
+                            MyAyahAudioControllers(
                               headIndex: headIndex,
                               index: index,
                             ),
                           ],
                         ),
-                        ArabicAyah(index: index, headIndex: headIndex),
+                        ArabicMyAyah(index: index, headIndex: headIndex),
                         Translation(index: index, headIndex: headIndex),
                       ],
                     ),
@@ -72,8 +72,8 @@ class Translation extends StatelessWidget {
   }
 }
 
-class ArabicAyah extends StatelessWidget {
-  const ArabicAyah({super.key, required this.headIndex, required this.index});
+class ArabicMyAyah extends StatelessWidget {
+  const ArabicMyAyah({super.key, required this.headIndex, required this.index});
 
   final int headIndex;
   final int index;
@@ -87,8 +87,8 @@ class ArabicAyah extends StatelessWidget {
   }
 }
 
-class AyahAudioControllers extends StatelessWidget {
-  const AyahAudioControllers(
+class MyAyahAudioControllers extends StatelessWidget {
+  const MyAyahAudioControllers(
       {required this.headIndex, required this.index, super.key});
 
   final int headIndex;
@@ -107,32 +107,32 @@ class AyahAudioControllers extends StatelessWidget {
               children: [
                 Visibility(
                     visible: controller
-                            .model.value.heads[headIndex].ayahSystemState ==
+                            .model.value.heads[headIndex].myAyahSystemState ==
                         AudioState.stopped,
                     child: IconButton(
                         onPressed: () {
-                          controller.updateAyahSysytem(
+                          controller.updateMyAyahSysytem(
                               headIndex, AudioState.playing);
                           controller.play(urls: [
                             controller
                                 .model.value.heads[headIndex].audiosPaths[index]
                           ], headIndex: headIndex);
-                          controller.updateAyahPlaying(headIndex, index);
+                          controller.updateMyAyahPlaying(headIndex, index);
                         },
                         icon: const Icon(
                           Icons.play_arrow,
                           size: 30,
                         ))),
                 Visibility(
-                    visible: controller
-                                .model.value.heads[headIndex].ayahSystemState ==
+                    visible: controller.model.value.heads[headIndex]
+                                .myAyahSystemState ==
                             AudioState.playing &&
                         controller.model.value.heads[headIndex]
-                                .playingAyahIndex ==
+                                .playingMyAyahIndex ==
                             index,
                     child: IconButton(
                         onPressed: () {
-                          controller.updateAyahSysytem(
+                          controller.updateMyAyahSysytem(
                               headIndex, AudioState.paused);
 
                           controller.pause(headIndex);
@@ -142,15 +142,15 @@ class AyahAudioControllers extends StatelessWidget {
                           size: 30,
                         ))),
                 Visibility(
-                    visible: controller
-                                .model.value.heads[headIndex].ayahSystemState ==
+                    visible: controller.model.value.heads[headIndex]
+                                .myAyahSystemState ==
                             AudioState.paused &&
                         controller.model.value.heads[headIndex]
-                                .playingAyahIndex ==
+                                .playingMyAyahIndex ==
                             index,
                     child: IconButton(
                         onPressed: () {
-                          controller.updateAyahSysytem(
+                          controller.updateMyAyahSysytem(
                               headIndex, AudioState.playing);
 
                           controller.resume(headIndex);
@@ -161,17 +161,17 @@ class AyahAudioControllers extends StatelessWidget {
                         ))),
                 Visibility(
                     visible: (controller.model.value.heads[headIndex]
-                                    .ayahSystemState ==
+                                    .myAyahSystemState ==
                                 AudioState.playing ||
                             controller.model.value.heads[headIndex]
-                                    .ayahSystemState ==
+                                    .myAyahSystemState ==
                                 AudioState.paused) &&
                         controller.model.value.heads[headIndex]
-                                .playingAyahIndex ==
+                                .playingMyAyahIndex ==
                             index,
                     child: IconButton(
                         onPressed: () {
-                          controller.updateAyahSysytem(
+                          controller.updateMyAyahSysytem(
                               headIndex, AudioState.stopped);
 
                           controller.stop(headIndex);

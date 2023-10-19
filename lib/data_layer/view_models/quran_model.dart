@@ -22,15 +22,12 @@ class HeadValues {
   String arabicName;
   String languageName;
   bool showInfo = false;
-
-  List<Ayah> scripts = [];
+  List<MyAyah> scripts = [];
   List<String> audiosPaths = [];
-  List<String> translations = [];
-
-//audio controllers.
+  List<String> translations;
   AudioState headSystemState = AudioState.stopped;
-  AudioState ayahSystemState = AudioState.stopped;
-  int playingAyahIndex = -1; //if -1, so there is no ayah playing
+  AudioState myAyahSystemState = AudioState.stopped;
+  int playingMyAyahIndex = -1; //if -1, so there is no MyAyah playing
 
   HeadValues(
       {required this.type,
@@ -42,8 +39,8 @@ class HeadValues {
       required this.translations});
 }
 
-class Ayah {
+class MyAyah {
   String script;
   int number;
-  Ayah(this.script, this.number);
+  MyAyah(this.script, this.number);
 }

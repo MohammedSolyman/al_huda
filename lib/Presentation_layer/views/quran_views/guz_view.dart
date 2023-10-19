@@ -1,6 +1,6 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/Settings_block.dart';
-import 'package:al_huda/Presentation_layer/widgets/ayah_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/Ayah_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class GuzView extends StatelessWidget {
                             headIndex: headIndex,
                             guzNumber: guzNumber,
                           ),
-                          AyahBlock(headIndex: headIndex)
+                          MyAyahBlock(headIndex: headIndex)
                         ],
                       )),
             ),

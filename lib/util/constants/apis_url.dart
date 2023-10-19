@@ -14,7 +14,7 @@ class QuranApiUrl {
   static const String avalaibleTranslations =
       '${_baseUrl}resources/translations';
 
-  //get ayah translate, required parameter:
+  //get MyAyah translate, required parameter:
   //    translation_id
   // optional parameters:
   //    fields
@@ -47,14 +47,14 @@ class QuranApiUrl {
   // optional parameters:
   //    language
   static String chapterInfoUrl(int id) {
-    return '${_baseUrl}chapters/$id/info?language=en';
+    return '${_baseUrl}chapters/$id/info';
   }
 
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
   //Script. ////////////////////////////////////////////////////////////////////
 
-  //Get Indopak Script of ayah, Optional parameters:
+  //Get Indopak Script of MyAyah, Optional parameters:
   //    chapter_number
   //    juz_number
   //    page_number

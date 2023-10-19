@@ -60,17 +60,17 @@ class QuranApiController extends GetxController {
     return x.verses!;
   }
 
-  Future<List<Ayah>> getChapterIndopak(int chapterId) async {
+  Future<List<MyAyah>> getChapterIndopak(int chapterId) async {
     IndopakModel x = await quranApi.getChapterIndopak(chapterId);
     List<Verse>? verses = x.verses;
-    List<Ayah> chapterVerses = [];
+    List<MyAyah> chapterVerses = [];
 
     for (var verse in verses!) {
       String script = verse.textIndopak!;
       int number = int.parse(verse.verseKey!.split(':')[1]);
-      Ayah ayah = Ayah(script, number);
+      MyAyah myAyah = MyAyah(script, number);
 
-      chapterVerses.add(ayah);
+      chapterVerses.add(myAyah);
     }
 
     return chapterVerses;

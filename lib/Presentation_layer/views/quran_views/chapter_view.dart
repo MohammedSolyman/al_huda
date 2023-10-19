@@ -2,7 +2,7 @@
 
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/Settings_block.dart';
-import 'package:al_huda/Presentation_layer/widgets/ayah_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/Ayah_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,7 @@ class ChapterView extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [HeadBlock(headIndex: 0), AyahBlock(headIndex: 0)],
+                children: [HeadBlock(headIndex: 0), MyAyahBlock(headIndex: 0)],
               ),
             ),
           )

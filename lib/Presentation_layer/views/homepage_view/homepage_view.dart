@@ -1,82 +1,197 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
-import 'package:al_huda/Presentation_layer/views/quran_views/quran_home_view.dart';
+import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
+import 'package:al_huda/util/constants/svgs_paths_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    GlobalController controller = Get.put(GlobalController());
+    Get.put(GlobalController());
     return Scaffold(
+      backgroundColor: ColorsConst.yDarkColor,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          PopupMenuButton(
-              icon: const Icon(Icons.language),
-              itemBuilder: (BuildContext context) {
-                PopupMenuEntry p1 = PopupMenuItem(
-                  child: const Text('عربى'),
-                  onTap: () {
-                    controller.updateMyLocale('ar');
-                  },
-                );
-                PopupMenuEntry p2 = PopupMenuItem(
-                  child: const Text('french'),
-                  onTap: () {
-                    controller.updateMyLocale('fr');
-                  },
-                );
-                PopupMenuEntry p3 = PopupMenuItem(
-                  child: const Text('english'),
-                  onTap: () {
-                    controller.updateMyLocale('en');
-                  },
-                );
-                PopupMenuEntry p4 = PopupMenuItem(
-                  child: const Text('spanish'),
-                  onTap: () {
-                    controller.updateMyLocale('es');
-                  },
-                );
-                List<PopupMenuEntry<dynamic>> x = [p1, p2, p3, p4];
-                return x;
-              }),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => const QuranHomeView());
-                  },
-                  child: Text(
-                    IntConstants.holyQuran.tr,
-                    style: const TextStyle(fontSize: 25),
-                  )),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text(IntConstants.praying.tr,
-                      style: const TextStyle(fontSize: 25)))
-            ],
+          const SizedBox(
+            height: 15,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text(IntConstants.athkar.tr,
-                      style: const TextStyle(fontSize: 25))),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text(IntConstants.lessons.tr,
-                      style: const TextStyle(fontSize: 25)))
-            ],
-          )
+          const AppSettings(),
+          SvgPicture.asset(SvgsPaths.nightpray),
+          const SizedBox(
+            height: 15,
+          ),
+          const MyThumbs(),
         ],
       ),
     );
+  }
+}
+
+class MyThumbs extends StatelessWidget {
+  const MyThumbs({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    GlobalController controller = Get.find<GlobalController>();
+
+    return Expanded(
+      flex: 4,
+      child: Container(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+            color: ColorsConst.yLightColor),
+        child: GridView(
+          padding: const EdgeInsets.fromLTRB(30, 50, 30, 50),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+          ),
+          children: [
+            MyThumb(
+              svgPath: SvgsPaths.quran,
+              func: controller.goToQuranHome,
+              text: IntConstants.holyQuran.tr,
+            ),
+            MyThumb(
+              svgPath: SvgsPaths.islamicCenters,
+              func: controller.goToQuranHome,
+              text: IntConstants.centers,
+            ),
+            MyThumb(
+              svgPath: SvgsPaths.azkar,
+              func: controller.goToQuranHome,
+              text: IntConstants.athkar.tr,
+            ),
+            MyThumb(
+              svgPath: SvgsPaths.learnIslam,
+              func: controller.goToQuranHome,
+              text: IntConstants.lessons.tr,
+            ),
+            MyThumb(
+              svgPath: SvgsPaths.quran,
+              func: controller.goToQuranHome,
+              text: IntConstants.lessons.tr,
+            ),
+            MyThumb(
+              svgPath: SvgsPaths.quran,
+              func: controller.goToQuranHome,
+              text: IntConstants.lessons.tr,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppSettings extends StatelessWidget {
+  const AppSettings({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    GlobalController controller = Get.find<GlobalController>();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        PopupMenuButton(
+            shape: Border.all(width: 3, color: Colors.black),
+            icon: const Icon(
+              Icons.language,
+              size: 40,
+              color: ColorsConst.yWhiteColor,
+            ),
+            itemBuilder: (BuildContext context) {
+              PopupMenuEntry p1 = PopupMenuItem(
+                child: Obx(() => Text('عربى',
+                    style: controller.model.value.languageCode == 'ar'
+                        ? const TextStyle(color: Colors.black, fontSize: 18)
+                        : const TextStyle(color: Colors.grey, fontSize: 13))),
+                onTap: () {
+                  controller.updateMyLocale('ar');
+                },
+              );
+              PopupMenuEntry p2 = PopupMenuItem(
+                child: Obx(() => Text('french',
+                    style: controller.model.value.languageCode == 'fr'
+                        ? const TextStyle(color: Colors.black, fontSize: 18)
+                        : const TextStyle(color: Colors.grey, fontSize: 13))),
+                onTap: () {
+                  controller.updateMyLocale('fr');
+                },
+              );
+              PopupMenuEntry p3 = PopupMenuItem(
+                child: Obx(() => Text('english',
+                    style: controller.model.value.languageCode == 'en'
+                        ? const TextStyle(color: Colors.black, fontSize: 18)
+                        : const TextStyle(color: Colors.grey, fontSize: 13))),
+                onTap: () {
+                  controller.updateMyLocale('en');
+                },
+              );
+              PopupMenuEntry p4 = PopupMenuItem(
+                child: Obx(() => Text('spanish',
+                    style: controller.model.value.languageCode == 'es'
+                        ? const TextStyle(color: Colors.black, fontSize: 18)
+                        : const TextStyle(color: Colors.grey, fontSize: 13))),
+                onTap: () {
+                  controller.updateMyLocale('es');
+                },
+              );
+              List<PopupMenuEntry<dynamic>> x = [p1, p2, p3, p4];
+              return x;
+            }),
+        const SizedBox(
+          width: 15,
+        )
+      ],
+    );
+  }
+}
+
+class MyThumb extends StatelessWidget {
+  const MyThumb(
+      {required this.svgPath,
+      required this.func,
+      required this.text,
+      super.key});
+
+  final String svgPath;
+  final Function func;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          func();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            decoration: BoxDecoration(
+                color: ColorsConst.yDarkBlueColor,
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SvgPicture.asset(svgPath),
+                Text(text,
+                    style: const TextStyle(
+                        color: ColorsConst.yWhiteColor, fontSize: 18))
+              ],
+            ),
+          ),
+        ));
   }
 }

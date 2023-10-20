@@ -1,3 +1,4 @@
+import 'package:al_huda/Presentation_layer/views/quran_views/quran_home_view.dart';
 import 'package:al_huda/data_layer/view_models/global_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,5 +61,9 @@ class GlobalController extends GetxController {
 
   Future<void> resumeAudio() async {
     await audioPlayer.play();
+  }
+
+  goToQuranHome() {
+    Get.to(() => const QuranHomeView());
   }
 }

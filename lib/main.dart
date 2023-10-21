@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 /*
- git push https://github.com/MohammedSolyman/al_huda.git master
+
  git add *
  git commit -m " "
  git log --oneline
+ git push https://github.com/MohammedSolyman/al_huda.git master
  */
 void main() {
   runApp(const MainApp());

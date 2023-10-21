@@ -27,8 +27,9 @@ class ChapterView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: ColorsConst.blueLight,
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SettingsBlock(),
+            MySettings(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

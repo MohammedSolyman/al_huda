@@ -22,7 +22,7 @@ class GuzView extends StatelessWidget {
       child: Scaffold(
           body: Column(
         children: [
-          SettingsBlock(guzNumber: guzNumber),
+          MySettings(guzNumber: guzNumber),
           Expanded(
             child: SingleChildScrollView(
               child: Column(

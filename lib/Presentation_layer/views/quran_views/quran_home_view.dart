@@ -15,7 +15,7 @@ class QuranHomeView extends StatelessWidget {
     controller.updateChaptersList();
 
     return Scaffold(
-        backgroundColor: ColorsConst.yDarkColor,
+        backgroundColor: ColorsConst.blueDark,
         body: Obx(() {
           return Column(
             children: [
@@ -50,8 +50,7 @@ class Selection extends StatelessWidget {
             style: const TextStyle(color: ColorsConst.yWhiteColor),
           ),
           Radio<QuranSort>(
-              fillColor:
-                  const MaterialStatePropertyAll(ColorsConst.yLightColor),
+              fillColor: const MaterialStatePropertyAll(ColorsConst.blueLight),
               value: QuranSort.byChapter,
               groupValue: controller.model.value.quranSortValue,
               onChanged: (QuranSort? s) {
@@ -60,8 +59,7 @@ class Selection extends StatelessWidget {
           Text(IntConstants.sortByGuz.tr,
               style: const TextStyle(color: ColorsConst.yWhiteColor)),
           Radio<QuranSort>(
-              fillColor:
-                  const MaterialStatePropertyAll(ColorsConst.yLightColor),
+              fillColor: const MaterialStatePropertyAll(ColorsConst.blueLight),
               value: QuranSort.byGuz,
               groupValue: controller.model.value.quranSortValue,
               onChanged: (QuranSort? s) {
@@ -91,7 +89,7 @@ class ChaptersBlock extends StatelessWidget {
             padding: const EdgeInsets.only(top: 50),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
-                color: ColorsConst.yLightColor),
+                color: ColorsConst.blueLight),
             child: ListView.builder(
                 itemCount: 114,
                 itemBuilder: (BuildContext context, int index) {
@@ -119,11 +117,11 @@ class ChaptersBlock extends StatelessWidget {
                                   '${index + 1}',
                                   style: const TextStyle(
                                       fontSize: 20,
-                                      color: ColorsConst.yGreyColor),
+                                      color: ColorsConst.greyDark),
                                 ),
                                 Container(
                                   margin: const EdgeInsets.all(8),
-                                  color: ColorsConst.yGreyColor,
+                                  color: ColorsConst.greyDark,
                                   height: 30,
                                   width: 3,
                                 ),
@@ -132,15 +130,14 @@ class ChaptersBlock extends StatelessWidget {
                                         .translatedName.name,
                                     style: const TextStyle(
                                         fontSize: 15,
-                                        color: ColorsConst.yGreyColor))
+                                        color: ColorsConst.greyDark))
                               ],
                             ),
                             Text(
                                 controller
                                     .model.value.chaptersList[index].nameArabic,
                                 style: const TextStyle(
-                                    fontSize: 15,
-                                    color: ColorsConst.yGreyColor))
+                                    fontSize: 15, color: ColorsConst.greyDark))
                           ],
                         ),
                       ));
@@ -163,7 +160,7 @@ class GuzsBlock extends StatelessWidget {
         padding: const EdgeInsets.only(top: 50),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
-            color: ColorsConst.yLightColor),
+            color: ColorsConst.blueLight),
         child: ListView.builder(
             itemCount: 30,
             itemBuilder: (BuildContext context, int index) {
@@ -183,10 +180,10 @@ class GuzsBlock extends StatelessWidget {
                         children: [
                           Text('guz ${index + 1}',
                               style: const TextStyle(
-                                  fontSize: 20, color: ColorsConst.yGreyColor)),
+                                  fontSize: 20, color: ColorsConst.greyDark)),
                           Text('جزء ${index + 1}',
                               style: const TextStyle(
-                                  fontSize: 20, color: ColorsConst.yGreyColor)),
+                                  fontSize: 20, color: ColorsConst.greyDark)),
                         ],
                       )));
             }),

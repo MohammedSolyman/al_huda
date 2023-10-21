@@ -2,6 +2,8 @@
 
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
+import 'package:al_huda/util/constants/colors_consts.dart';
+import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,14 +20,11 @@ class HeadBlock extends StatelessWidget {
   int? guzNumber;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: Column(
-        children: [
-          NameBlock(headIndex: headIndex, guzNumber: guzNumber),
-          InfoBock(headIndex: headIndex),
-        ],
-      ),
+    return Column(
+      children: [
+        NameBlock(headIndex: headIndex, guzNumber: guzNumber),
+        InfoBock(headIndex: headIndex),
+      ],
     );
   }
 }
@@ -41,12 +40,22 @@ class InfoBock extends StatelessWidget {
     return Obx(() {
       if (controller.model.value.heads.isNotEmpty) {
         if (controller.model.value.heads[headIndex].showInfo) {
-          return Container(
-            color: Colors.yellow,
-            child: Text(
-                controller.model.value.heads[headIndex].chapterInfo == ''
-                    ? '...'
-                    : controller.model.value.heads[headIndex].chapterInfo),
+          return Column(
+            children: [
+              Image.asset(FramesPaths.frame2),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Container(
+                  color: ColorsConst.blueLight,
+                  child: Text(
+                      controller.model.value.heads[headIndex].chapterInfo == ''
+                          ? '...'
+                          : controller
+                              .model.value.heads[headIndex].chapterInfo),
+                ),
+              ),
+              Image.asset(FramesPaths.frame2),
+            ],
           );
         } else {
           return Container();
@@ -69,47 +78,105 @@ class NameBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                'assets/surah/surah2.png',
+              ),
+              fit: BoxFit.fill)),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(width * 0.28, 40, width * 0.28, 40),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SurahNames(headIndex: headIndex),
+            SurahControllers(
+              headIndex: headIndex,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SurahControllers extends StatelessWidget {
+  const SurahControllers({
+    super.key,
+    required this.headIndex,
+  });
+
+  final int headIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    QuranController controller = Get.find<QuranController>();
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.cyan, borderRadius: BorderRadius.circular(50)),
+          width: 3,
+          height: 60,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            HeadAudioControllers(headIndex: headIndex),
+            IconButton(
+                onPressed: () {
+                  controller.toggleChapterInfoVisibility(headIndex);
+                },
+                icon: const Icon(
+                  Icons.info,
+                  size: 20,
+                  color: ColorsConst.yDarkBlueColor,
+                )),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class SurahNames extends StatelessWidget {
+  const SurahNames({
+    super.key,
+    required this.headIndex,
+  });
+
+  final int headIndex;
+
+  @override
+  Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
 
     return Obx(() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 10,
+          Text(
+            controller.model.value.heads.isEmpty
+                ? '...'
+                : controller.model.value.heads[headIndex].arabicName,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: ColorsConst.yDarkBlueColor,
+                fontSize: 15),
           ),
-          Column(
-            children: [
-              Text(
-                controller.model.value.heads.isEmpty
-                    ? '...'
-                    : controller.model.value.heads[headIndex].arabicName,
-                style: const TextStyle(color: Colors.white, fontSize: 25),
-              ),
-              Text(
-                controller.model.value.heads.isEmpty
-                    ? '...'
-                    : controller.model.value.heads[headIndex].languageName,
-                style: const TextStyle(color: Colors.white, fontSize: 25),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  HeadAudioControllers(headIndex: headIndex),
-                  IconButton(
-                      onPressed: () {
-                        controller.toggleChapterInfoVisibility(headIndex);
-                      },
-                      icon: const Icon(
-                        Icons.info,
-                        color: Colors.white,
-                      )),
-                ],
-              ),
-            ],
+          Text(
+            controller.model.value.heads.isEmpty
+                ? '...'
+                : controller.model.value.heads[headIndex].languageName,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: ColorsConst.yDarkBlueColor,
+                fontSize: 15),
           ),
         ],
       );
@@ -126,74 +193,88 @@ class HeadAudioControllers extends StatelessWidget {
     QuranController controller = Get.put(QuranController());
     return Obx(() {
       if (controller.model.value.heads.isNotEmpty) {
-        return Row(
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Visibility(
                 visible:
                     controller.model.value.heads[headIndex].headSystemState ==
                         AudioState.stopped,
-                child: IconButton(
-                    onPressed: () {
-                      controller.updateHeadSystem(
-                          headIndex, AudioState.playing);
-                      controller.play(
-                          urls: controller
-                              .model.value.heads[headIndex].audiosPaths,
-                          headIndex: headIndex);
-                      controller.updateListMyAyahPlaying(headIndex);
-                    },
-                    icon: const Icon(
-                      Icons.play_arrow,
-                      color: Colors.lightGreen,
-                      size: 40,
-                    ))),
+                child: SizedBox(
+                  height: 25,
+                  child: IconButton(
+                      onPressed: () {
+                        controller.updateHeadSystem(
+                            headIndex, AudioState.playing);
+                        controller.play(
+                            urls: controller
+                                .model.value.heads[headIndex].audiosPaths,
+                            headIndex: headIndex);
+                        controller.updateListMyAyahPlaying(headIndex);
+                      },
+                      icon: const Icon(
+                        Icons.play_arrow,
+                        color: ColorsConst.yDarkBlueColor,
+                        size: 30,
+                      )),
+                )),
             Visibility(
                 visible:
                     controller.model.value.heads[headIndex].headSystemState ==
                         AudioState.playing,
-                child: IconButton(
-                    onPressed: () {
-                      controller.updateHeadSystem(headIndex, AudioState.paused);
-                      controller.pause(headIndex);
-                    },
-                    icon: const Icon(
-                      Icons.pause,
-                      color: Colors.lightGreen,
-                      size: 40,
-                    ))),
+                child: SizedBox(
+                  height: 25,
+                  child: IconButton(
+                      onPressed: () {
+                        controller.updateHeadSystem(
+                            headIndex, AudioState.paused);
+                        controller.pause(headIndex);
+                      },
+                      icon: const Icon(
+                        Icons.pause,
+                        color: ColorsConst.yDarkBlueColor,
+                        size: 30,
+                      )),
+                )),
             Visibility(
                 visible:
                     controller.model.value.heads[headIndex].headSystemState ==
                         AudioState.paused,
-                child: IconButton(
-                    onPressed: () {
-                      controller.updateHeadSystem(
-                          headIndex, AudioState.playing);
+                child: SizedBox(
+                  height: 25,
+                  child: IconButton(
+                      onPressed: () {
+                        controller.updateHeadSystem(
+                            headIndex, AudioState.playing);
 
-                      controller.resume(headIndex);
-                    },
-                    icon: const Icon(
-                      Icons.play_circle,
-                      color: Colors.lightGreen,
-                      size: 40,
-                    ))),
+                        controller.resume(headIndex);
+                      },
+                      icon: const Icon(
+                        Icons.play_circle,
+                        color: ColorsConst.yDarkBlueColor,
+                        size: 30,
+                      )),
+                )),
             Visibility(
                 visible: controller
                             .model.value.heads[headIndex].headSystemState ==
                         AudioState.playing ||
                     controller.model.value.heads[headIndex].headSystemState ==
                         AudioState.paused,
-                child: IconButton(
-                    onPressed: () {
-                      controller.updateHeadSystem(
-                          headIndex, AudioState.stopped);
-                      controller.stop(headIndex);
-                    },
-                    icon: const Icon(
-                      Icons.stop,
-                      color: Colors.lightGreen,
-                      size: 40,
-                    )))
+                child: SizedBox(
+                  height: 25,
+                  child: IconButton(
+                      onPressed: () {
+                        controller.updateHeadSystem(
+                            headIndex, AudioState.stopped);
+                        controller.stop(headIndex);
+                      },
+                      icon: const Icon(
+                        Icons.stop,
+                        color: ColorsConst.yDarkBlueColor,
+                        size: 30,
+                      )),
+                ))
           ],
         );
       } else {

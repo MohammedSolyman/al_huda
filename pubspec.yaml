@@ -24,6 +24,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/svgs/
-    - assets/pngs/
-    - assets/jpgs/
+    - assets/ayah/
+    - assets/frames/
+    - assets/pictures/
+    - assets/surah/
+
+
+
+

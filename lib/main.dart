@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 
 /*
  git push https://github.com/MohammedSolyman/al_huda.git master
+ git add *
+ git commit -m " "
+ git log --oneline
  */
 void main() {
   runApp(const MainApp());

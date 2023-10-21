@@ -383,16 +383,21 @@ class QuranController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 // others////// ////////////////////////////////////////////////////////////////
 
-  Color getColor(int headIndex, int index) {
+  double getFontSize(int headIndex, int index) {
     if (index == model.value.heads[headIndex].playingMyAyahIndex &&
         headIndex == model.value.headPlaying) {
-      return Colors.green.shade300;
+      return 22;
     } else {
-      if (index % 2 == 0) {
-        return Colors.brown.shade100;
-      } else {
-        return Colors.brown.shade300;
-      }
+      return 18;
+    }
+  }
+
+  FontWeight getFontWeight(int headIndex, int index) {
+    if (index == model.value.heads[headIndex].playingMyAyahIndex &&
+        headIndex == model.value.headPlaying) {
+      return FontWeight.bold;
+    } else {
+      return FontWeight.normal;
     }
   }
 

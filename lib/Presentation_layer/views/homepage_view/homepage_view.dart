@@ -1,7 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
-import 'package:al_huda/util/constants/svgs_paths_consts.dart';
+import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,7 +13,7 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(GlobalController());
     return Scaffold(
-      backgroundColor: ColorsConst.yDarkColor,
+      backgroundColor: ColorsConst.blueDark,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -21,7 +21,7 @@ class HomePageView extends StatelessWidget {
             height: 15,
           ),
           const AppSettings(),
-          SvgPicture.asset(SvgsPaths.nightpray),
+          SvgPicture.asset(PicturesPaths.nightpray),
           const SizedBox(
             height: 15,
           ),
@@ -46,7 +46,7 @@ class MyThumbs extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-            color: ColorsConst.yLightColor),
+            color: ColorsConst.blueLight),
         child: GridView(
           padding: const EdgeInsets.fromLTRB(30, 50, 30, 50),
           physics: const NeverScrollableScrollPhysics(),
@@ -57,32 +57,32 @@ class MyThumbs extends StatelessWidget {
           ),
           children: [
             MyThumb(
-              svgPath: SvgsPaths.quran,
+              svgPath: PicturesPaths.quran,
               func: controller.goToQuranHome,
               text: IntConstants.holyQuran.tr,
             ),
             MyThumb(
-              svgPath: SvgsPaths.islamicCenters,
+              svgPath: PicturesPaths.islamicCenters,
               func: controller.goToQuranHome,
               text: IntConstants.centers,
             ),
             MyThumb(
-              svgPath: SvgsPaths.azkar,
+              svgPath: PicturesPaths.azkar,
               func: controller.goToQuranHome,
               text: IntConstants.athkar.tr,
             ),
             MyThumb(
-              svgPath: SvgsPaths.learnIslam,
+              svgPath: PicturesPaths.learnIslam,
               func: controller.goToQuranHome,
               text: IntConstants.lessons.tr,
             ),
             MyThumb(
-              svgPath: SvgsPaths.quran,
+              svgPath: PicturesPaths.quran,
               func: controller.goToQuranHome,
               text: IntConstants.lessons.tr,
             ),
             MyThumb(
-              svgPath: SvgsPaths.quran,
+              svgPath: PicturesPaths.quran,
               func: controller.goToQuranHome,
               text: IntConstants.lessons.tr,
             ),

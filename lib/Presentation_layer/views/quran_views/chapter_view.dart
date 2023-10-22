@@ -31,12 +31,18 @@ class ChapterView extends StatelessWidget {
           children: [
             MySettings(),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    HeadBlock(headIndex: 0),
-                    MyAyahBlock(headIndex: 0)
-                  ],
+              child: Scrollbar(
+                interactive: true,
+                radius: Radius.circular(20),
+                thickness: 15,
+                thumbVisibility: false,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      HeadBlock(headIndex: 0),
+                      MyAyahBlock(headIndex: 0)
+                    ],
+                  ),
                 ),
               ),
             )

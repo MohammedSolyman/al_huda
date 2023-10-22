@@ -120,6 +120,9 @@ class SurahControllers extends StatelessWidget {
     QuranController controller = Get.find<QuranController>();
     return Row(
       children: [
+        SizedBox(
+          width: 5,
+        ),
         Container(
           decoration: BoxDecoration(
               color: Colors.cyan, borderRadius: BorderRadius.circular(50)),

@@ -1,5 +1,6 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
+import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
@@ -39,15 +40,15 @@ class Coppying extends StatelessWidget {
 Future<void> copyToClipbaord(String chapterName, String languageName,
     String ayahNumber, String arabicScript, String translation) async {
   await Clipboard.setData(ClipboardData(text: """  
-From Al-Huda application:
+${IntConstants.fromAlHudaapplication.tr}:
 
-Surah name: $chapterName,
+${IntConstants.surahName.tr}: $languageName - $chapterName,
   
-Ayah number: $ayahNumber,
+${IntConstants.ayahNumber.tr}: $ayahNumber,
 
 Ayah:$arabicScript
 
-Translation: $translation
+${IntConstants.translation.tr}: $translation
 """));
 
   GetSnackBar snackbar = const GetSnackBar(

@@ -22,7 +22,13 @@ Map<String, String> arabic = {
   IntConstants.athkar: 'أذكار',
   IntConstants.sortByChapter: 'ترتيب بالسورة',
   IntConstants.sortByGuz: 'ترتيب بالجزء',
-  IntConstants.centers: 'مراكز اسلامية'
+  IntConstants.centers: 'مراكز اسلامية',
+  IntConstants.fromAlHudaapplication: 'من تطبيق الهدى',
+  IntConstants.surahName: 'اسم السورة',
+  IntConstants.ayahNumber: 'رقم الاية',
+  IntConstants.translation: 'الترجمة',
+  IntConstants.chooseReciter: 'اختر قارئ',
+  IntConstants.chooseTranslation: 'اختر ترجمة'
 };
 
 Map<String, String> spanish = {
@@ -32,7 +38,13 @@ Map<String, String> spanish = {
   IntConstants.athkar: 'Recuerdos',
   IntConstants.sortByChapter: 'ordenar por capítulo',
   IntConstants.sortByGuz: 'ordenar por parte',
-  IntConstants.centers: 'centros islámicos'
+  IntConstants.centers: 'centros islámicos',
+  IntConstants.fromAlHudaapplication: 'Desde la aplicación AlHuda',
+  IntConstants.surahName: 'Nombre del capítulo',
+  IntConstants.ayahNumber: 'Número ayah',
+  IntConstants.translation: 'Traducción',
+  IntConstants.chooseReciter: 'Elige un recitador',
+  IntConstants.chooseTranslation: 'elige una traducción'
 };
 
 Map<String, String> english = {
@@ -42,7 +54,13 @@ Map<String, String> english = {
   IntConstants.athkar: 'athkar',
   IntConstants.sortByChapter: 'sort by chapter',
   IntConstants.sortByGuz: 'sort by guz',
-  IntConstants.centers: 'Islamic centers'
+  IntConstants.centers: 'Islamic centers',
+  IntConstants.fromAlHudaapplication: 'from Al Huda application',
+  IntConstants.surahName: 'Chapter name',
+  IntConstants.ayahNumber: 'Ayah number',
+  IntConstants.translation: 'Translation',
+  IntConstants.chooseReciter: 'choose a reciter',
+  IntConstants.chooseTranslation: 'choose a translation'
 };
 
 Map<String, String> french = {
@@ -53,4 +71,10 @@ Map<String, String> french = {
   IntConstants.sortByChapter: 'trier par chapitre',
   IntConstants.sortByGuz: 'trier par partie',
   IntConstants.centers: 'centres islamiques',
+  IntConstants.fromAlHudaapplication: "De l'application Al Huda",
+  IntConstants.surahName: 'Nom du chapitre',
+  IntConstants.ayahNumber: 'Numéro ayah',
+  IntConstants.translation: 'Traduction',
+  IntConstants.chooseReciter: "choisir un récitant",
+  IntConstants.chooseTranslation: 'choisissez une traduction'
 };

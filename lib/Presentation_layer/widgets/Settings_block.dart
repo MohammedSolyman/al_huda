@@ -1,6 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
+import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:al_huda/util/constants/reciters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,14 +26,18 @@ class MySettings extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context) {
             PopupMenuEntry<dynamic> a = PopupMenuItem(
-              child: const Text('choose reciter'),
+              child: Text(
+                IntConstants.chooseReciter.tr,
+              ),
               onTap: () async {
                 await showRecitersDialog(context, guzNumber);
               },
             );
 
             PopupMenuEntry<dynamic> b = PopupMenuItem(
-              child: const Text('choose translation'),
+              child: Text(
+                IntConstants.chooseTranslation.tr,
+              ),
               onTap: () async {
                 await showTranslationDialog(context, guzNumber);
               },
@@ -73,7 +78,7 @@ Future<void> showRecitersDialog(BuildContext context, [int? guzNumber]) async {
   );
 
   await Get.defaultDialog(
-      title: 'choose reciter',
+      title: IntConstants.chooseReciter.tr,
       titleStyle: const TextStyle(
           fontWeight: FontWeight.bold, color: ColorsConst.greyLight),
       content: widget,
@@ -120,7 +125,7 @@ Future<void> showTranslationDialog(BuildContext context,
   );
 
   await Get.defaultDialog(
-      title: 'choose translation',
+      title: IntConstants.chooseTranslation.tr,
       titleStyle: const TextStyle(
           fontWeight: FontWeight.bold, color: ColorsConst.greyLight),
       content: widget,

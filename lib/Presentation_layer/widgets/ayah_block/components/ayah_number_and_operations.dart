@@ -1,6 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/coppying.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/my_ayah_audio_controllers.dart';
+import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/sharing.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +45,10 @@ class AyahNumberAndOperations extends StatelessWidget {
                 headIndex: headIndex,
                 index: index,
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.share,
-                      color: ColorsConst.yDarkBlueColor)),
+              Sharing(
+                headIndex: headIndex,
+                index: index,
+              ),
               Coppying(
                 headIndex: headIndex,
                 index: index,

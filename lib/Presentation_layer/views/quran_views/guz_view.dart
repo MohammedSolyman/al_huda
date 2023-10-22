@@ -21,6 +21,7 @@ class GuzView extends StatelessWidget {
       },
       child: Scaffold(
           body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           MySettings(guzNumber: guzNumber),
           Expanded(

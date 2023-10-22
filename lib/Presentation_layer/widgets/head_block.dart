@@ -90,15 +90,17 @@ class NameBlock extends StatelessWidget {
               fit: BoxFit.fill)),
       child: Container(
         margin: EdgeInsets.fromLTRB(width * 0.28, 40, width * 0.28, 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SurahNames(headIndex: headIndex),
-            SurahControllers(
-              headIndex: headIndex,
-            ),
-          ],
+        child: FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SurahNames(headIndex: headIndex),
+              SurahControllers(
+                headIndex: headIndex,
+              ),
+            ],
+          ),
         ),
       ),
     );

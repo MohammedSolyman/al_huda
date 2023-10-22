@@ -21,7 +21,8 @@ Map<String, String> arabic = {
   IntConstants.lessons: 'دروس',
   IntConstants.athkar: 'أذكار',
   IntConstants.sortByChapter: 'ترتيب بالسورة',
-  IntConstants.sortByGuz: 'ترتيب بالجزء'
+  IntConstants.sortByGuz: 'ترتيب بالجزء',
+  IntConstants.centers: 'مراكز اسلامية'
 };
 
 Map<String, String> spanish = {
@@ -30,7 +31,8 @@ Map<String, String> spanish = {
   IntConstants.lessons: 'Tutoriales',
   IntConstants.athkar: 'Recuerdos',
   IntConstants.sortByChapter: 'ordenar por capítulo',
-  IntConstants.sortByGuz: 'ordenar por parte'
+  IntConstants.sortByGuz: 'ordenar por parte',
+  IntConstants.centers: 'centros islámicos'
 };
 
 Map<String, String> english = {
@@ -39,7 +41,8 @@ Map<String, String> english = {
   IntConstants.lessons: 'lessons',
   IntConstants.athkar: 'athkar',
   IntConstants.sortByChapter: 'sort by chapter',
-  IntConstants.sortByGuz: 'sort by guz'
+  IntConstants.sortByGuz: 'sort by guz',
+  IntConstants.centers: 'Islamic centers'
 };
 
 Map<String, String> french = {
@@ -48,5 +51,6 @@ Map<String, String> french = {
   IntConstants.lessons: 'Tutoriels',
   IntConstants.athkar: 'Prières',
   IntConstants.sortByChapter: 'trier par chapitre',
-  IntConstants.sortByGuz: 'trier par partie'
+  IntConstants.sortByGuz: 'trier par partie',
+  IntConstants.centers: 'centres islamiques',
 };

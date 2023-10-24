@@ -1,6 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 
 Future<void> showLanguagesDialog(BuildContext context, [int? guzNumber]) async {

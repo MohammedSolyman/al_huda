@@ -11,6 +11,7 @@ class GlobalController extends GetxController {
   // 2. reciters
   // 3. internationalization
   // 4. audio operations
+  // 5. device dimensions
 
   Rx<GlobalModel> model = GlobalModel().obs;
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
@@ -65,5 +66,12 @@ class GlobalController extends GetxController {
 
   goToQuranHome() {
     Get.to(() => const QuranHomeView());
+  }
+
+  void updateDeviceDimensions(double height, double width) {
+    model.update((val) {
+      val!.deviceHeight = height;
+      val.deviceWidth = width;
+    });
   }
 }

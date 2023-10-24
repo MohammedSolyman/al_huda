@@ -12,7 +12,13 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GlobalController());
+    GlobalController controller = Get.put(GlobalController());
+
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    controller.updateDeviceDimensions(height, width);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorsConst.blueDark,

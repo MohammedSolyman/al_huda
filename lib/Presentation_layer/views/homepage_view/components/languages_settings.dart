@@ -12,8 +12,8 @@ class LanguagesSettings extends StatelessWidget {
     return Align(
       alignment: AlignmentDirectional.topEnd,
       child: IconButton(
-        onPressed: () {
-          showLanguagesDialog(context);
+        onPressed: () async {
+          await showLanguagesDialog(context);
         },
         icon: Icon(
           Icons.language,

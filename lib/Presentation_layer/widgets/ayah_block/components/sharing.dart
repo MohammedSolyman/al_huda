@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
-import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
-import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

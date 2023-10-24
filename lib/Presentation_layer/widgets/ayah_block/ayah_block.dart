@@ -4,7 +4,6 @@ import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/ayah_nu
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:screenshot/screenshot.dart';
 
 class MyAyahBlock extends StatelessWidget {
   const MyAyahBlock({required this.headIndex, super.key});

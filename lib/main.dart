@@ -1,5 +1,4 @@
 import 'package:al_huda/Presentation_layer/views/homepage_view/homepage_view.dart';
-import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/sharing.dart';
 import 'package:al_huda/util/internationalization/internationalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

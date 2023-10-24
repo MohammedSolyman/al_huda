@@ -14,21 +14,23 @@ class QuranHomeView extends StatelessWidget {
 
     controller.updateChaptersList();
 
-    return Scaffold(
-        backgroundColor: ColorsConst.blueDark,
-        body: Obx(() {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              const Selection(),
-              controller.model.value.quranSortValue == QuranSort.byChapter
-                  ? const ChaptersBlock()
-                  : const GuzsBlock()
-            ],
-          );
-        }));
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: ColorsConst.blueDark,
+          body: Obx(() {
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 40,
+                ),
+                const Selection(),
+                controller.model.value.quranSortValue == QuranSort.byChapter
+                    ? const ChaptersBlock()
+                    : const GuzsBlock()
+              ],
+            );
+          })),
+    );
   }
 }
 

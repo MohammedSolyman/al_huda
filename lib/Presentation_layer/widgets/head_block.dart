@@ -82,6 +82,7 @@ class NameBlock extends StatelessWidget {
 
     return Container(
       height: 180,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(

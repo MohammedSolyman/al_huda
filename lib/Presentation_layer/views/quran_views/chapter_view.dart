@@ -24,29 +24,31 @@ class ChapterView extends StatelessWidget {
         controller.globalController.stopAudio();
         return true;
       },
-      child: Scaffold(
-        backgroundColor: ColorsConst.blueLight,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            MySettings(),
-            Expanded(
-              child: Scrollbar(
-                interactive: true,
-                radius: Radius.circular(20),
-                thickness: 15,
-                thumbVisibility: false,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      HeadBlock(headIndex: 0),
-                      MyAyahBlock(headIndex: 0)
-                    ],
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: ColorsConst.blueLight,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              MySettings(),
+              Expanded(
+                child: Scrollbar(
+                  interactive: true,
+                  radius: Radius.circular(20),
+                  thickness: 15,
+                  thumbVisibility: false,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        HeadBlock(headIndex: 0),
+                        MyAyahBlock(headIndex: 0)
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

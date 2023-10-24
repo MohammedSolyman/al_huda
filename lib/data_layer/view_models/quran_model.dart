@@ -1,6 +1,7 @@
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 class QuranModel {
 //this model is for both ChapterView and GuzView screens.
@@ -24,6 +25,7 @@ class HeadValues {
   String languageName;
   bool showInfo = false;
   List<GlobalKey> keys;
+//  List<ScreenshotController> screencontrollers;
   List<MyAyah> scripts = [];
   List<String> audiosPaths = [];
   List<String> translations;
@@ -31,15 +33,17 @@ class HeadValues {
   AudioState myAyahSystemState = AudioState.stopped;
   int playingMyAyahIndex = -1; //if -1, so there is no MyAyah playing
 
-  HeadValues(
-      {required this.type,
-      required this.chapterId,
-      required this.arabicName,
-      required this.languageName,
-      required this.audiosPaths,
-      required this.scripts,
-      required this.translations,
-      required this.keys});
+  HeadValues({
+    required this.type,
+    required this.chapterId,
+    required this.arabicName,
+    required this.languageName,
+    required this.audiosPaths,
+    required this.scripts,
+    required this.translations,
+    required this.keys,
+    //required this.screencontrollers
+  });
 }
 
 class MyAyah {

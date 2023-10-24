@@ -13,21 +13,23 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(GlobalController());
-    return Scaffold(
-      backgroundColor: ColorsConst.blueDark,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(
-            height: 15,
-          ),
-          const LanguagesSettings(),
-          SvgPicture.asset(PicturesPaths.nightpray),
-          const SizedBox(
-            height: 15,
-          ),
-          const MyThumbs(),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorsConst.blueDark,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            const LanguagesSettings(),
+            SvgPicture.asset(PicturesPaths.nightpray),
+            const SizedBox(
+              height: 15,
+            ),
+            const MyThumbs(),
+          ],
+        ),
       ),
     );
   }

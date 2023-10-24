@@ -19,37 +19,39 @@ class GuzView extends StatelessWidget {
         controller.globalController.stopAudio();
         return true;
       },
-      child: Scaffold(
-          body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          MySettings(guzNumber: guzNumber),
-          Expanded(
-            child: Scrollbar(
-              interactive: true,
-              radius: const Radius.circular(20),
-              thickness: 15,
-              thumbVisibility: false,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                      GuzsChaptersConstant.guzsChapters[guzNumber]!.length,
-                      (headIndex) => Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              HeadBlock(
-                                headIndex: headIndex,
-                                guzNumber: guzNumber,
-                              ),
-                              MyAyahBlock(headIndex: headIndex)
-                            ],
-                          )),
+      child: SafeArea(
+        child: Scaffold(
+            body: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            MySettings(guzNumber: guzNumber),
+            Expanded(
+              child: Scrollbar(
+                interactive: true,
+                radius: const Radius.circular(20),
+                thickness: 15,
+                thumbVisibility: false,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(
+                        GuzsChaptersConstant.guzsChapters[guzNumber]!.length,
+                        (headIndex) => Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                HeadBlock(
+                                  headIndex: headIndex,
+                                  guzNumber: guzNumber,
+                                ),
+                                MyAyahBlock(headIndex: headIndex)
+                              ],
+                            )),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      )),
+            )
+          ],
+        )),
+      ),
     );
   }
 }

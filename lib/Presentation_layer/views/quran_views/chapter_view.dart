@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/widgets/audio_box/audio_box.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/relocate_button/relocate_button.dart';
 import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
@@ -16,7 +16,6 @@ class ChapterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
-
     controller.createHeadValues(chapterId: chapterId);
 
     return WillPopScope(
@@ -27,28 +26,32 @@ class ChapterView extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: ColorsConst.blueLight,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              MySettings(),
-              Expanded(
-                child: Scrollbar(
-                  interactive: true,
-                  radius: Radius.circular(20),
-                  thickness: 15,
-                  thumbVisibility: false,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        HeadBlock(headIndex: 0),
-                        MyAyahBlock(headIndex: 0)
-                      ],
+          body: Stack(children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const MySettings(),
+                Expanded(
+                  child: Scrollbar(
+                    interactive: true,
+                    radius: const Radius.circular(20),
+                    thickness: 15,
+                    thumbVisibility: false,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          HeadBlock(headIndex: 0),
+                          const MyAyahBlock(headIndex: 0)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
+                )
+              ],
+            ),
+            const AudioBox(headIndex: 0),
+            const RelocateButton(headIndex: 0)
+          ]),
         ),
       ),
     );

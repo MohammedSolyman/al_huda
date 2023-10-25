@@ -226,9 +226,6 @@ class LanguageSharingTemplate extends StatelessWidget {
     double padding = 8;
     double nameAndAyahHeight = 95;
     double nameAndAyahWidth = surahFrameWidth * 0.5;
-    print('----------------------------------------------------');
-    print(
-        '---surahFrameWidth: ${controller.model.value.deviceWidth} ------------------------------------------------');
     return Material(
       child: Container(
         color: ColorsConst.blueLight,

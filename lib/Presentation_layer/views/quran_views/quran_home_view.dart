@@ -1,3 +1,4 @@
+import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/internationlization_const.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
@@ -11,7 +12,7 @@ class QuranHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranHomeController controller = Get.put(QuranHomeController());
-
+    Get.put(MyAnimationController());
     controller.updateChaptersList();
 
     return SafeArea(

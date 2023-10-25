@@ -32,3 +32,10 @@ class SurahPaths {
   static const String surah5 = '$_base/surah5.jpg';
   static const String surah6 = '$_base/surah6.jpg';
 }
+
+class RelocatePaths {
+  static const String _base = 'assets/relocate';
+  static const String relocate1 = '$_base/relocate1.png';
+  static const String relocate2 = '$_base/relocate2.png';
+  static const String relocate3 = '$_base/relocate3.png';
+}

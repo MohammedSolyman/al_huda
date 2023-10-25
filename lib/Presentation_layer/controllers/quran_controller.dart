@@ -401,7 +401,7 @@ class QuranController extends GetxController {
     }
   }
 
-  void toggleChapterInfoVisibility(int headIndex) async {
+  void chapterInfoVisibility(int headIndex) async {
     String info = '';
     //1. if the chapter info is empty, get info.
     if (model.value.heads[headIndex].chapterInfo.isEmpty) {

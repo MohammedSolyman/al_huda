@@ -1,7 +1,6 @@
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:flutter/material.dart';
-import 'package:screenshot/screenshot.dart';
 
 class QuranModel {
 //this model is for both ChapterView and GuzView screens.

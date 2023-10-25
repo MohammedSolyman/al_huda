@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MySettings extends StatelessWidget {
-  MySettings({this.guzNumber, super.key});
+  const MySettings({this.guzNumber, super.key});
 
-  int? guzNumber;
+  final int? guzNumber;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 70,
+      height: MediaQuery.of(context).size.height * 0.1,
       child: PopupMenuButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: ColorsConst.blueDark, width: 4),
+            side: const BorderSide(color: ColorsConst.blueDark, width: 4),
           ),
           icon: const Icon(
             Icons.settings,

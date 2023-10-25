@@ -20,6 +20,9 @@ class RelocateButton extends StatelessWidget {
           height: aController.model.value.relocateButtonheight,
           width: aController.model.value.relocateButtonWidth,
           child: GestureDetector(
+            onTap: () {
+              controller.relocateToCurrentAyah(headIndex);
+            },
             child: Image.asset(RelocatePaths.relocate1),
           ),
         ),

@@ -18,6 +18,13 @@ class MyAnimationModel {
 
 class MyAnimationController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  //this controller is resposnible for animation of audio box and relocate button
+  //audio box and relocate button appear when the user play the head of the
+  //surrah, and reverse animation when:
+  //1. the user hit stop button
+  //2. the surrah play list finishes
+  //3. the user hit back button
+
   Rx<MyAnimationModel> model = MyAnimationModel().obs;
   AnimationController? animationController;
   Animation<double>? audioBoxAnimationTop;

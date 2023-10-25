@@ -1,4 +1,5 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_api_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
 import 'package:al_huda/data_layer/api_models/audios_reciter_model.dart';
@@ -19,6 +20,7 @@ class QuranController extends GetxController {
   GlobalController globalController = Get.find<GlobalController>();
   QuranHomeController quranHomeController = Get.find<QuranHomeController>();
   QuranApiController quranApiController = Get.put(QuranApiController());
+  MyAnimationController aController = Get.find<MyAnimationController>();
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -217,7 +219,7 @@ class QuranController extends GetxController {
     });
 
     //2. Listen to the player, when the playlist finishes remove this head index
-    //from the current playing head
+    //from the current playing head and reverse animation.
     globalController.audioPlayer.playlistFinished.listen((bool event) {
       if (event == true) {
         updateHeadSystem(headIndex, AudioState.stopped);
@@ -226,19 +228,19 @@ class QuranController extends GetxController {
           val!.heads[headIndex].playingMyAyahIndex = -1;
           val.headPlaying = -1;
         });
+        aController.reverseAnimation();
       }
     });
   }
 
   updateListMyAyahPlaying(int headIndex) {
     //call this function after play() in head block
+    //update the current ayah playing.
 
     globalController.audioPlayer.current.listen((Playing? event) {
       if (model.value.heads[headIndex].headSystemState == AudioState.playing) {
         model.update((val) {
           val!.heads[headIndex].playingMyAyahIndex = event!.index;
-          GlobalKey key = val.heads[headIndex].keys[event.index];
-          Scrollable.ensureVisible(key.currentContext!);
         });
       }
     });
@@ -246,6 +248,8 @@ class QuranController extends GetxController {
 
   updateMyAyahPlaying(int headIndex, int index) {
     //call this function after play() in MyAyah block
+    //update the current ayah playing.
+
     model.update((val) {
       val!.heads[headIndex].playingMyAyahIndex = index;
     });
@@ -422,6 +426,14 @@ class QuranController extends GetxController {
     model.update((val) {
       val!.languageTranslations = x;
     });
+  }
+
+  void relocateToCurrentAyah(int headIndex) {
+    int currentIndex = model.value.heads[headIndex].playingMyAyahIndex;
+
+    // move to current ayah
+    GlobalKey key = model.value.heads[headIndex].keys[currentIndex];
+    Scrollable.ensureVisible(key.currentContext!);
   }
 
   @override

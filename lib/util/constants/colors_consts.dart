@@ -96,3 +96,26 @@ class TextSizes {
   static const double normal = 15;
   static const double medium = 18;
 }
+
+class SeaColor {
+  static const MaterialColor seaColor = MaterialColor(0xFF055E94, <int, Color>{
+    50: Color(0xFFE1ECF2),
+    100: Color(0xFFB4CFDF),
+    200: Color(0xFF82AFCA),
+    300: Color(0xFF508EB4),
+    400: Color(0xFF2B76A4),
+    500: Color(0xFF055E94),
+    600: Color(0xFF04568C),
+    700: Color(0xFF044C81),
+    800: Color(0xFF034277),
+    900: Color(0xFF013165),
+  });
+
+  static const MaterialColor SeaColorAccents =
+      MaterialColor(0xFF62A1FF, <int, Color>{
+    100: Color(0xFF95BFFF),
+    200: Color(0xFF62A1FF),
+    400: Color(0xFF2F82FF),
+    700: Color(0xFF1573FF),
+  });
+}

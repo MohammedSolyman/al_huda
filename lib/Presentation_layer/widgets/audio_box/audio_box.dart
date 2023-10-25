@@ -21,13 +21,26 @@ class AudioBox extends StatelessWidget {
           child: Container(
               width: aController.model.value.audioBoxWidth,
               height: aController.model.value.audioBoxHeight,
-              decoration: const BoxDecoration(color: Colors.yellow),
-              child: Row(
-                children: [
-                  AudioBoxControllers(
-                    headIndex: headIndex,
-                  )
-                ],
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: BlueColor.blueColor.shade900,
+                    width: 4,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(colors: [
+                    SeaColor.SeaColorAccents.shade100,
+                    SeaColor.SeaColorAccents.shade200,
+                    SeaColor.SeaColorAccents.shade400,
+                    SeaColor.SeaColorAccents.shade700,
+                  ]),
+                  boxShadow: [
+                    BoxShadow(
+                        color: BlueColor.blueColor.shade900,
+                        blurRadius: 5,
+                        offset: Offset(1, 1))
+                  ]),
+              child: AudioBoxControllers(
+                headIndex: headIndex,
               )),
         );
       },
@@ -43,76 +56,82 @@ class AudioBoxControllers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.find<QuranController>();
-    MyAnimationController aController = Get.find<MyAnimationController>();
 
     return Obx(() {
       if (controller.model.value.heads.isNotEmpty) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Visibility(
-                visible:
-                    controller.model.value.heads[headIndex].headSystemState ==
-                        AudioState.playing,
-                child: SizedBox(
-                  height: 25,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateHeadSystem(
-                            headIndex, AudioState.paused);
-                        controller.pause(headIndex);
-                      },
-                      icon: Icon(
-                        Icons.pause,
-                        color: BlueColor.blueColor.shade400,
-                        size: 30,
-                      )),
-                )),
-            Visibility(
-                visible:
-                    controller.model.value.heads[headIndex].headSystemState ==
-                        AudioState.paused,
-                child: SizedBox(
-                  height: 25,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateHeadSystem(
-                            headIndex, AudioState.playing);
-
-                        controller.resume(headIndex);
-                      },
-                      icon: Icon(
-                        Icons.play_circle,
-                        color: BlueColor.blueColor.shade400,
-                        size: 30,
-                      )),
-                )),
-            Visibility(
-                visible: controller
-                            .model.value.heads[headIndex].headSystemState ==
-                        AudioState.playing ||
-                    controller.model.value.heads[headIndex].headSystemState ==
-                        AudioState.paused,
-                child: SizedBox(
-                  height: 25,
-                  child: IconButton(
-                      onPressed: () {
-                        controller.updateHeadSystem(
-                            headIndex, AudioState.stopped);
-                        controller.stop(headIndex);
-                        aController.reverseAnimation();
-                      },
-                      icon: Icon(
-                        Icons.stop,
-                        color: BlueColor.blueColor.shade400,
-                        size: 30,
-                      )),
-                ))
-          ],
+        return Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              PauseOrResume(headIndex: headIndex),
+              Stop(
+                headIndex: headIndex,
+              )
+            ],
+          ),
         );
       } else {
         return Container();
       }
     });
+  }
+}
+
+class PauseOrResume extends StatelessWidget {
+  const PauseOrResume({required this.headIndex, super.key});
+
+  final int headIndex;
+  @override
+  Widget build(BuildContext context) {
+    QuranController controller = Get.find<QuranController>();
+
+    if (controller.model.value.heads[headIndex].headSystemState ==
+        AudioState.playing) {
+      return IconButton(
+          onPressed: () {
+            controller.updateHeadSystem(headIndex, AudioState.paused);
+            controller.pause(headIndex);
+          },
+          icon: Icon(
+            Icons.pause,
+            color: BlueColor.blueColor.shade400,
+            size: 30,
+          ));
+    } else {
+      return IconButton(
+          onPressed: () {
+            controller.updateHeadSystem(headIndex, AudioState.playing);
+
+            controller.resume(headIndex);
+          },
+          icon: Icon(
+            Icons.play_circle,
+            color: BlueColor.blueColor.shade400,
+            size: 30,
+          ));
+    }
+  }
+}
+
+class Stop extends StatelessWidget {
+  const Stop({required this.headIndex, super.key});
+
+  final int headIndex;
+  @override
+  Widget build(BuildContext context) {
+    QuranController controller = Get.find<QuranController>();
+    MyAnimationController aController = Get.find<MyAnimationController>();
+
+    return IconButton(
+        onPressed: () {
+          controller.updateHeadSystem(headIndex, AudioState.stopped);
+          controller.stop(headIndex);
+          aController.reverseAnimation();
+        },
+        icon: Icon(
+          Icons.stop,
+          color: BlueColor.blueColor.shade400,
+          size: 30,
+        ));
   }
 }

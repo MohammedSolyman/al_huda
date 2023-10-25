@@ -28,16 +28,16 @@ class AudioBox extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(15),
                   gradient: LinearGradient(colors: [
-                    SeaColor.SeaColorAccents.shade100,
-                    SeaColor.SeaColorAccents.shade200,
-                    SeaColor.SeaColorAccents.shade400,
-                    SeaColor.SeaColorAccents.shade700,
+                    SeaColor.seaColorAccents.shade100,
+                    SeaColor.seaColorAccents.shade200,
+                    SeaColor.seaColorAccents.shade400,
+                    SeaColor.seaColorAccents.shade700,
                   ]),
                   boxShadow: [
                     BoxShadow(
                         color: BlueColor.blueColor.shade900,
                         blurRadius: 5,
-                        offset: Offset(1, 1))
+                        offset: const Offset(1, 1))
                   ]),
               child: AudioBoxControllers(
                 headIndex: headIndex,

@@ -398,14 +398,13 @@ class QuranController extends GetxController {
           Shadow(
               color: BlueColor.blueColor.shade400,
               blurRadius: 0.2,
-              offset: Offset(0.5, 0.5))
+              offset: const Offset(0.5, 0.5))
         ],
       );
     } else {
       return TextStyle(
         color: BlueColor.blueColor.shade400,
         fontSize: TextSizes.medium,
-        shadows: [],
       );
     }
   }

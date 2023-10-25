@@ -128,7 +128,7 @@ class SurahControllers extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-              color: SeaColor.SeaColorAccents.shade200,
+              color: SeaColor.seaColorAccents.shade200,
               borderRadius: BorderRadius.circular(50)),
           width: 3,
           height: 60,

@@ -111,7 +111,7 @@ class SeaColor {
     900: Color(0xFF013165),
   });
 
-  static const MaterialColor SeaColorAccents =
+  static const MaterialColor seaColorAccents =
       MaterialColor(0xFF62A1FF, <int, Color>{
     100: Color(0xFF95BFFF),
     200: Color(0xFF62A1FF),

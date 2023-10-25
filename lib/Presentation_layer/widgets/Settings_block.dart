@@ -13,7 +13,7 @@ class MySettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.06,
       child: PopupMenuButton(
           color: SkyColor.skyColor.shade900,
           shape: RoundedRectangleBorder(

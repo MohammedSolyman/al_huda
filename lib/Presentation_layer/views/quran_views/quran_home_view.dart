@@ -93,58 +93,65 @@ class ChaptersBlock extends StatelessWidget {
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
                 color: ColorsConst.blueLight),
-            child: ListView.builder(
-                itemCount: 114,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                      onTap: () {
-                        controller.goToChapter(
-                          chapterId:
-                              controller.model.value.chaptersList[index].id,
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(7),
-                        height: 70,
-                        decoration: const BoxDecoration(
-                            color: ColorsConst.yWhiteColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '${index + 1}',
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      color: ColorsConst.greyDark),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.all(8),
-                                  color: ColorsConst.greyDark,
-                                  height: 30,
-                                  width: 3,
-                                ),
-                                Text(
-                                    controller.model.value.chaptersList[index]
-                                        .translatedName.name,
+            child: Scrollbar(
+              interactive: true,
+              radius: const Radius.circular(20),
+              thickness: 15,
+              thumbVisibility: false,
+              child: ListView.builder(
+                  itemCount: 114,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        onTap: () {
+                          controller.goToChapter(
+                            chapterId:
+                                controller.model.value.chaptersList[index].id,
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(7),
+                          height: 70,
+                          decoration: const BoxDecoration(
+                              color: ColorsConst.yWhiteColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '${index + 1}',
                                     style: const TextStyle(
-                                        fontSize: 15,
-                                        color: ColorsConst.greyDark))
-                              ],
-                            ),
-                            Text(
-                                controller
-                                    .model.value.chaptersList[index].nameArabic,
-                                style: const TextStyle(
-                                    fontSize: 15, color: ColorsConst.greyDark))
-                          ],
-                        ),
-                      ));
-                }),
+                                        fontSize: 20,
+                                        color: ColorsConst.greyDark),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.all(8),
+                                    color: ColorsConst.greyDark,
+                                    height: 30,
+                                    width: 3,
+                                  ),
+                                  Text(
+                                      controller.model.value.chaptersList[index]
+                                          .translatedName.name,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: ColorsConst.greyDark))
+                                ],
+                              ),
+                              Text(
+                                  controller.model.value.chaptersList[index]
+                                      .nameArabic,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      color: ColorsConst.greyDark))
+                            ],
+                          ),
+                        ));
+                  }),
+            ),
           ),
         );
       }
@@ -164,32 +171,39 @@ class GuzsBlock extends StatelessWidget {
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
             color: ColorsConst.blueLight),
-        child: ListView.builder(
-            itemCount: 30,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  onTap: () {
-                    controller.goToGuz(guzNumber: index + 1);
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.all(10),
-                      height: 70,
-                      padding: const EdgeInsets.all(7),
-                      decoration: const BoxDecoration(
-                          color: ColorsConst.yWhiteColor,
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('guz ${index + 1}',
-                              style: const TextStyle(
-                                  fontSize: 20, color: ColorsConst.greyDark)),
-                          Text('جزء ${index + 1}',
-                              style: const TextStyle(
-                                  fontSize: 20, color: ColorsConst.greyDark)),
-                        ],
-                      )));
-            }),
+        child: Scrollbar(
+          interactive: true,
+          radius: const Radius.circular(20),
+          thickness: 15,
+          thumbVisibility: false,
+          child: ListView.builder(
+              itemCount: 30,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                    onTap: () {
+                      controller.goToGuz(guzNumber: index + 1);
+                    },
+                    child: Container(
+                        margin: const EdgeInsets.all(10),
+                        height: 70,
+                        padding: const EdgeInsets.all(7),
+                        decoration: const BoxDecoration(
+                            color: ColorsConst.yWhiteColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('guz ${index + 1}',
+                                style: const TextStyle(
+                                    fontSize: 20, color: ColorsConst.greyDark)),
+                            Text('جزء ${index + 1}',
+                                style: const TextStyle(
+                                    fontSize: 20, color: ColorsConst.greyDark)),
+                          ],
+                        )));
+              }),
+        ),
       ),
     );
   }

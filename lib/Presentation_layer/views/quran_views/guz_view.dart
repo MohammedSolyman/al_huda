@@ -1,6 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/audio_box/audio_box.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/my_gradient/my_gradient.dart';
 import 'package:al_huda/Presentation_layer/widgets/relocate_button/relocate_button.dart';
 import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
@@ -37,26 +38,32 @@ class GuzView extends StatelessWidget {
                       thickness: 15,
                       thumbVisibility: false,
                       child: SingleChildScrollView(
-                        child: Column(
-                          children: List.generate(
-                              GuzsChaptersConstant
-                                  .guzsChapters[guzNumber]!.length,
-                              (headIndex) => Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      HeadBlock(
-                                        headIndex: headIndex,
-                                        guzNumber: guzNumber,
-                                      ),
-                                      MyAyahBlock(headIndex: headIndex)
-                                    ],
-                                  )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.04),
+                          child: Column(
+                            children: List.generate(
+                                GuzsChaptersConstant
+                                    .guzsChapters[guzNumber]!.length,
+                                (headIndex) => Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        HeadBlock(
+                                          headIndex: headIndex,
+                                          guzNumber: guzNumber,
+                                        ),
+                                        MyAyahBlock(headIndex: headIndex)
+                                      ],
+                                    )),
+                          ),
                         ),
                       ),
                     ),
                   )
                 ],
               ),
+              const MyGradient(),
               const AudioBox(headIndex: 0),
               const RelocateButton(headIndex: 0)
             ])),

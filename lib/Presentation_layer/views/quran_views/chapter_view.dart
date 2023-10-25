@@ -2,6 +2,7 @@ import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.d
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/audio_box/audio_box.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/my_gradient/my_gradient.dart';
 import 'package:al_huda/Presentation_layer/widgets/relocate_button/relocate_button.dart';
 import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
@@ -65,33 +66,5 @@ class ChapterView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class MyGradient extends StatelessWidget {
-  const MyGradient({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-        top: MediaQuery.of(context).size.height * 0.06,
-        left: 0,
-        child: Container(
-          //    height: MediaQuery.of(context).size.height,
-          height: 75,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Color.fromARGB(255, 235, 240, 255),
-                Color.fromARGB(240, 235, 240, 255),
-                Color.fromARGB(220, 235, 240, 255),
-                Color.fromARGB(150, 235, 240, 255),
-                Color.fromARGB(50, 235, 240, 255),
-                Color.fromARGB(0, 235, 240, 255),
-              ])),
-        ));
   }
 }

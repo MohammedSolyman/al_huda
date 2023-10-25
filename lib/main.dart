@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 
 /*
 
- 
- 
- 
+ git add *
  git commit -m " "
  git log --oneline
  git push https://github.com/MohammedSolyman/al_huda.git master

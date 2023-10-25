@@ -17,9 +17,10 @@ class MyThumbs extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-            color: ColorsConst.blueLight),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
+            // color: ColorsConst.blueLight
+            color: SkyColor.skyColor.shade500),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             double width = (constraints.maxWidth) / 2;

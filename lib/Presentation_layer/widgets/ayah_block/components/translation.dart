@@ -22,8 +22,8 @@ class Translation extends StatelessWidget {
         child: Text(
           controller.model.value.heads[headIndex].translations[index],
           style: TextStyle(
-              color: ColorsConst.yDarkBlueColor,
-              fontSize: controller.getFontSize(headIndex, index),
+              color: BlueColor.blueColor.shade400,
+              fontSize: TextSizes.medium,
               fontWeight: controller.getFontWeight(headIndex, index)),
         ),
       );

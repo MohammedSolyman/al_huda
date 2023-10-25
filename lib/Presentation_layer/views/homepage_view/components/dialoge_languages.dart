@@ -12,7 +12,7 @@ showLanguagesDialog(BuildContext context, [int? guzNumber]) async {
   Widget widget = Container(
     width: width,
     height: height * 0.3,
-    decoration: const BoxDecoration(color: ColorsConst.blueLight),
+    decoration: BoxDecoration(color: SkyColor.skyColor.shade900),
     child: SingleChildScrollView(
       child: Column(
         children: [
@@ -55,8 +55,8 @@ showLanguagesDialog(BuildContext context, [int? guzNumber]) async {
 
   await Get.defaultDialog(
       title: 'choose translation',
-      titleStyle: const TextStyle(
-          fontWeight: FontWeight.bold, color: ColorsConst.greyLight),
+      titleStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: SkyColor.skyColor.shade50),
       content: widget,
-      backgroundColor: ColorsConst.blueDark);
+      backgroundColor: BlueColor.blueColor.shade700);
 }

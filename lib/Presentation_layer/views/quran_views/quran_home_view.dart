@@ -17,7 +17,8 @@ class QuranHomeView extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: ColorsConst.blueDark,
+          // backgroundColor: ColorsConst.blueDark,
+          backgroundColor: BlueColor.blueColor.shade500,
           body: Obx(() {
             return Column(
               children: [
@@ -50,19 +51,22 @@ class Selection extends StatelessWidget {
         children: [
           Text(
             IntConstants.sortByChapter.tr,
-            style: const TextStyle(color: ColorsConst.yWhiteColor),
+            style: TextStyle(
+                fontSize: TextSizes.normal, color: SkyColor.skyColor.shade200),
           ),
           Radio<QuranSort>(
-              fillColor: const MaterialStatePropertyAll(ColorsConst.blueLight),
+              fillColor: MaterialStatePropertyAll(SkyColor.skyColor.shade200),
               value: QuranSort.byChapter,
               groupValue: controller.model.value.quranSortValue,
               onChanged: (QuranSort? s) {
                 controller.updateQuranSort(s!);
               }),
           Text(IntConstants.sortByGuz.tr,
-              style: const TextStyle(color: ColorsConst.yWhiteColor)),
+              style: TextStyle(
+                  fontSize: TextSizes.normal,
+                  color: SkyColor.skyColor.shade200)),
           Radio<QuranSort>(
-              fillColor: const MaterialStatePropertyAll(ColorsConst.blueLight),
+              fillColor: MaterialStatePropertyAll(SkyColor.skyColor.shade200),
               value: QuranSort.byGuz,
               groupValue: controller.model.value.quranSortValue,
               onChanged: (QuranSort? s) {
@@ -90,9 +94,10 @@ class ChaptersBlock extends StatelessWidget {
         return Expanded(
           child: Container(
             padding: const EdgeInsets.only(top: 50),
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
-                color: ColorsConst.blueLight),
+            decoration: BoxDecoration(
+                borderRadius:
+                    const BorderRadius.only(topLeft: Radius.circular(70)),
+                color: SkyColor.skyColor.shade500),
             child: Scrollbar(
               interactive: true,
               radius: const Radius.circular(20),
@@ -112,10 +117,10 @@ class ChaptersBlock extends StatelessWidget {
                           margin: const EdgeInsets.all(10),
                           padding: const EdgeInsets.all(7),
                           height: 70,
-                          decoration: const BoxDecoration(
-                              color: ColorsConst.yWhiteColor,
+                          decoration: BoxDecoration(
+                              color: SkyColor.skyColor.shade50,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                  const BorderRadius.all(Radius.circular(15))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -123,30 +128,31 @@ class ChaptersBlock extends StatelessWidget {
                                 children: [
                                   Text(
                                     '${index + 1}',
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        color: ColorsConst.greyDark),
+                                    style: TextStyle(
+                                        fontSize: TextSizes.normal,
+                                        color: GreyClolor.greyClolor.shade500),
                                   ),
                                   Container(
                                     margin: const EdgeInsets.all(8),
-                                    color: ColorsConst.greyDark,
+                                    color: GreyClolor.greyClolor.shade500,
                                     height: 30,
                                     width: 3,
                                   ),
                                   Text(
                                       controller.model.value.chaptersList[index]
                                           .translatedName.name,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: ColorsConst.greyDark))
+                                      style: TextStyle(
+                                          fontSize: TextSizes.normal,
+                                          color:
+                                              GreyClolor.greyClolor.shade500))
                                 ],
                               ),
                               Text(
                                   controller.model.value.chaptersList[index]
                                       .nameArabic,
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      color: ColorsConst.greyDark))
+                                  style: TextStyle(
+                                      fontSize: TextSizes.normal,
+                                      color: GreyClolor.greyClolor.shade500))
                             ],
                           ),
                         ));
@@ -168,9 +174,9 @@ class GuzsBlock extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.only(top: 50),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(70)),
-            color: ColorsConst.blueLight),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(70)),
+            color: SkyColor.skyColor.shade500),
         child: Scrollbar(
           interactive: true,
           radius: const Radius.circular(20),
@@ -187,19 +193,21 @@ class GuzsBlock extends StatelessWidget {
                         margin: const EdgeInsets.all(10),
                         height: 70,
                         padding: const EdgeInsets.all(7),
-                        decoration: const BoxDecoration(
-                            color: ColorsConst.yWhiteColor,
+                        decoration: BoxDecoration(
+                            color: SkyColor.skyColor.shade50,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                                const BorderRadius.all(Radius.circular(15))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('guz ${index + 1}',
-                                style: const TextStyle(
-                                    fontSize: 20, color: ColorsConst.greyDark)),
+                                style: TextStyle(
+                                    fontSize: TextSizes.normal,
+                                    color: GreyClolor.greyClolor.shade500)),
                             Text('جزء ${index + 1}',
-                                style: const TextStyle(
-                                    fontSize: 20, color: ColorsConst.greyDark)),
+                                style: TextStyle(
+                                    fontSize: TextSizes.normal,
+                                    color: GreyClolor.greyClolor.shade500)),
                           ],
                         )));
               }),

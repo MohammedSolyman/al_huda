@@ -387,15 +387,6 @@ class QuranController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 // others////// ////////////////////////////////////////////////////////////////
 
-  double getFontSize(int headIndex, int index) {
-    if (index == model.value.heads[headIndex].playingMyAyahIndex &&
-        headIndex == model.value.headPlaying) {
-      return 22;
-    } else {
-      return 18;
-    }
-  }
-
   FontWeight getFontWeight(int headIndex, int index) {
     if (index == model.value.heads[headIndex].playingMyAyahIndex &&
         headIndex == model.value.headPlaying) {

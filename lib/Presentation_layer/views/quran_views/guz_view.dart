@@ -2,6 +2,7 @@ import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
+import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,36 +22,38 @@ class GuzView extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
+            backgroundColor: SkyColor.skyColor.shade500,
             body: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            MySettings(guzNumber: guzNumber),
-            Expanded(
-              child: Scrollbar(
-                interactive: true,
-                radius: const Radius.circular(20),
-                thickness: 15,
-                thumbVisibility: false,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                        GuzsChaptersConstant.guzsChapters[guzNumber]!.length,
-                        (headIndex) => Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                HeadBlock(
-                                  headIndex: headIndex,
-                                  guzNumber: guzNumber,
-                                ),
-                                MyAyahBlock(headIndex: headIndex)
-                              ],
-                            )),
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                MySettings(guzNumber: guzNumber),
+                Expanded(
+                  child: Scrollbar(
+                    interactive: true,
+                    radius: const Radius.circular(20),
+                    thickness: 15,
+                    thumbVisibility: false,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(
+                            GuzsChaptersConstant
+                                .guzsChapters[guzNumber]!.length,
+                            (headIndex) => Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    HeadBlock(
+                                      headIndex: headIndex,
+                                      guzNumber: guzNumber,
+                                    ),
+                                    MyAyahBlock(headIndex: headIndex)
+                                  ],
+                                )),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
-          ],
-        )),
+                )
+              ],
+            )),
       ),
     );
   }

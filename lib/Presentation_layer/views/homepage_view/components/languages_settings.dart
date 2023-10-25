@@ -17,7 +17,7 @@ class LanguagesSettings extends StatelessWidget {
         },
         icon: Icon(
           Icons.language,
-          color: ColorsConst.yWhiteColor,
+          color: SkyColor.skyColor.shade50,
           size: 40,
         ),
       ),

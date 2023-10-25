@@ -30,7 +30,7 @@ class ChapterView extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: ColorsConst.blueLight,
+          backgroundColor: SkyColor.skyColor.shade500,
           body: Stack(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,

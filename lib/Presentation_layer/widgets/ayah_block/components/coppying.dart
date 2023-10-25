@@ -30,10 +30,7 @@ class Coppying extends StatelessWidget {
           await copyToClipbaord(
               chapterName, languageName, ayahNumber, arabicScript, translation);
         },
-        icon: const Icon(
-          Icons.copy,
-          color: ColorsConst.yDarkBlueColor,
-        ));
+        icon: Icon(Icons.copy, color: BlueColor.blueColor.shade400));
   }
 }
 

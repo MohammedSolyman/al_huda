@@ -21,7 +21,8 @@ class HomePageView extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorsConst.blueDark,
+        //  backgroundColor: ColorsConst.blueDark,
+        backgroundColor: BlueColor.blueColor.shade500,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

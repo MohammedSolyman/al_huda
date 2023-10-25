@@ -45,12 +45,15 @@ class InfoBlock extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Container(
-                  color: ColorsConst.blueLight,
+                  color: SkyColor.skyColor.shade500,
                   child: Text(
-                      controller.model.value.heads[headIndex].chapterInfo == ''
-                          ? '...'
-                          : controller
-                              .model.value.heads[headIndex].chapterInfo),
+                    controller.model.value.heads[headIndex].chapterInfo == ''
+                        ? '...'
+                        : controller.model.value.heads[headIndex].chapterInfo,
+                    style: TextStyle(
+                        color: BlueColor.blueColor.shade400,
+                        fontSize: TextSizes.normal),
+                  ),
                 ),
               ),
               Image.asset(FramesPaths.frame2),
@@ -137,10 +140,10 @@ class SurahControllers extends StatelessWidget {
                 onPressed: () {
                   controller.chapterInfoVisibility(headIndex);
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.info,
                   size: 20,
-                  color: ColorsConst.yDarkBlueColor,
+                  color: BlueColor.blueColor.shade400,
                 )),
           ],
         ),
@@ -169,19 +172,19 @@ class SurahNames extends StatelessWidget {
             controller.model.value.heads.isEmpty
                 ? '...'
                 : controller.model.value.heads[headIndex].arabicName,
-            style: const TextStyle(
+            style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: ColorsConst.yDarkBlueColor,
-                fontSize: 15),
+                color: BlueColor.blueColor.shade400,
+                fontSize: TextSizes.medium),
           ),
           Text(
             controller.model.value.heads.isEmpty
                 ? '...'
                 : controller.model.value.heads[headIndex].languageName,
-            style: const TextStyle(
+            style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: ColorsConst.yDarkBlueColor,
-                fontSize: 15),
+                color: BlueColor.blueColor.shade400,
+                fontSize: TextSizes.medium),
           ),
         ],
       );
@@ -214,9 +217,9 @@ class HeadAudioControllers extends StatelessWidget {
                     controller.updateListMyAyahPlaying(headIndex);
                     aController.startAnimation();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.play_arrow,
-                    color: ColorsConst.yDarkBlueColor,
+                    color: BlueColor.blueColor.shade400,
                     size: 30,
                   )),
             ));

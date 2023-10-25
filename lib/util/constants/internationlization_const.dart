@@ -15,5 +15,5 @@ class IntConstants {
   static const String translation = 'Translation';
   //choosing reciter and translation
   static const String chooseReciter = 'Choose a reciter';
-  static const String chooseTranslation = 'Choose a translation:';
+  static const String chooseTranslation = 'Choose a translation';
 }

@@ -62,9 +62,9 @@ class AudioBoxControllers extends StatelessWidget {
                             headIndex, AudioState.paused);
                         controller.pause(headIndex);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.pause,
-                        color: ColorsConst.yDarkBlueColor,
+                        color: BlueColor.blueColor.shade400,
                         size: 30,
                       )),
                 )),
@@ -81,9 +81,9 @@ class AudioBoxControllers extends StatelessWidget {
 
                         controller.resume(headIndex);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.play_circle,
-                        color: ColorsConst.yDarkBlueColor,
+                        color: BlueColor.blueColor.shade400,
                         size: 30,
                       )),
                 )),
@@ -102,9 +102,9 @@ class AudioBoxControllers extends StatelessWidget {
                         controller.stop(headIndex);
                         aController.reverseAnimation();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.stop,
-                        color: ColorsConst.yDarkBlueColor,
+                        color: BlueColor.blueColor.shade400,
                         size: 30,
                       )),
                 ))

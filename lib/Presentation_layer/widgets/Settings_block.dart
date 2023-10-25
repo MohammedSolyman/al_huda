@@ -15,19 +15,23 @@ class MySettings extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.1,
       child: PopupMenuButton(
+          color: SkyColor.skyColor.shade900,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: const BorderSide(color: ColorsConst.blueDark, width: 4),
+            side: BorderSide(color: BlueColor.blueColor.shade700, width: 4),
           ),
-          icon: const Icon(
+          icon: Icon(
             Icons.settings,
-            color: ColorsConst.blueDark,
+            color: BlueColor.blueColor.shade700,
             size: 40,
           ),
           itemBuilder: (BuildContext context) {
             PopupMenuEntry<dynamic> a = PopupMenuItem(
               child: Text(
                 IntConstants.chooseReciter.tr,
+                style: TextStyle(
+                    fontSize: TextSizes.normal,
+                    color: BlueColor.blueColor.shade700),
               ),
               onTap: () async {
                 await showRecitersDialog(context, guzNumber);
@@ -37,6 +41,9 @@ class MySettings extends StatelessWidget {
             PopupMenuEntry<dynamic> b = PopupMenuItem(
               child: Text(
                 IntConstants.chooseTranslation.tr,
+                style: TextStyle(
+                    fontSize: TextSizes.normal,
+                    color: BlueColor.blueColor.shade700),
               ),
               onTap: () async {
                 await showTranslationDialog(context, guzNumber);
@@ -59,7 +66,7 @@ Future<void> showRecitersDialog(BuildContext context, [int? guzNumber]) async {
   Widget widget = Container(
     width: width * 0.75,
     height: height * 0.5,
-    decoration: const BoxDecoration(color: ColorsConst.blueLight),
+    decoration: BoxDecoration(color: SkyColor.skyColor.shade900),
     child: Obx(() {
       return SingleChildScrollView(
         child: Column(
@@ -79,10 +86,10 @@ Future<void> showRecitersDialog(BuildContext context, [int? guzNumber]) async {
 
   await Get.defaultDialog(
       title: IntConstants.chooseReciter.tr,
-      titleStyle: const TextStyle(
-          fontWeight: FontWeight.bold, color: ColorsConst.greyLight),
+      titleStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: SkyColor.skyColor.shade50),
       content: widget,
-      backgroundColor: ColorsConst.blueDark);
+      backgroundColor: BlueColor.blueColor.shade700);
 }
 
 Future<void> showTranslationDialog(BuildContext context,
@@ -95,7 +102,7 @@ Future<void> showTranslationDialog(BuildContext context,
   Widget widget = Container(
     width: width,
     height: height * 0.5,
-    decoration: const BoxDecoration(color: ColorsConst.blueLight),
+    decoration: BoxDecoration(color: SkyColor.skyColor.shade900),
     child: Obx(() {
       if (controller.model.value.languageTranslations.isEmpty) {
         return const Text('there is no translations available');
@@ -126,8 +133,8 @@ Future<void> showTranslationDialog(BuildContext context,
 
   await Get.defaultDialog(
       title: IntConstants.chooseTranslation.tr,
-      titleStyle: const TextStyle(
-          fontWeight: FontWeight.bold, color: ColorsConst.greyLight),
+      titleStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: SkyColor.skyColor.shade50),
       content: widget,
-      backgroundColor: ColorsConst.blueDark);
+      backgroundColor: BlueColor.blueColor.shade700);
 }

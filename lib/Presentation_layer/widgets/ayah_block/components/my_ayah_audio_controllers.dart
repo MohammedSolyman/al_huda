@@ -34,8 +34,8 @@ class MyAyahAudioControllers extends StatelessWidget {
                         ], headIndex: headIndex);
                         controller.updateMyAyahPlaying(headIndex, index);
                       },
-                      icon: const Icon(Icons.play_arrow,
-                          size: 30, color: ColorsConst.yDarkBlueColor))),
+                      icon: Icon(Icons.play_arrow,
+                          size: 30, color: BlueColor.blueColor.shade400))),
               Visibility(
                   visible: controller
                               .model.value.heads[headIndex].myAyahSystemState ==
@@ -50,8 +50,8 @@ class MyAyahAudioControllers extends StatelessWidget {
 
                         controller.pause(headIndex);
                       },
-                      icon: const Icon(Icons.pause,
-                          size: 30, color: ColorsConst.yDarkBlueColor))),
+                      icon: Icon(Icons.pause,
+                          size: 30, color: BlueColor.blueColor.shade400))),
               Visibility(
                   visible: controller
                               .model.value.heads[headIndex].myAyahSystemState ==
@@ -66,8 +66,8 @@ class MyAyahAudioControllers extends StatelessWidget {
 
                         controller.resume(headIndex);
                       },
-                      icon: const Icon(Icons.play_circle,
-                          size: 30, color: ColorsConst.yDarkBlueColor))),
+                      icon: Icon(Icons.play_circle,
+                          size: 30, color: BlueColor.blueColor.shade400))),
               Visibility(
                   visible: (controller.model.value.heads[headIndex]
                                   .myAyahSystemState ==
@@ -85,8 +85,8 @@ class MyAyahAudioControllers extends StatelessWidget {
 
                         controller.stop(headIndex);
                       },
-                      icon: const Icon(Icons.stop,
-                          size: 30, color: ColorsConst.yDarkBlueColor)))
+                      icon: Icon(Icons.stop,
+                          size: 30, color: BlueColor.blueColor.shade400)))
             ],
           );
         } else {

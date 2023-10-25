@@ -22,7 +22,8 @@ class MyThumb extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
-                color: ColorsConst.yDarkBlueColor,
+                // color: ColorsConst.yDarkBlueColor,
+                color: PurpleColor.purpleColor.shade500,
                 borderRadius: BorderRadius.circular(20)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -30,8 +31,8 @@ class MyThumb extends StatelessWidget {
                 SizedBox(height: 70, child: SvgPicture.asset(svgPath)),
                 FittedBox(
                   child: Text(text,
-                      style: const TextStyle(
-                          color: ColorsConst.yWhiteColor, fontSize: 18)),
+                      style: TextStyle(
+                          color: SkyColor.skyColor.shade200, fontSize: 18)),
                 )
               ],
             ),

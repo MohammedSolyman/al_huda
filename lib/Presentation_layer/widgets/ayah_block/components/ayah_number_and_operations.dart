@@ -22,7 +22,8 @@ class AyahNumberAndOperations extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          color: SkyColor.skyColor.shade50,
+          borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,7 +36,9 @@ class AyahNumberAndOperations extends StatelessWidget {
               child: Text(
                 controller.model.value.heads[headIndex].scripts[index].number
                     .toString(),
-                style: const TextStyle(color: ColorsConst.yDarkBlueColor),
+                style: TextStyle(
+                    fontSize: TextSizes.medium,
+                    color: BlueColor.blueColor.shade400),
               ),
             ),
           ),

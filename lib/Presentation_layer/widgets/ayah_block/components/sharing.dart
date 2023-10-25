@@ -48,9 +48,9 @@ class Sharing extends StatelessWidget {
 
           Share.shareXFiles([arbXFile, lngXFile]);
         },
-        icon: const Icon(
+        icon: Icon(
           Icons.share,
-          color: ColorsConst.yDarkBlueColor,
+          color: BlueColor.blueColor.shade400,
         ));
   }
 }
@@ -140,7 +140,7 @@ class ArabicSharingTemplate extends StatelessWidget {
 
     return Material(
       child: Container(
-        color: ColorsConst.blueLight,
+        color: SkyColor.skyColor.shade500,
         child: Padding(
           padding: EdgeInsets.all(padding),
           child: Column(
@@ -228,7 +228,7 @@ class LanguageSharingTemplate extends StatelessWidget {
     double nameAndAyahWidth = surahFrameWidth * 0.5;
     return Material(
       child: Container(
-        color: ColorsConst.blueLight,
+        color: SkyColor.skyColor.shade500,
         child: Padding(
           padding: EdgeInsets.all(padding),
           child: Column(

@@ -1,5 +1,4 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
-import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,10 +16,7 @@ class ArabicAyah extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Text(controller.model.value.heads[headIndex].scripts[index].script,
           textDirection: TextDirection.rtl,
-          style: TextStyle(
-              color: BlueColor.blueColor.shade400,
-              fontSize: TextSizes.medium,
-              fontWeight: controller.getFontWeight(headIndex, index))),
+          style: controller.getTextStyle(headIndex, index)),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:al_huda/data_layer/api_models/translation_resource_model.dart'
     as res;
 import 'package:al_huda/data_layer/view_models/quran_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
+import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -387,12 +388,25 @@ class QuranController extends GetxController {
 ////////////////////////////////////////////////////////////////////////////////
 // others////// ////////////////////////////////////////////////////////////////
 
-  FontWeight getFontWeight(int headIndex, int index) {
+  TextStyle getTextStyle(int headIndex, int index) {
     if (index == model.value.heads[headIndex].playingMyAyahIndex &&
         headIndex == model.value.headPlaying) {
-      return FontWeight.bold;
+      return TextStyle(
+        color: BlueColor.blueColor.shade900,
+        fontSize: TextSizes.medium,
+        shadows: [
+          Shadow(
+              color: BlueColor.blueColor.shade400,
+              blurRadius: 0.2,
+              offset: Offset(0.5, 0.5))
+        ],
+      );
     } else {
-      return FontWeight.normal;
+      return TextStyle(
+        color: BlueColor.blueColor.shade400,
+        fontSize: TextSizes.medium,
+        shadows: [],
+      );
     }
   }
 

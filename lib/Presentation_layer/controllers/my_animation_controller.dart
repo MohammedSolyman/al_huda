@@ -56,7 +56,7 @@ class MyAnimationController extends GetxController
       //3. providing dimenstions, top, and left values to relocate button.
       val.relocateButtonheight = deviceHeight * 0.08;
       val.relocateButtonWidth = deviceHeight * 0.08;
-      val.relocateButtonTop = -(deviceHeight * 0.08);
+      val.relocateButtonTop = -(deviceHeight * 0.1);
       val.relocateButtonLeft = 20;
     });
   }
@@ -88,7 +88,7 @@ class MyAnimationController extends GetxController
     //4.1 relocate button tween
 
     Tween<double> relocateButtonTweenTop = Tween(
-        begin: -(deviceHeight * 0.08),
+        begin: -(deviceHeight * 0.1),
         end: (deviceHeight - model.value.relocateButtonheight - 50));
 
     //4.2 relocate button animation

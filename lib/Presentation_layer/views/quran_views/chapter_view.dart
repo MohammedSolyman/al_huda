@@ -5,7 +5,7 @@ import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/my_gradient/my_gradient.dart';
 import 'package:al_huda/Presentation_layer/widgets/relocate_button/relocate_button.dart';
 import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
-import 'package:al_huda/Presentation_layer/widgets/head_block.dart';
+import 'package:al_huda/Presentation_layer/widgets/head_block/head_block.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -9,6 +9,10 @@ import 'package:get/get.dart';
  git commit -m " "
  git log --oneline
  git push https://github.com/MohammedSolyman/al_huda.git master
+
+
+
+ flutter build apk --release
  */
 void main() {
   runApp(const MainApp());

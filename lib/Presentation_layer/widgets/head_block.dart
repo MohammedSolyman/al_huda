@@ -23,6 +23,7 @@ class HeadBlock extends StatelessWidget {
       children: [
         NameBlock(headIndex: headIndex, guzNumber: guzNumber),
         InfoBlock(headIndex: headIndex),
+        Basmala(headIndex: headIndex)
       ],
     );
   }
@@ -226,6 +227,36 @@ class HeadAudioControllers extends StatelessWidget {
             ));
       } else {
         return Container();
+      }
+    });
+  }
+}
+
+class Basmala extends StatelessWidget {
+  const Basmala({required this.headIndex, super.key});
+
+  final int headIndex;
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      QuranController controller = Get.find<QuranController>();
+
+      if (controller.model.value.heads.isEmpty) {
+        return Container();
+      } else {
+        int firstAyahNumber =
+            controller.model.value.heads[headIndex].scripts[0].number;
+        int chapterId = controller.model.value.heads[headIndex].chapterId;
+
+        if (firstAyahNumber == 1 && chapterId != 1 && chapterId != 9) {
+          return Text('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: BlueColor.blueColor.shade400,
+                  fontSize: TextSizes.medium));
+        } else {
+          return Container();
+        }
       }
     });
   }

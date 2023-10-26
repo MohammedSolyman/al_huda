@@ -24,13 +24,22 @@ class QuranApiController extends GetxController {
     //https://download.quranicaudio.com/qdc/
     //      ex: https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/1.mp3
 
+    int reciterId = globalController.model.value.selectedReciter;
+    String p1 = 'https://verses.quran.com/';
+    String prefix = '';
+    if (reciterId == 6 || reciterId == 11 || reciterId == 12) {
+      prefix = 'https:';
+    } else {
+      prefix = p1;
+    }
+
     AudiosReciterModel x = await quranApi.audiosReciterChapter(
         globalController.model.value.selectedReciter, chapterId);
 
     List<String> audiosPaths = [];
 
     for (AudioFile a in x.audioFiles!) {
-      audiosPaths.add('https://verses.quran.com/${a.url!}');
+      audiosPaths.add('$prefix${a.url!}');
     }
     return audiosPaths;
   }

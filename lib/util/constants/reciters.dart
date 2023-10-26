@@ -5,13 +5,13 @@ class Reciters {
     Reciter(3, 'Sudais'),
     Reciter(4, 'Shatri'),
     Reciter(5, 'Rifai'),
-    //Reciter( 6, 'Husary' ),
+    Reciter(6, 'Husary'),
     Reciter(7, 'Alafasy'),
     Reciter(8, 'Minshawi-Mujawwad'),
     Reciter(9, 'Minshawi-Murattal'),
     Reciter(10, 'Shuraym'),
-    //Reciter(  11, 'Mohammad al Tablaway'),
-    //Reciter(  12, 'Husary-Muallim'),
+    Reciter(11, 'Mohammad al Tablaway'),
+    Reciter(12, 'Husary-Muallim'),
   ];
 }
 

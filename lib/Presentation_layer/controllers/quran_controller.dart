@@ -160,10 +160,19 @@ class QuranController extends GetxController {
 
         //2.5.3 extracting guz chapter audio paths
         List<String> audiosPaths = [];
+        int reciterId = globalController.model.value.selectedReciter;
+        String p1 = 'https://verses.quran.com/';
+        String prefix = '';
+        if (reciterId == 6 || reciterId == 11 || reciterId == 12) {
+          prefix = 'https:';
+        } else {
+          prefix = p1;
+        }
+
         for (AudioFile v in guzAudiosPaths) {
           int vChptNum = int.parse(v.verseKey!.split(':').first);
           if (vChptNum == chapterId) {
-            audiosPaths.add('https://verses.quran.com/${v.url!}');
+            audiosPaths.add('$prefix${v.url!}');
           }
         }
 
@@ -313,11 +322,21 @@ class QuranController extends GetxController {
             await quranApiController.getReciterGuzAudios(guzNumber!);
 
         //1. extracting guz chapter audio paths
+
+        int reciterId = globalController.model.value.selectedReciter;
+        String p1 = 'https://verses.quran.com/';
+        String prefix = '';
+        if (reciterId == 6 || reciterId == 11 || reciterId == 12) {
+          prefix = 'https:';
+        } else {
+          prefix = p1;
+        }
+
         List<String> audiosPaths = [];
         for (AudioFile v in guzAudiosPaths) {
           int vChptNum = int.parse(v.verseKey!.split(':').first);
           if (vChptNum == chapterId) {
-            audiosPaths.add('https://verses.quran.com/${v.url!}');
+            audiosPaths.add('$prefix${v.url!}');
           }
         }
 

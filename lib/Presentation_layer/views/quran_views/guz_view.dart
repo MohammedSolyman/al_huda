@@ -1,3 +1,4 @@
+import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/audio_box/audio_box.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
@@ -16,11 +17,16 @@ class GuzView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
+    MyAnimationController aController = Get.find<MyAnimationController>();
+
     controller.createHeadValues(guzNumber: guzNumber);
 
     return WillPopScope(
       onWillPop: () async {
         controller.globalController.stopAudio();
+        if (aController.animationController!.isCompleted) {
+          aController.reverseAnimation();
+        }
         return true;
       },
       child: SafeArea(
@@ -64,8 +70,8 @@ class GuzView extends StatelessWidget {
                 ],
               ),
               const MyGradient(),
-              const AudioBox(headIndex: 0),
-              const RelocateButton(headIndex: 0)
+              const AudioBox(),
+              const RelocateButton()
             ])),
       ),
     );

@@ -280,6 +280,7 @@ class QuranController extends GetxController {
 
     model.update((val) {
       val!.heads[headIndex].playingMyAyahIndex = -1;
+      val.headPlaying = -1;
     });
   }
 

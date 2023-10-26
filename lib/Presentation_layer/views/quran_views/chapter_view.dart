@@ -60,8 +60,8 @@ class ChapterView extends StatelessWidget {
               ],
             ),
             const MyGradient(),
-            const AudioBox(headIndex: 0),
-            const RelocateButton(headIndex: 0)
+            const AudioBox(),
+            const RelocateButton()
           ]),
         ),
       ),

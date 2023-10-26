@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AudioBox extends StatelessWidget {
-  const AudioBox({required this.headIndex, super.key});
+  const AudioBox({super.key});
 
-  final int headIndex;
   @override
   Widget build(BuildContext context) {
     MyAnimationController aController = Get.find<MyAnimationController>();
+    QuranController qContoller = Get.find<QuranController>();
 
     return Obx(
       () {
+        int headIndex = qContoller.model.value.headPlaying == -1
+            ? 0
+            : qContoller.model.value.headPlaying;
         return Positioned(
           top: aController.model.value.audioBoxTop,
           left: aController.model.value.audioBoxLeft,
@@ -126,6 +129,7 @@ class Stop extends StatelessWidget {
         onPressed: () {
           controller.updateHeadSystem(headIndex, AudioState.stopped);
           controller.stop(headIndex);
+          controller.updateHeadSystem(headIndex, AudioState.stopped);
           aController.reverseAnimation();
         },
         icon: Icon(

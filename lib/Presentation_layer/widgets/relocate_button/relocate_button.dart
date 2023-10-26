@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RelocateButton extends StatelessWidget {
-  const RelocateButton({required this.headIndex, super.key});
+  const RelocateButton({super.key});
 
-  final int headIndex;
   @override
   Widget build(BuildContext context) {
     QuranController controller = Get.put(QuranController());
     MyAnimationController aController = Get.find<MyAnimationController>();
     return Obx(() {
+      int headIndex = controller.model.value.headPlaying == -1
+          ? 0
+          : controller.model.value.headPlaying;
+
       return Positioned(
         top: aController.model.value.relocateButtonTop,
         left: aController.model.value.relocateButtonLeft,

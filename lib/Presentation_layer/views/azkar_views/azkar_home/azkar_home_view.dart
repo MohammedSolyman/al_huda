@@ -1,4 +1,6 @@
 import 'package:al_huda/Presentation_layer/controllers/azkar_controllers/azkar_home_controller.dart';
+import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/zekr_category.dart';
+import 'package:al_huda/data_layer/json_models/azkar_model.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,6 @@ class AzkarHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AzkarHomeController controller = Get.put(AzkarHomeController());
-
     return SafeArea(
       child: Scaffold(
           backgroundColor: BlueColor.blueColor.shade500,
@@ -31,9 +31,6 @@ class AzkarBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AzkarHomeController controller = Get.find<AzkarHomeController>();
-    controller.getLangAzkar(context);
-    controller.getArabicAzkar(context);
     return Expanded(
       child: Container(
         padding: const EdgeInsets.only(top: 50),
@@ -57,7 +54,10 @@ class AzkarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AzkarHomeController controller = Get.find<AzkarHomeController>();
+    //AzkarHomeController controller = Get.find<AzkarHomeController>();
+    AzkarHomeController controller = Get.put(AzkarHomeController());
+    // controller.getLangAzkar(context);
+    // controller.getArabicAzkar(context);
 
     return Obx(() {
       if (controller.model.value.arabicAzkar.isEmpty) {
@@ -69,7 +69,18 @@ class AzkarList extends StatelessWidget {
             itemCount: controller.model.value.languageAzkarCats.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    int catId = controller
+                        .model.value.languageAzkarCats[index].categoryId!;
+                    List<Azkar> langCatAzkar =
+                        controller.getLangCatAzkar(catId);
+                    List<Azkar> arabCatAzkar =
+                        controller.getArabCatAzkar(langCatAzkar);
+
+                    Get.to(() => ZekrCategory(
+                        arabCatAzkar: arabCatAzkar,
+                        langCatAzkar: langCatAzkar));
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(7),

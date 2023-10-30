@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/data_layer/json_models/azkar_model.dart';
 import 'package:al_huda/data_layer/view_models/azkar_models/azkar_home_model.dart';
@@ -63,5 +62,48 @@ class AzkarHomeController extends GetxController {
       val!.arabicAzkarCats = araCats;
       val.arabicAzkar = araAzk;
     });
+  }
+
+  List<Azkar> getLangCatAzkar(int catId) {
+    //1. getting selected language tabweeb
+    String langTabweeb = '';
+    for (Category c in model.value.languageAzkarCats) {
+      if (c.categoryId == catId) {
+        langTabweeb = c.category!;
+      }
+    }
+
+    //2. getting language azkar of selected language tabweeb
+    List<Azkar> lgCtAz = [];
+    for (Azkar z in model.value.languageAzkar) {
+      if (z.tabweeb == langTabweeb) {
+        lgCtAz.add(z);
+      }
+    }
+
+    return lgCtAz;
+    // model.update((val) {
+    //   val!.languageCategoryAzkar = lgCtAz;
+    // });
+  }
+
+  List<Azkar> getArabCatAzkar(List<Azkar> lnAzkar) {
+    //1. getting the correesponding arabic azkar of the selected id
+
+    List<Azkar> arabCtAz = [];
+    for (Azkar z in lnAzkar) {
+      for (Azkar arabZ in model.value.arabicAzkar) {
+        if (arabZ.zekarId == z.zekarId!) {
+          arabCtAz.add(arabZ);
+          break;
+        }
+      }
+    }
+
+    return arabCtAz;
+    // //2. updating arabic azkar of the corresponding language azkar
+    // model.update((val) {
+    //   val!.arabicCategoryAzkar = arabCtAz;
+    // });
   }
 }

@@ -47,7 +47,7 @@ class MyThumbs extends StatelessWidget {
                 ),
                 MyThumb(
                   svgPath: PicturesPaths.azkar,
-                  func: controller.goToQuranHome,
+                  func: controller.goToAzkarHome,
                   text: IntConstants.athkar.tr,
                 ),
                 MyThumb(

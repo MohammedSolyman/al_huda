@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/coppying.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/my_ayah_audio_controllers.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/sharing.dart';

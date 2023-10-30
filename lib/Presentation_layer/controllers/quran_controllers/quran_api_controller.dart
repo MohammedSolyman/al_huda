@@ -1,5 +1,5 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_home_controller.dart';
 import 'package:al_huda/data_layer/api_models/chapter_info.dart';
 import 'package:al_huda/data_layer/api_models/audios_reciter_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_model.dart';
@@ -7,8 +7,7 @@ import 'package:al_huda/data_layer/api_models/translation_resource_model.dart'
     as res;
 import 'package:al_huda/data_layer/api_models/indopak_model.dart';
 import 'package:al_huda/data_layer/api_operations/quran_api_operations.dart';
-import 'package:al_huda/data_layer/view_models/quran_model.dart';
-
+import 'package:al_huda/data_layer/view_models/quran_models/quran_model.dart';
 import 'package:get/get.dart';
 
 class QuranApiController extends GetxController {

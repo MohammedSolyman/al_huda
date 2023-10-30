@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

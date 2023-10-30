@@ -1,4 +1,4 @@
-import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/arabic_ayah.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/ayah_number_and_operations.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/translation.dart';

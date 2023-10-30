@@ -1,12 +1,12 @@
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/quran_api_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/quran_home_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/my_animation_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_api_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_home_controller.dart';
 import 'package:al_huda/data_layer/api_models/audios_reciter_model.dart';
 import 'package:al_huda/data_layer/api_models/indopak_model.dart';
 import 'package:al_huda/data_layer/api_models/translation_resource_model.dart'
     as res;
-import 'package:al_huda/data_layer/view_models/quran_model.dart';
+import 'package:al_huda/data_layer/view_models/quran_models/quran_model.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';

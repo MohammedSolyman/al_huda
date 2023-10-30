@@ -1,5 +1,5 @@
-import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/my_animation_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
 import 'package:al_huda/Presentation_layer/widgets/audio_box/audio_box.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/ayah_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/my_gradient/my_gradient.dart';

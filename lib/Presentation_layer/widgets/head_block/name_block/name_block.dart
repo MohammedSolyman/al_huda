@@ -1,5 +1,5 @@
-import 'package:al_huda/Presentation_layer/controllers/my_animation_controller.dart';
-import 'package:al_huda/Presentation_layer/controllers/quran_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/my_animation_controller.dart';
+import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
 import 'package:al_huda/util/constants/audio_state.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:auto_size_text/auto_size_text.dart';

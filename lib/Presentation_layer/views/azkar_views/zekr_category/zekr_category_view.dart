@@ -1,17 +1,15 @@
-import 'package:al_huda/data_layer/json_models/azkar_model.dart';
+import 'package:al_huda/Presentation_layer/controllers/azkar_controllers/azkar_home_controller.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ZekrCategory extends StatelessWidget {
-  const ZekrCategory(
-      {required this.langCatAzkar, required this.arabCatAzkar, super.key});
-
-  final List<Azkar> langCatAzkar;
-  final List<Azkar> arabCatAzkar;
+class ZekrCategorView extends StatelessWidget {
+  const ZekrCategorView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AzkarController controller = Get.put(AzkarController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: SkyColor.skyColor.shade500,
@@ -38,8 +36,11 @@ class ZekrCategory extends StatelessWidget {
                           blurRadius: 5,
                           offset: const Offset(1, 1))
                     ]),
-                child: const Column(
-                  children: [Text('arabic cat'), Text('lan cat')],
+                child: Column(
+                  children: [
+                    Text(controller.model.value.arabicSelectedCategory),
+                    Text(controller.model.value.languageSelectedCategory)
+                  ],
                 ),
               ),
               Expanded(
@@ -53,9 +54,13 @@ class ZekrCategory extends StatelessWidget {
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.04),
                       child: Column(
-                        children: List.generate(langCatAzkar.length, (index) {
-                          String arabicZekr = arabCatAzkar[index].zekarText!;
-                          String languageZekr = langCatAzkar[index].zekarText!;
+                        children: List.generate(
+                            controller.model.value.languageCategoryAzkar.length,
+                            (index) {
+                          String arabicZekr = controller.model.value
+                              .arabicCategoryAzkar[index].zekarText!;
+                          String languageZekr = controller.model.value
+                              .languageCategoryAzkar[index].zekarText!;
                           return Zekr(
                             arabicZekr: arabicZekr,
                             languageZekr: languageZekr,

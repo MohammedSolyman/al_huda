@@ -1,6 +1,5 @@
 import 'package:al_huda/Presentation_layer/controllers/azkar_controllers/azkar_home_controller.dart';
-import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/zekr_category.dart';
-import 'package:al_huda/data_layer/json_models/azkar_model.dart';
+import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/zekr_category_view.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +53,7 @@ class AzkarList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //AzkarHomeController controller = Get.find<AzkarHomeController>();
-    AzkarHomeController controller = Get.put(AzkarHomeController());
-    // controller.getLangAzkar(context);
-    // controller.getArabicAzkar(context);
+    AzkarController controller = Get.put(AzkarController());
 
     return Obx(() {
       if (controller.model.value.arabicAzkar.isEmpty) {
@@ -72,14 +68,10 @@ class AzkarList extends StatelessWidget {
                   onTap: () {
                     int catId = controller
                         .model.value.languageAzkarCats[index].categoryId!;
-                    List<Azkar> langCatAzkar =
-                        controller.getLangCatAzkar(catId);
-                    List<Azkar> arabCatAzkar =
-                        controller.getArabCatAzkar(langCatAzkar);
 
-                    Get.to(() => ZekrCategory(
-                        arabCatAzkar: arabCatAzkar,
-                        langCatAzkar: langCatAzkar));
+                    controller.getCatAzkar(catId);
+
+                    Get.to(() => const ZekrCategorView());
                   },
                   child: Container(
                     margin: const EdgeInsets.all(10),

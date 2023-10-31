@@ -1,4 +1,3 @@
-import 'package:al_huda/Presentation_layer/controllers/azkar_controllers/azkar_home_controller.dart';
 import 'package:al_huda/Presentation_layer/controllers/global_controller.dart';
 import 'package:al_huda/Presentation_layer/views/homepage_view/components/languages_settings.dart';
 import 'package:al_huda/Presentation_layer/views/homepage_view/components/my_thumps.dart';
@@ -14,9 +13,6 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalController controller = Get.put(GlobalController());
-    AzkarHomeController zController = Get.put(AzkarHomeController());
-    zController.getLangAzkar(context);
-    zController.getArabicAzkar(context);
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;

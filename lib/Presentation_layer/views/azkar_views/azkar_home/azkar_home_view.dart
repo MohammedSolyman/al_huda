@@ -3,6 +3,7 @@ import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/zekr_
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AzkarHomeView extends StatelessWidget {
@@ -10,6 +11,11 @@ class AzkarHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return SafeArea(
       child: Scaffold(
           backgroundColor: BlueColor.blueColor.shade500,

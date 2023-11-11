@@ -9,6 +9,7 @@ import 'package:al_huda/Presentation_layer/widgets/head_block/head_block.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/guzs_chapters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class GuzView extends StatelessWidget {
@@ -20,6 +21,11 @@ class GuzView extends StatelessWidget {
     MyAnimationController aController = Get.find<MyAnimationController>();
 
     controller.createHeadValues(guzNumber: guzNumber);
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return WillPopScope(
       onWillPop: () async {

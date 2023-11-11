@@ -3,17 +3,6 @@ import 'package:al_huda/util/internationalization/internationalization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/*
-
- git add *
- git commit -m " "
- git log --oneline
- git push https://github.com/MohammedSolyman/al_huda.git master
-
-
-
- flutter build apk --release
- */
 void main() {
   runApp(const MainApp());
 }

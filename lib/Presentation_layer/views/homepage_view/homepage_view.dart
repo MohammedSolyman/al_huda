@@ -4,6 +4,7 @@ import 'package:al_huda/Presentation_layer/views/homepage_view/components/my_thu
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,6 +19,11 @@ class HomePageView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     controller.updateDeviceDimensions(height, width);
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return SafeArea(
       child: Scaffold(

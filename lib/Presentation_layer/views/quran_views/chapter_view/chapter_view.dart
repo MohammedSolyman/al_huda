@@ -8,6 +8,7 @@ import 'package:al_huda/Presentation_layer/widgets/settings_block.dart';
 import 'package:al_huda/Presentation_layer/widgets/head_block/head_block.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class ChapterView extends StatelessWidget {
@@ -20,6 +21,11 @@ class ChapterView extends StatelessWidget {
     QuranController controller = Get.put(QuranController());
     MyAnimationController aController = Get.find<MyAnimationController>();
     controller.createHeadValues(chapterId: chapterId);
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     return WillPopScope(
       onWillPop: () async {

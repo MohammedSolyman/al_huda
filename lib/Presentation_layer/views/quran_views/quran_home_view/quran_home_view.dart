@@ -6,6 +6,7 @@ import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/quran_sort.dart';
 import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class QuranHomeView extends StatelessWidget {
@@ -17,6 +18,10 @@ class QuranHomeView extends StatelessWidget {
     Get.put(MyAnimationController());
     controller.updateChaptersList();
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return SafeArea(
       child: Scaffold(
           backgroundColor: BlueColor.blueColor.shade500,

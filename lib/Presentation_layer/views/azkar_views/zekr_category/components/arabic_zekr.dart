@@ -13,6 +13,7 @@ class ArabicZekr extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Text(arabicZekr,
+          textDirection: TextDirection.rtl,
           style: TextStyle(
               color: BlueColor.blueColor.shade400, fontSize: TextSizes.medium)),
     );

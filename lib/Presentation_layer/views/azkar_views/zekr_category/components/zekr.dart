@@ -19,7 +19,11 @@ class Zekr extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          ZekrNumberAndOperations(zekrNumber: zekrNumber),
+          ZekrNumberAndOperations(
+            zekrNumber: zekrNumber,
+            arabicZekr: arabicZekr,
+            languageZekr: languageZekr,
+          ),
           ArabicZekr(arabicZekr: arabicZekr),
           LanguageZekr(languageZekr: languageZekr)
         ],

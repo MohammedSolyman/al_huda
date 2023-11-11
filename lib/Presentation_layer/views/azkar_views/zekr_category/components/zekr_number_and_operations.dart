@@ -1,11 +1,18 @@
+import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/components/zekr_copying.dart';
+import 'package:al_huda/Presentation_layer/views/azkar_views/zekr_category/components/zekr_sharing.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
 
 class ZekrNumberAndOperations extends StatelessWidget {
   const ZekrNumberAndOperations({
+    required this.arabicZekr,
+    required this.languageZekr,
     required this.zekrNumber,
     super.key,
   });
+
+  final String arabicZekr;
+  final String languageZekr;
 
   final int zekrNumber;
   @override
@@ -26,33 +33,20 @@ class ZekrNumberAndOperations extends StatelessWidget {
                   color: BlueColor.blueColor.shade400),
             ),
           ),
-          const Row(
-            children: [ZekrSharing(), ZekrCopying()],
+          Row(
+            children: [
+              ZekrSharing(
+                arabicZekr: arabicZekr,
+                languageZekr: languageZekr,
+              ),
+              ZekrCopying(
+                arabicZekr: arabicZekr,
+                languageZekr: languageZekr,
+              )
+            ],
           )
         ],
       ),
     );
-  }
-}
-
-class ZekrSharing extends StatelessWidget {
-  const ZekrSharing({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () async {},
-        icon: Icon(Icons.share, color: BlueColor.blueColor.shade400));
-  }
-}
-
-class ZekrCopying extends StatelessWidget {
-  const ZekrCopying({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () async {},
-        icon: Icon(Icons.copy, color: BlueColor.blueColor.shade400));
   }
 }

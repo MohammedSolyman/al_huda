@@ -27,14 +27,14 @@ class AyahCopying extends StatelessWidget {
 
     return IconButton(
         onPressed: () async {
-          await copyToClipbaord(
+          await copyAyahToClipbaord(
               chapterName, languageName, ayahNumber, arabicScript, translation);
         },
         icon: Icon(Icons.copy, color: BlueColor.blueColor.shade400));
   }
 }
 
-Future<void> copyToClipbaord(String chapterName, String languageName,
+Future<void> copyAyahToClipbaord(String chapterName, String languageName,
     String ayahNumber, String arabicScript, String translation) async {
   await Clipboard.setData(ClipboardData(text: """  
 ${IntConstants.fromAlHudaapplication.tr}:

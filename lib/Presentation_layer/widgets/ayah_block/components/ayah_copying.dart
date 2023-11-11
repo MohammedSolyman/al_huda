@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
-class Coppying extends StatelessWidget {
-  const Coppying({required this.headIndex, required this.index, super.key});
+class AyahCopying extends StatelessWidget {
+  const AyahCopying({required this.headIndex, required this.index, super.key});
 
   final int headIndex;
   final int index;

@@ -1,7 +1,7 @@
 import 'package:al_huda/Presentation_layer/controllers/quran_controllers/quran_controller.dart';
-import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/coppying.dart';
+import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/ayah_copying.dart';
 import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/my_ayah_audio_controllers.dart';
-import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/sharing.dart';
+import 'package:al_huda/Presentation_layer/widgets/ayah_block/components/ayah_sharing.dart';
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +48,11 @@ class AyahNumberAndOperations extends StatelessWidget {
                 headIndex: headIndex,
                 index: index,
               ),
-              Sharing(
+              AyahSharing(
                 headIndex: headIndex,
                 index: index,
               ),
-              Coppying(
+              AyahCopying(
                 headIndex: headIndex,
                 index: index,
               ),

@@ -71,7 +71,7 @@ class AzkarList extends StatelessWidget {
 
                     controller.getCatAzkar(catId);
 
-                    Get.to(() => const ZekrCategorView());
+                    Get.to(() => const ZekrCategoryView());
                   },
                   child: Container(
                     margin: const EdgeInsets.all(10),

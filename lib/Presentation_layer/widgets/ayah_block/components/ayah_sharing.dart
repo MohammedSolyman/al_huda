@@ -12,8 +12,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-class Sharing extends StatelessWidget {
-  const Sharing({required this.headIndex, required this.index, super.key});
+class AyahSharing extends StatelessWidget {
+  const AyahSharing({required this.headIndex, required this.index, super.key});
 
   final int headIndex;
   final int index;

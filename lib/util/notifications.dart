@@ -5,8 +5,8 @@ class NotificationService {
   static Future<void> initialize() async {
     await AwesomeNotifications().initialize(
         // set the icon to null if you want to use the default app icon
-        null,
-        //'resource://drawable/icons4',
+
+        'resource://drawable/mosque',
         /*android/app/src/main/res/drawable*/
         [
           NotificationChannel(
@@ -86,6 +86,7 @@ class NotificationService {
           payload: {'navigate': 'true'},
         ),
         schedule: NotificationCalendar(
+            //  second: 0,
             hour: 21,
             timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
             repeats: true));

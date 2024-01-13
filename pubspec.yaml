@@ -18,6 +18,7 @@ dependencies:
   auto_size_text: ^3.0.0
   path_provider: ^2.1.1
   awesome_notifications: ^0.9.1
+  flutter_native_splash: ^2.3.7
 
 
 
@@ -27,6 +28,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+
 
 flutter:
   uses-material-design: true
@@ -36,8 +40,22 @@ flutter:
     - assets/pictures/
     - assets/surah/
     - assets/azkar/
+    - assets/icon/
 
 
 
 
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/mosque.png"
+
+
+
+
+
+flutter_native_splash:
+  color: "#223263"
+  image: assets/icon/mosque.png
+  android_gravity: center

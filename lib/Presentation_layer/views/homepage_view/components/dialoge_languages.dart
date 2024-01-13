@@ -41,7 +41,7 @@ showLanguagesDialog(BuildContext context, [int? guzNumber]) async {
                 Get.back();
               }),
           RadioListTile(
-              title: const Text('español'),
+              title: const Text('Español'),
               value: 'es',
               groupValue: controller.model.value.languageCode,
               onChanged: (String? s) {

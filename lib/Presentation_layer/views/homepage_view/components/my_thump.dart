@@ -1,6 +1,5 @@
 import 'package:al_huda/util/constants/colors_consts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MyThumb extends StatelessWidget {
   const MyThumb(
@@ -28,7 +27,8 @@ class MyThumb extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(height: 70, child: SvgPicture.asset(svgPath)),
+                //  SizedBox(height: 70, child: SvgPicture.asset(svgPath)),
+                SizedBox(height: 70, child: Image.asset(svgPath)),
                 FittedBox(
                   child: Text(text,
                       style: TextStyle(

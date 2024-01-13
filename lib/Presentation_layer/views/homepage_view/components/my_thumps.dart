@@ -56,14 +56,14 @@ class MyThumbs extends StatelessWidget {
                   text: IntConstants.lessons.tr,
                 ),
                 MyThumb(
-                  svgPath: PicturesPaths.quran,
+                  svgPath: PicturesPaths.learnSalah,
                   func: controller.goToQuranHome,
-                  text: IntConstants.lessons.tr,
+                  text: IntConstants.praying.tr,
                 ),
                 MyThumb(
-                  svgPath: PicturesPaths.quran,
+                  svgPath: PicturesPaths.prophet,
                   func: controller.goToQuranHome,
-                  text: IntConstants.lessons.tr,
+                  text: IntConstants.prophet.tr,
                 ),
               ],
             );

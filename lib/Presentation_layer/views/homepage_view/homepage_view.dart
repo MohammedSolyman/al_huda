@@ -6,7 +6,6 @@ import 'package:al_huda/util/constants/paths_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -36,7 +35,12 @@ class HomePageView extends StatelessWidget {
               height: 15,
             ),
             const LanguagesSettings(),
-            SvgPicture.asset(PicturesPaths.nightpray),
+            // SvgPicture.asset(PicturesPaths.nightpray),
+            Image.asset(
+              PicturesPaths.nightpray,
+              height: MediaQuery.of(context).size.height * 0.2,
+              fit: BoxFit.contain,
+            ),
             const SizedBox(
               height: 15,
             ),

@@ -1,11 +1,23 @@
+// class PicturesPaths {
+//   static const String _base = 'assets/pictures';
+//   static const String azkar = '$_base/azkar.svg';
+//   static const String bousla = '$_base/bousla.svg';
+//   static const String islamicCenters = '$_base/islamicCenters.svg';
+//   static const String learnIslam = '$_base/learnIslam.svg';
+//   static const String nightpray = '$_base/nightpray.svg';
+//   static const String quran = '$_base/quran.svg';
+// }
+
 class PicturesPaths {
   static const String _base = 'assets/pictures';
-  static const String azkar = '$_base/azkar.svg';
-  static const String bousla = '$_base/bousla.svg';
-  static const String islamicCenters = '$_base/islamicCenters.svg';
-  static const String learnIslam = '$_base/learnIslam.svg';
-  static const String nightpray = '$_base/nightpray.svg';
-  static const String quran = '$_base/quran.svg';
+  static const String azkar = '$_base/azkar.png';
+  static const String bousla = '$_base/bousla.png';
+  static const String islamicCenters = '$_base/islamic_centers.png';
+  static const String learnIslam = '$_base/learn_islam.png';
+  static const String learnSalah = '$_base/learn_salah.png';
+  static const String nightpray = '$_base/night_pray.png';
+  static const String prophet = '$_base/prophet.png';
+  static const String quran = '$_base/quran.png';
 }
 
 class AyahsPaths {
